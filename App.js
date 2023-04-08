@@ -2,9 +2,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import Main from './components/main/Main';
-import { global } from './styles/styles';
 import Navigator from './components/navigation/Navigator';
+import { global } from './styles/styles';
 
 SplashScreen.preventAutoHideAsync();
 
