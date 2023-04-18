@@ -1,0 +1,43 @@
+export const CURRENCIES = {
+    RUB: {
+        icon: '',
+        label: 'RUB'
+    },
+    USD: {
+        icon: '',
+        label: 'USD'
+    },
+    GEL: {
+        icon: '',
+        label: 'GEL'
+    },
+    EUR: {
+        icon: '',
+        label: 'EUR'
+    },
+}
+
+export const DEFAULT_DAY_FORMAT = 'DD-MM-YYYY';
+
+export const DEFAULT_CATEGORIES = [
+    {
+        title: 'OTHER',
+        description: ''
+    },
+    {
+        title: 'GROCERIES',
+        description: ''
+    },
+    {
+        title: 'TRANSPORT',
+        description: ''
+    },
+    {
+        title: 'TAXES',
+        description: ''
+    },
+    {
+        title: 'RENT',
+        description: ''
+    }
+]

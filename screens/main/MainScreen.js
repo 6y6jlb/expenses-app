@@ -2,24 +2,37 @@ import React, { useCallback, useEffect, useState } from "react"
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Badge from "../../components/badge/Badge"
 import ExpenseTableNewModal from "../../components/modals/expenseTableNew/ExpenseTableNewModal"
-import { dropExpenseTable, selectFromExpenseTables, storeExpenseTable } from "../../database/db"
+import { dropExpenseTable, selectFromExpenseTables, storeExpenseTable } from "../../database/expenses_tables"
 import { global } from "../../styles/styles"
+import { geDateRange } from "../../helpers/dateRange"
+import moment from "moment"
+import { dropCategories, selectFromCategories } from "../../database/categories"
+import { createExpenseTableCategories } from "../../database/expenses_table_categories"
 
 export default function Main({ navigation }) {
 	const [loading, setLoading] = useState(false)
 	const [tables, setTables] = useState([])
 	const [modalVisible, setModalVisible] = useState(false)
+	const [categories, setCategories] = useState([])
 	const [form, setForm] = useState({
-		name: "",
+		title: "",
 		description: "",
 		currency: "",
 	})
 
+	console.log(categories)
+
+	console.log(geDateRange(moment('2023-04-18'),moment('2023-03-18')))
+
 	useEffect(() => {
 		setLoading(true)
 		selectFromExpenseTables(setTables)
+		selectFromCategories(setCategories)
+		createExpenseTableCategories()
 		setLoading(false)
 	}, [])
+
+
 
 	if (loading) {
 		return (
@@ -28,8 +41,8 @@ export default function Main({ navigation }) {
 			</View>
 		)
 	}
-console.log(tables.length)
-	const submit = useCallback(() => {
+
+	const createNewTable = useCallback(() => {
 		storeExpenseTable(setTables, Object.values(form))
 		setModalVisible(false)
 	}, [form])
@@ -51,6 +64,7 @@ console.log(tables.length)
 				title="drop"
 				onPress={() => {
 					dropExpenseTable()
+					dropCategories()
 				}}
 			/>
 			<Button
@@ -64,7 +78,7 @@ console.log(tables.length)
 				visible={modalVisible}
 				formData={form}
 				setFormData={setForm}
-				submit={submit}
+				submit={createNewTable}
 			/>
 		</View>
 	)

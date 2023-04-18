@@ -1,0 +1,54 @@
+import {StyleSheet} from "react-native"
+
+export const styles = StyleSheet.create({
+	picker: { height: 30, width: 150 },
+	centeredView: {
+		flex: 10,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22,
+	},
+	modalView: {
+		flex: 1,
+		backgroundColor: "white",
+		maxHeight: "70%",
+		borderRadius: 20,
+		padding: 35,
+		alignItems: "center",
+		shadowColor: "#000",
+		flexDirection: "column",
+		justifyContent: "space-between",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
+	},
+	form: {
+		flex: 1,
+		alignItems: "center",
+		flexDirection: "column",
+		gap: 20,
+	},
+	modalText: {
+		marginBottom: 15,
+		fontSize: 24,
+		textAlign: "center",
+		fontFamily: "roboto-regular",
+	},
+	buttonsWrapper: {
+		width: "80%",
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	button: {
+		borderRadius: 20,
+		padding: 10,
+		elevation: 2,
+	},
+	input: {
+		borderBottomWidth: 1,
+	},
+})

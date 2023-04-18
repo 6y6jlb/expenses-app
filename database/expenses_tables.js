@@ -5,7 +5,7 @@ const db = SQLite.openDatabase("app.db")
 export const createExpenseTables = () => {
 	db.transaction((tx) => {
 		tx.executeSql(
-			"CREATE TABLE IF NOT EXISTS expense_tables (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, currency TEXT, description TEXT);"
+			"CREATE TABLE IF NOT EXISTS expense_tables (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, currency TEXT, description TEXT);"
 		)
 	});
 
@@ -29,7 +29,7 @@ export const selectFromExpenseTables = (successCallback) => {
 export const storeExpenseTable = (successCallback, params) => {
 	db.transaction((tx) => {
 		tx.executeSql(
-			"INSERT INTO expense_tables (name, currency, description) VALUES ("+params.map(el=>'?').join()+");",
+			"INSERT INTO expense_tables (title, currency, description) VALUES ("+params.map(el=>'?').join()+");",
 			params,
 			(txObj, resultSet) => console.log(resultSet),
 			(txObj, error) => console.log(error)
