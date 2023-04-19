@@ -41,3 +41,8 @@ export const DEFAULT_CATEGORIES = [
         description: ''
     }
 ]
+
+export const DEFAULT_TABLE = {
+    TITLE: 'DEFAULT',
+    CURRENCY: CURRENCIES.USD.label
+}

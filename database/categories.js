@@ -4,6 +4,7 @@ import { DEFAULT_CATEGORIES } from "../config/consts"
 const db = SQLite.openDatabase("app.db")
 
 export const createCategories = async () => {
+
 	db.transaction((tx) => {
 		tx.executeSql(
 			"CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, description TEXT);",
@@ -17,7 +18,7 @@ export const createCategories = async () => {
 	})
 }
 
-export const selectFromCategories = (successCallback, filter) => {
+export const selectFromCategories = (successCallback) => {
 	createCategories()
 
 	db.transaction((tx) => {
@@ -25,6 +26,7 @@ export const selectFromCategories = (successCallback, filter) => {
 			"SELECT * FROM categories",
 			null,
 			(txObj, resultSet) => {
+				console.log(resultSet)
 				successCallback(Object.values(resultSet.rows))
 			},
 			(txObj, error) => console.log(error)

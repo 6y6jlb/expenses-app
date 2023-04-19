@@ -12,7 +12,7 @@ export const createExpenseTableCategories = () => {
 }
 
 export const selectFromExpenseTablesCategories = (successCallback) => {
-	createExpenseTables()
+	createExpenseTableCategories()
 
 	db.transaction((tx) => {
 		tx.executeSql(

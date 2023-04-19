@@ -1,40 +1,24 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { memo, useCallback, useEffect, useState } from "react"
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Badge from "../../components/badge/Badge"
-import ExpenseTableNewModal from "../../components/modals/expenseTableNew/ExpenseTableNewModal"
-import { dropExpenseTable, selectFromExpenseTables, storeExpenseTable } from "../../database/expenses_tables"
+import { dropCategories } from "../../database/categories"
+import { dropExpenseTable, storeExpenseTable } from "../../database/expenses_tables"
+import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
-import { geDateRange } from "../../helpers/dateRange"
-import moment from "moment"
-import { dropCategories, selectFromCategories } from "../../database/categories"
-import { createExpenseTableCategories } from "../../database/expenses_table_categories"
+import UpdateTableModal from "../../components/modals/updateTableModal/UpdateTableModal"
+import { useUpdateTableStore } from "../../state/updateTableStore"
 
-export default function Main({ navigation }) {
-	const [loading, setLoading] = useState(false)
-	const [tables, setTables] = useState([])
-	const [modalVisible, setModalVisible] = useState(false)
-	const [categories, setCategories] = useState([])
-	const [form, setForm] = useState({
-		title: "",
-		description: "",
-		currency: "",
-	})
-
-	console.log(categories)
-
-	console.log(geDateRange(moment('2023-04-18'),moment('2023-03-18')))
+const Main = ({ navigation }) => {
+	const tablesStore = useTableStore()
+	const modalData = useUpdateTableStore()
 
 	useEffect(() => {
-		setLoading(true)
-		selectFromExpenseTables(setTables)
-		selectFromCategories(setCategories)
-		createExpenseTableCategories()
-		setLoading(false)
+		tablesStore.init()
 	}, [])
 
+	console.log(tablesStore.tables)
 
-
-	if (loading) {
+	if (tablesStore.loading) {
 		return (
 			<View style={global.header}>
 				<Text style={global.title}> ...Loading tables</Text>
@@ -42,44 +26,36 @@ export default function Main({ navigation }) {
 		)
 	}
 
-	const createNewTable = useCallback(() => {
-		storeExpenseTable(setTables, Object.values(form))
-		setModalVisible(false)
-	}, [form])
-
 	return (
 		<View style={global.header}>
 			<Text style={global.title}>Main</Text>
 			<FlatList
-				data={tables}
+				data={tablesStore.tables}
 				renderItem={({ item }) => (
-					<TouchableOpacity onPress={() => navigation.navigate("report", item)}>
-						<Badge color="#C0DBEA" title={item.name} />
-					</TouchableOpacity>
+					<View>
+						<TouchableOpacity onPress={() => navigation.navigate("report", item)}>
+							<Badge color="#C0DBEA" title={item.title} />
+						</TouchableOpacity>
+						<Button
+								disabled={modalData.visible || tablesStore.loading}
+								style={[styles.button]}
+								title="изменить"
+								onPress={() => modalData.show(item.id)}
+							/>
+					</View>
 				)}
 				keyExtractor={(item) => item.id}
 			/>
 			<Button
-				disabled={modalVisible || loading}
+				disabled={modalData.visible || tablesStore.loading}
 				title="drop"
 				onPress={() => {
 					dropExpenseTable()
 					dropCategories()
 				}}
 			/>
-			<Button
-				disabled={modalVisible || loading}
-				style={[styles.button]}
-				title="add"
-				onPress={() => setModalVisible(true)}
-			/>
-			<ExpenseTableNewModal
-				onClose={() => setModalVisible(false)}
-				visible={modalVisible}
-				formData={form}
-				setFormData={setForm}
-				submit={createNewTable}
-			/>
+
+			<UpdateTableModal />
 		</View>
 	)
 }
@@ -91,3 +67,5 @@ const styles = StyleSheet.create({
 		elevation: 2,
 	},
 })
+
+export default memo(Main)
