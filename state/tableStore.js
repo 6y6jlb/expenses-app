@@ -3,6 +3,7 @@ import { selectFromExpenseTables, updateExpenseTable } from "../database/expense
 import { useErrorsStore } from "./errorStore"
 import { useCategoryStore } from "./categoryStore"
 import { useTableCategoryStore } from "./tableCategoriesStore"
+import AppService from "../services/AppService"
 
 export const useTableStore = create((set, get) => ({
 	tables: [],
@@ -10,9 +11,10 @@ export const useTableStore = create((set, get) => ({
     setTables: (tables) => {
         set({tables: [...tables]})
     },
-	init: () => {
+	init: async () => {
         set({loading: true})
-        selectFromExpenseTables(get().setTables, useErrorsStore.getState().setErrors)
+        const resutl = await AppService.init()
+        console.log(result)
         useCategoryStore.getState().fetch()
         useTableCategoryStore.getState().fetch()
         set({loading: false})

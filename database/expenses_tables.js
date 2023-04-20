@@ -3,64 +3,68 @@ import { DEFAULT_TABLE } from "../config/consts"
 
 const db = SQLite.openDatabase("app.db")
 
-export const createExpenseTables = () => {
-	db.transaction((tx) => {
-		tx.executeSql(
-			"CREATE TABLE IF NOT EXISTS expense_tables (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, currency TEXT);"
-		)
+export const createExpenseTables = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				"CREATE TABLE IF NOT EXISTS expense_tables (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, currency TEXT);"
+			),
+				null,
+				(txObj, resultSet) => resolve(resultSet.rows),
+				(txObj, error) => reject(error)
+		})
 	})
 }
 
-export const selectFromExpenseTables = (successCallback, errorCallack) => {
-	createExpenseTables()
-
-	db.transaction((tx) => {
-		tx.executeSql(
-			"SELECT * FROM expense_tables",
-			null,
-			(txObj, resultSet) => {
-				if (!Object.values(resultSet.rows).length) {
-					console.log(resultSet)
-					storeExpenseTable(Object.values(DEFAULT_TABLE))
-					selectFromExpenseTables(successCallback, errorCallack)
-				} else {
-					successCallback(Object.values(resultSet.rows))
-				}
-			},
-			(txObj, error) => errorCallack(error)
-		)
+export const selectFromExpenseTables = async () => {
+	try {
+		await createExpenseTables()
+	} catch (error) {
+		throw new Error("Create expenses_table, " + error.message)
+	}
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql("SELECT * FROM expense_tables")
+			null, (txObj, resultSet) => resolve(resultSet.rows), (txObj, error) => reject(error)
+		})
 	})
 }
 
-export const storeExpenseTable = (params) => {
-	db.transaction((tx) => {
-		tx.executeSql(
-			"INSERT INTO expense_tables (title, currency) VALUES (?,?);",
-			params,
-			(txObj, resultSet) => console.log(resultSet),
-			(txObj, error) => console.log(error)
-		)
+export const storeExpenseTable = async (params) => {
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				"INSERT INTO expense_tables (title, currency) VALUES (?,?);",
+				[params.title, params.currency],
+				(txObj, resultSet) => resolve(resultSet.rows),
+				(txObj, error) => reject(error)
+			)
+		})
 	})
 }
 
 export const updateExpenseTable = (params) => {
-	db.transaction((tx) => {
-		tx.executeSql(
-			"UPDATE expense_tables SET title = ?, currency = ? WHERE id = ? ;",
-			[params.title, params.currency, params.id],
-			(txObj, resultSet) => console.log(resultSet),
-			(txObj, error) => console.log(error)
-		)
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				"UPDATE expense_tables SET title = ?, currency = ? WHERE id = ? ;",
+				[params.title, params.currency, params.id],
+				(txObj, resultSet) => resolve(resultSet.rows),
+				(txObj, error) => reject(error)
+			)
+		})
 	})
 }
 
-export const dropExpenseTable = () => {
-	db.transaction((tx) => {
-		tx.executeSql(
-			"DROP TABLE expense_tables;",
-			null,
-			(txObj, resultSet) => console.log(resultSet),
-			(txObj, error) => console.log(error)
-		)
+export const dropExpenseTable = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				"DROP TABLE IF EXISTS expense_tables;",
+				null,
+				(txObj, resultSet) => resolve(resultSet.rows),
+				(txObj, error) => reject(error)
+			)
+		})
 	})
 }
