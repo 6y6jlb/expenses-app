@@ -1,20 +1,51 @@
-import { DEFAULT_TABLE } from "../config/consts"
-import { storeExpenseTable } from "../database/expenses_tables"
+import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
+import Categories from "../database/Categories"
+import ExpenseTable from "../database/ExpenseTables"
+import ExpensesTableCategories from "../database/ExpensesTableCategories"
 
 class AppService {
-	constructor() {}
+	constructor() {
+		this.expenseTables = ExpenseTable
+		this.categories = Categories
+		this.tableCategories = ExpensesTableCategories
+	}
 
-	async init() {
+	async getTables() {
 		try {
-			let result = await selectFromExpenseTables
-			if (!Object.values(result).length) {
-				result = await storeExpenseTable(DEFAULT_TABLE)
+			let result = await this.expenseTables.select()
+			if (!result.length) {
+				await this.expenseTables.store([DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY])
+				result = this.getTables()
 			}
 			return result
 		} catch (error) {
-			throw Error("Init error, " + error.message)
+			throw Error("Get tables error, " + error.message)
+		}
+	}
+
+	async getCategories() {
+		try {
+			let result = await this.categories.select()
+			if (!result.length) {
+				DEFAULT_CATEGORIES.forEach(async (category) => {
+					await this.categories.store([category.title, category.description, category.title], true)
+					result = this.getCategories()
+				})
+			}
+			return result
+		} catch (error) {
+			throw Error("Get categories error, " + error.message)
+		}
+	}
+
+	async getTableCategories(tableId) {
+		const params = tableId ? [tableId] : null
+		try {
+			return this.tableCategories.select(params)
+		} catch (error) {
+			throw Error("Get table_categories error, " + error.message)
 		}
 	}
 }
 
-export default new AppService();
+export default new AppService()

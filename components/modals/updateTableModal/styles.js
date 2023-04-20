@@ -51,4 +51,27 @@ export const styles = StyleSheet.create({
 	input: {
 		borderBottomWidth: 1,
 	},
+	dropDownTitle: {
+		fontSize: 20,
+		fontFamily: "roboto-regular",
+		backgroundColor: '#C0DBEA'
+	},
+	checkboxContainer: {
+		
+		flexDirection: 'row',
+		marginTop: 10,
+	  },
+	  checkbox: {
+		alignSelf: 'center',
+	  },
+	  checkboxLabel: {
+		marginLeft: 8,
+	  },
+	  categoryContainer: {
+		overflow: "scroll",
+		maxHeight: "50%"
+	  },
+	  fullWindth: {
+		width: "100%",
+	  }
 })

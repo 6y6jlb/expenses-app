@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useEffect, useState } from "react"
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Badge from "../../components/badge/Badge"
-import { dropCategories } from "../../database/categories"
-import { dropExpenseTable, storeExpenseTable } from "../../database/expenses_tables"
+import ExpenseTable from "../../database/ExpenseTables"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import UpdateTableModal from "../../components/modals/updateTableModal/UpdateTableModal"
 import { useUpdateTableStore } from "../../state/updateTableStore"
+import Categories from "../../database/Categories"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()
@@ -16,7 +16,6 @@ const Main = ({ navigation }) => {
 		tablesStore.init()
 	}, [])
 
-	console.log(tablesStore.tables)
 
 	if (tablesStore.loading) {
 		return (
@@ -49,9 +48,9 @@ const Main = ({ navigation }) => {
 			<Button
 				disabled={modalData.visible || tablesStore.loading}
 				title="drop"
-				onPress={() => {
-					dropExpenseTable()
-					dropCategories()
+				onPress={async () => {
+					await ExpenseTable.drop()
+					await Categories.drop()
 				}}
 			/>
 

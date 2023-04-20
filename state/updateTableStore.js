@@ -1,20 +1,30 @@
 import { create } from "zustand"
 import { useTableStore } from "./tableStore"
+import { useCategoryStore } from "./categoryStore"
+import { useTableCategoryStore } from "./tableCategoriesStore"
 
 export const useUpdateTableStore = create((set, get) => ({
 	data: {
 		title: "",
 		currency: "",
+		categories: [],
+		selectedCategories: [],
 	},
 	visible: false,
-	show: (tableId) => {
+	show: async (tableId) => {
 		set({ visible: true })
-		const table = useTableStore.getState().tables.find((el) => el.id === tableId)
+		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
+		await useCategoryStore.getState().fetch()
+		await useTableCategoryStore.getState().fetch(tableId)
+		const categories = await useCategoryStore.getState().categories
+		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map(el=>el.id)
 
 		const data = {
 			id: table.id,
 			title: table.title,
 			currency: table.currency,
+			categories,
+			selectedCategories,
 		}
 		set({ data: data })
 	},
@@ -32,6 +42,8 @@ export const useUpdateTableStore = create((set, get) => ({
 			data: {
 				title: "",
 				currency: "",
+				categories: [],
+				selectedCategories: [],
 			},
 			visible: false,
 		}),

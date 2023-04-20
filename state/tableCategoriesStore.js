@@ -1,16 +1,15 @@
 import { create } from "zustand"
-import { selectFromExpenseTablesCategories } from "../database/expenses_table_categories"
-import { useErrorsStore } from "./errorStore"
+import AppService from "../services/AppService"
 
 export const useTableCategoryStore = create((set, get) => ({
 	categories: [],
 	loading: false,
-    setCategories: (categories) => {
-        set({categories: [...get().categories,...categories]})
-    },
-	fetch: () => {
-        set({loading: true})
-        selectFromExpenseTablesCategories(get().setCategories, useErrorsStore.getState().setErrors)
-        set({loading: false})
-    },
+	setCategories: (categories) => {
+		set({ categories: [...get().categories, ...categories] })
+	},
+	fetch: async () => {
+		set({ loading: true })
+		set({ categories: await AppService.getTableCategories() })
+		set({ loading: false })
+	},
 }))
