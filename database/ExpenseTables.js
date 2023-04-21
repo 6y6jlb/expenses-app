@@ -30,7 +30,6 @@ class ExpenseTable {
 
 	async update(params) {
 		const sql = "UPDATE expense_tables SET title = ?, currency = ? WHERE id = ? ;"
-
 		return this.db.execute(sql, params)
 	}
 

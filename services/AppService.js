@@ -39,11 +39,22 @@ class AppService {
 	}
 
 	async getTableCategories(tableId) {
-		const params = tableId ? [tableId] : null
 		try {
-			return this.tableCategories.select(params)
+			return this.tableCategories.select(tableId && {tableId})
 		} catch (error) {
 			throw Error("Get table_categories error, " + error.message)
+		}
+	}
+
+	async updateTable(dto) {
+		try {
+			await this.expenseTables.update([dto.title, dto.currency, dto.id])
+			await this.tableCategories.delete({ tableId: dto.id})
+			if (dto.categories.length) {
+				dto.categories.forEach(async (categoryId) => await this.tableCategories.store({categoryId, tableId: dto.id}))
+			}
+		} catch (error) {
+			throw Error("Update table error, " + error.message)
 		}
 	}
 }

@@ -7,9 +7,9 @@ export const useTableCategoryStore = create((set, get) => ({
 	setCategories: (categories) => {
 		set({ categories: [...get().categories, ...categories] })
 	},
-	fetch: async () => {
+	fetch: async (tableId = null) => {
 		set({ loading: true })
-		set({ categories: await AppService.getTableCategories() })
+		set({ categories: await AppService.getTableCategories(tableId) })
 		set({ loading: false })
 	},
 }))

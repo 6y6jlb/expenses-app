@@ -2,6 +2,8 @@ import { create } from "zustand"
 import { useTableStore } from "./tableStore"
 import { useCategoryStore } from "./categoryStore"
 import { useTableCategoryStore } from "./tableCategoriesStore"
+import AppService from "../services/AppService"
+import UpdateTableDTO from "../services/dto/updateTableDTO"
 
 export const useUpdateTableStore = create((set, get) => ({
 	data: {
@@ -17,7 +19,8 @@ export const useUpdateTableStore = create((set, get) => ({
 		await useCategoryStore.getState().fetch()
 		await useTableCategoryStore.getState().fetch(tableId)
 		const categories = await useCategoryStore.getState().categories
-		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map(el=>el.id)
+		console.log(useTableCategoryStore.getState().categories)
+		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map((el) => el.category_id)
 
 		const data = {
 			id: table.id,
@@ -28,16 +31,17 @@ export const useUpdateTableStore = create((set, get) => ({
 		}
 		set({ data: data })
 	},
-	submit: () => {
-		useTableStore.getState().update(get().data)
-		useTableStore.getState().init()
+	submit: async () => {
+		const data = get().data;
+		await AppService.updateTable(new UpdateTableDTO(data.id, data.title, data.currency, data.selectedCategories))
+		await useTableStore.getState().init()
 		get().hide()
 	},
 	updateFormValues: (key, value) => {
 		set({ data: { ...get().data, [key]: value } })
 	},
 
-	hide: () =>
+	hide: () => {
 		set({
 			data: {
 				title: "",
@@ -46,5 +50,6 @@ export const useUpdateTableStore = create((set, get) => ({
 				selectedCategories: [],
 			},
 			visible: false,
-		}),
+		})
+	},
 }))
