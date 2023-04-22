@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Row, Rows, Table } from 'react-native-table-component';
 
 export default ({data}) => {
-
+console.log(data)
   return (
     <View style={styles.container}>
         <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>

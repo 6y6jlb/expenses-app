@@ -6,7 +6,7 @@ export const geDateRange = (startDate, endDate) => {
     const diffInDays =  startDate.diff(endDate, 'days');
     const timeseries = {};
     for (let i = 0; i < diffInDays; i++) {
-        const newDate = moment(startDate).add(i, 'days')
+        const newDate = startDate.add(i, 'days')
         timeseries[newDate.format(DEFAULT_DAY_FORMAT)] = {date: newDate};
         
     }

@@ -19,7 +19,6 @@ export const useUpdateTableStore = create((set, get) => ({
 		await useCategoryStore.getState().fetch()
 		await useTableCategoryStore.getState().fetch(tableId)
 		const categories = await useCategoryStore.getState().categories
-		console.log(useTableCategoryStore.getState().categories)
 		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map((el) => el.category_id)
 
 		const data = {

@@ -39,7 +39,6 @@ export const styles = StyleSheet.create({
 		fontFamily: "roboto-regular",
 	},
 	buttonsWrapper: {
-		width: "80%",
 		flexDirection: "row",
 		justifyContent: "space-between",
 	},

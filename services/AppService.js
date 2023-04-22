@@ -40,7 +40,7 @@ class AppService {
 
 	async getTableCategories(tableId) {
 		try {
-			return this.tableCategories.select(tableId && {tableId})
+			return this.tableCategories.select(tableId && { tableId })
 		} catch (error) {
 			throw Error("Get table_categories error, " + error.message)
 		}
@@ -48,10 +48,12 @@ class AppService {
 
 	async updateTable(dto) {
 		try {
-			await this.expenseTables.update([dto.title, dto.currency, dto.id])
-			await this.tableCategories.delete({ tableId: dto.id})
+			await this.expenseTables.update({ title: dto.title, id: dto.id })
+			await this.tableCategories.delete({ tableId: dto.id })
 			if (dto.categories.length) {
-				dto.categories.forEach(async (categoryId) => await this.tableCategories.store({categoryId, tableId: dto.id}))
+				dto.categories.forEach(
+					async (categoryId) => await this.tableCategories.store({ categoryId, tableId: dto.id })
+				)
 			}
 		} catch (error) {
 			throw Error("Update table error, " + error.message)

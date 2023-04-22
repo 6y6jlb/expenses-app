@@ -16,7 +16,6 @@ const Main = ({ navigation }) => {
 		tablesStore.init()
 	}, [])
 
-
 	if (tablesStore.loading) {
 		return (
 			<View style={global.header}>
@@ -31,16 +30,23 @@ const Main = ({ navigation }) => {
 			<FlatList
 				data={tablesStore.tables}
 				renderItem={({ item }) => (
-					<View>
-						<TouchableOpacity onPress={() => navigation.navigate("report", item)}>
-							<Badge color="#C0DBEA" title={item.title} />
-						</TouchableOpacity>
-						<Button
+					<View style={styles.tableWrapper}>
+						<Text style={styles.tableTitle}>{item.title}</Text>
+
+						<View style={styles.buttonsWrapper}>
+							<Button
 								disabled={modalData.visible || tablesStore.loading}
 								style={[styles.button]}
 								title="изменить"
 								onPress={() => modalData.show(item.id)}
 							/>
+							<Button
+								disabled={modalData.visible || tablesStore.loading}
+								style={[styles.button]}
+								title="к отчету"
+								onPress={() => navigation.navigate("report", item)}
+							/>
+						</View>
 					</View>
 				)}
 				keyExtractor={(item) => item.id}
@@ -60,10 +66,32 @@ const Main = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+	tableWrapper: {
+		backgroundColor: "#C0DBEA",
+		flex: 1,
+		alignItems: "center",
+		margin: 6,
+		paddingHorizontal: 20,
+		paddingVertical: 10,
+		borderRadius: 5,
+		shadowColor: "#000",
+		flexDirection: "column",
+		justifyContent: "space-between",
+	},
+	tableTitle: {
+		fontSize: 22,
+	},
+	buttonsWrapper: {
+		marginTop: 20,
+		width: "80%",
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
 	button: {
 		borderRadius: 20,
 		padding: 10,
 		elevation: 2,
+		width: "fit-content",
 	},
 })
 
