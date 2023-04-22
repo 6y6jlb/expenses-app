@@ -11,7 +11,7 @@ class ExpenseTable {
 		return this.db.execute(sql)
 	}
 
-	async select(params = null) {
+	async select(dto) {
 		try {
 			await this.create()
 		} catch (error) {
@@ -19,18 +19,18 @@ class ExpenseTable {
 		}
 		const sql = "SELECT * FROM expense_tables"
 
-		return this.db.execute(sql, params)
+		return this.db.execute(sql, null)
 	}
 
-	async store(params) {
+	async store(dto) {
 		const sql = "INSERT INTO expense_tables (title, currency) VALUES (?,?);"
 
-		return this.db.execute(sql, params)
+		return this.db.execute(sql, [dto.title, dto.currency])
 	}
 
-	async update(params) {
+	async update(dto) {
 		const sql = "UPDATE expense_tables SET title = ?, currency = ? WHERE id = ? ;"
-		return this.db.execute(sql, [params.title, params.id])
+		return this.db.execute(sql, [dto.title, dto.id])
 	}
 
 	async drop() {

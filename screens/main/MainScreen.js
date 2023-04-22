@@ -6,7 +6,7 @@ import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import UpdateTableModal from "../../components/modals/updateTableModal/UpdateTableModal"
 import { useUpdateTableStore } from "../../state/updateTableStore"
-import Categories from "../../database/Categories"
+import ExpenseCategories from "../../database/ExpenseCategories"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()
@@ -56,7 +56,7 @@ const Main = ({ navigation }) => {
 				title="drop"
 				onPress={async () => {
 					await ExpenseTable.drop()
-					await Categories.drop()
+					await ExpenseCategories.drop()
 				}}
 			/>
 

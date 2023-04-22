@@ -1,9 +1,9 @@
 import { create } from "zustand"
-import { useTableStore } from "./tableStore"
+import AppService from "../services/AppService"
+import { ExpenseTablesDTO } from "../services/dto/expenseTablesDTO"
 import { useCategoryStore } from "./categoryStore"
 import { useTableCategoryStore } from "./tableCategoriesStore"
-import AppService from "../services/AppService"
-import UpdateTableDTO from "../services/dto/updateTableDTO"
+import { useTableStore } from "./tableStore"
 
 export const useUpdateTableStore = create((set, get) => ({
 	data: {
@@ -31,8 +31,9 @@ export const useUpdateTableStore = create((set, get) => ({
 		set({ data: data })
 	},
 	submit: async () => {
-		const data = get().data;
-		await AppService.updateTable(new UpdateTableDTO(data.id, data.title, data.currency, data.selectedCategories))
+		const data = get().data
+		const etDTO = new ExpenseTablesDTO(data.id, data.title, data.currency)
+		await AppService.updateTable(etDTO, selectedCategories = data.selectedCategories)
 		await useTableStore.getState().init()
 		get().hide()
 	},

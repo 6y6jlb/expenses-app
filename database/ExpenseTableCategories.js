@@ -1,6 +1,6 @@
 import Database from "../services/Database"
 
-class ExpensesTableCategories {
+class ExpenseTableCategories {
 	constructor() {
 		this.db = Database
 	}

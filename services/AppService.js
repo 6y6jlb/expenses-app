@@ -1,12 +1,12 @@
 import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
-import Categories from "../database/Categories"
+import ExpenseCategories from "../database/ExpenseCategories"
 import ExpenseTable from "../database/ExpenseTables"
-import ExpensesTableCategories from "../database/ExpensesTableCategories"
+import ExpensesTableCategories from "../database/ExpenseTableCategories"
 
 class AppService {
 	constructor() {
 		this.expenseTables = ExpenseTable
-		this.categories = Categories
+		this.categories = ExpenseCategories
 		this.tableCategories = ExpensesTableCategories
 	}
 
@@ -46,13 +46,16 @@ class AppService {
 		}
 	}
 
-	async updateTable(dto) {
+	async updateTable(etDTO, selectedCategories) {
 		try {
-			await this.expenseTables.update({ title: dto.title, id: dto.id })
-			await this.tableCategories.delete({ tableId: dto.id })
-			if (dto.categories.length) {
-				dto.categories.forEach(
-					async (categoryId) => await this.tableCategories.store({ categoryId, tableId: dto.id })
+			await this.expenseTables.update(etDTO)
+			await this.tableCategories.delete(etDTO)
+			if (selectedCategories.length) {
+				selectedCategories.forEach(
+					async (categoryId) =>
+						await this.tableCategories.store(
+							new ExpensesTableCategories((category_id = categoryId), (table_id = etDTO.id))
+						)
 				)
 			}
 		} catch (error) {

@@ -7,7 +7,7 @@ class Expenses {
 
 	async create() {
 		const sql =
-			"CREATE TABLE IF NOT EXISTS expenses (id INTEGER PRIMARY KEY AUTOINCREMENT, amount INTEGER NOT NULL, currency TEXT, description TEXT, category_id INTEGER NOT NULL, expenses_table_id INTEGER NOT NULL), "+
+			"CREATE TABLE IF NOT EXISTS expenses (id INTEGER PRIMARY KEY AUTOINCREMENT,created_at DATETIME DEFAULT CURRENT_TIMESTAMP, amount INTEGER NOT NULL, currency TEXT, description TEXT, category_id INTEGER NOT NULL, expenses_table_id INTEGER NOT NULL), "+
 			"FOREIGN KEY (expenses_table_id) REFERENCES expenses_tables (id), FOREIGN KEY (category_id) REFERENCES categories (id));"
 		return this.db.execute(sql)
 	}
@@ -24,14 +24,14 @@ class Expenses {
 	}
 
 	async store(params) {
-		const sql = "INSERT INTO expenses (amount, category_id, expenses_table_id, currency, description) VALUES (?,?,?,?,?);"
+		const sql = "INSERT INTO expenses (amount, created_at, category_id, expenses_table_id, currency, description) VALUES (?,?,?,?,?,?);"
 
-		return this.db.execute(sql, [params.amount, params,categoryId, params.tableId, params.currency, params.description])
+		return this.db.execute(sql, [params.amount, params.created_at, params,category_id, params.expenses_table_id, params.currency, params.description])
 	}
 
 	async update(params) {
-		const sql = "UPDATE expenses SET title = ?, currency = ? WHERE id = ? ;"
-		return this.db.execute(sql, [params.title, params.id])
+		const sql = "UPDATE expenses SET amount = ?, created_at = ?, currency = ?, category_id = ?, description = ? WHERE id = ? ;"
+		return this.db.execute(sql, [params.amount, params.created_at, params.currency, params.category_id, params.description, params.id])
 	}
 
 	async drop() {
