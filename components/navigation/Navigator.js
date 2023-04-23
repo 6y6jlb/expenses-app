@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from '../../screens/main/MainScreen'
 import Report from '../../screens/report/ReportScreen'
+import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen";
 
 const Stack = createStackNavigator()
 
@@ -13,6 +14,7 @@ export default function () {
 			<Stack.Navigator>
 				<Stack.Screen name="main" component={Main} />
 				<Stack.Screen name="report" component={Report} />
+				<Stack.Screen name="update" component={UpdateTableScreen} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

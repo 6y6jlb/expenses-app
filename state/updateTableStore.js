@@ -12,9 +12,9 @@ export const useUpdateTableStore = create((set, get) => ({
 		categories: [],
 		selectedCategories: [],
 	},
-	visible: false,
-	show: async (tableId) => {
-		set({ visible: true })
+	loading: false,
+	init: async (tableId) => {
+		set({ loading: true })
 		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
 		await useCategoryStore.getState().fetch()
 		await useTableCategoryStore.getState().fetch(tableId)
@@ -29,19 +29,14 @@ export const useUpdateTableStore = create((set, get) => ({
 			selectedCategories,
 		}
 		set({ data: data })
+		set({ loading: false })
 	},
 	submit: async () => {
+		set({ loading: true })
 		const data = get().data
 		const etDTO = new ExpenseTablesDTO(data.id, data.title, data.currency)
 		await AppService.updateTable(etDTO, data.selectedCategories)
 		await useTableStore.getState().init()
-		get().hide()
-	},
-	updateFormValues: (key, value) => {
-		set({ data: { ...get().data, [key]: value } })
-	},
-
-	hide: () => {
 		set({
 			data: {
 				title: "",
@@ -49,7 +44,10 @@ export const useUpdateTableStore = create((set, get) => ({
 				categories: [],
 				selectedCategories: [],
 			},
-			visible: false,
+			loading: false,
 		})
+	},
+	updateFormValues: (key, value) => {
+		set({ data: { ...get().data, [key]: value } })
 	},
 }))

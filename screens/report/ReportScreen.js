@@ -14,10 +14,10 @@ export default function ReportScreen({ route }) {
   if(reportState.loading) {
     return <View><Text>Loading</Text></View>
   }
-console.log(reportState.headers)
+
 	return (
-		<View>
-			<Text style={global.title}>{route.params.name}</Text>
+		<View style={global.card}>
+			<Text style={global.title}>{route.params.title}</Text>
 			<Report data={{tableHead: reportState.headers, tableData: reportState.rows }} />
 		</View>
 	)
