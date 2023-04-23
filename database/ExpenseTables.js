@@ -30,7 +30,7 @@ class ExpenseTable {
 
 	async update(dto) {
 		const sql = "UPDATE expense_tables SET title = ?, currency = ? WHERE id = ? ;"
-		return this.db.execute(sql, [dto.title, dto.id])
+		return this.db.execute(sql, [dto.title,dto.currency, dto.id])
 	}
 
 	async drop() {

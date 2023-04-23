@@ -1,20 +1,22 @@
 import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
 import ExpenseCategories from "../database/ExpenseCategories"
 import ExpenseTable from "../database/ExpenseTables"
-import ExpensesTableCategories from "../database/ExpenseTableCategories"
+import ExpenseTableCategories from "../database/ExpenseTableCategories"
+import { ExpenseTableCategoriesDTO } from "./dto/expenseTableCategoriesDTO"
+import { ExpenseTablesDTO } from "./dto/expenseTablesDTO"
 
 class AppService {
 	constructor() {
 		this.expenseTables = ExpenseTable
 		this.categories = ExpenseCategories
-		this.tableCategories = ExpensesTableCategories
+		this.tableCategories = ExpenseTableCategories
 	}
 
 	async getTables() {
 		try {
 			let result = await this.expenseTables.select()
 			if (!result.length) {
-				await this.expenseTables.store([DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY])
+				await this.expenseTables.store(new ExpenseTablesDTO(null, DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY))
 				result = this.getTables()
 			}
 			return result
@@ -29,8 +31,9 @@ class AppService {
 			if (!result.length) {
 				DEFAULT_CATEGORIES.forEach(async (category) => {
 					await this.categories.store([category.title, category.description, category.title], true)
-					result = this.getCategories()
 				})
+				result = await this.getCategories()
+				console.log(result)
 			}
 			return result
 		} catch (error) {
@@ -40,7 +43,8 @@ class AppService {
 
 	async getTableCategories(tableId) {
 		try {
-			return this.tableCategories.select(tableId && { tableId })
+			const result = await  this.tableCategories.select({table_id: tableId})
+			return result
 		} catch (error) {
 			throw Error("Get table_categories error, " + error.message)
 		}
@@ -53,9 +57,7 @@ class AppService {
 			if (selectedCategories.length) {
 				selectedCategories.forEach(
 					async (categoryId) =>
-						await this.tableCategories.store(
-							new ExpensesTableCategories((category_id = categoryId), (table_id = etDTO.id))
-						)
+						await this.tableCategories.store(new ExpenseTableCategoriesDTO(null, categoryId, etDTO.id))
 				)
 			}
 		} catch (error) {

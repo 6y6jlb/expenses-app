@@ -27,7 +27,7 @@ class ExpenseCategories {
 
 		if (isDefault) {
 			sql =
-				"INSERT INTO expense_categories(title,description) SELECT ?, ? WHERE NOT EXISTS(SELECT 1 FROM categories WHERE title = ?);"
+				"INSERT INTO expense_categories(title,description) SELECT ?, ? WHERE NOT EXISTS(SELECT 1 FROM expense_categories WHERE title = ?);"
 		}
 
 		return this.db.execute(sql, params)

@@ -33,7 +33,7 @@ export const useUpdateTableStore = create((set, get) => ({
 	submit: async () => {
 		const data = get().data
 		const etDTO = new ExpenseTablesDTO(data.id, data.title, data.currency)
-		await AppService.updateTable(etDTO, selectedCategories = data.selectedCategories)
+		await AppService.updateTable(etDTO, data.selectedCategories)
 		await useTableStore.getState().init()
 		get().hide()
 	},
