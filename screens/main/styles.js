@@ -1,7 +1,12 @@
 import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
-	tableWrapper: {
+	content: {
+		height: "90%",
+		flex: 1,
+		justifyContent: "center"
+	},
+	itemWrapper: {
 		backgroundColor: "#C0DBEA",
 		flex: 1,
 		alignItems: "center",
@@ -13,15 +18,15 @@ export const styles = StyleSheet.create({
 		flexDirection: "column",
 		justifyContent: "space-between",
 	},
-	tableTitle: {
+	itemTitle: {
 		fontSize: 22,
 	},
 	buttonsWrapper: {
 		marginTop: 20,
 		width: "80%",
 		flexDirection: "column",
-		flex:3,
-		gap:6
+		flex: 3,
+		gap: 6,
 	},
 	button: {
 		borderRadius: 20,

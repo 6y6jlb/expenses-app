@@ -5,6 +5,7 @@ import ExpenseTable from "../../database/ExpenseTables"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
+import { ActivityIndicator } from "react-native-web"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()
@@ -13,47 +14,45 @@ const Main = ({ navigation }) => {
 		tablesStore.init()
 	}, [])
 
-	if (tablesStore.loading) {
-		return (
-			<View style={global.header}>
-				<Text style={global.title}> ...Loading tables</Text>
-			</View>
-		)
-	}
-
 	return (
 		<View style={global.card}>
 			<Text style={global.title}>Main</Text>
-			<FlatList
-				data={tablesStore.tables}
-				renderItem={({ item }) => (
-					<View style={styles.tableWrapper}>
-						<Text style={styles.tableTitle}>{item.title}</Text>
+			<View style={styles.content}>
+				{tablesStore.loading ? (
+					<ActivityIndicator size="large" />
+				) : (
+					<FlatList
+						data={tablesStore.tables}
+						renderItem={({ item }) => (
+							<View style={styles.itemWrapper}>
+								<Text style={styles.itemTitle}>{item.title}</Text>
 
-						<View style={styles.buttonsWrapper}>
-							<Button
-								disabled={tablesStore.loading}
-								style={[styles.button]}
-								title="изменить"
-								onPress={() => navigation.navigate("update", item)}
-							/>
-							<Button
-								disabled={tablesStore.loading}
-								style={[styles.button]}
-								title="к отчету"
-								onPress={() => navigation.navigate("report", item)}
-							/>
-							<Button
-								disabled={tablesStore.loading}
-								style={[styles.button]}
-								title="новая трата"
-								onPress={() => navigation.navigate("report", item)}
-							/>
-						</View>
-					</View>
+								<View style={styles.buttonsWrapper}>
+									<Button
+										disabled={tablesStore.loading}
+										style={[styles.button]}
+										title="изменить"
+										onPress={() => navigation.navigate("update", item)}
+									/>
+									<Button
+										disabled={tablesStore.loading}
+										style={[styles.button]}
+										title="к отчету"
+										onPress={() => navigation.navigate("report", item)}
+									/>
+									<Button
+										disabled={tablesStore.loading}
+										style={[styles.button]}
+										title="новая трата"
+										onPress={() => navigation.navigate("new-expense", item)}
+									/>
+								</View>
+							</View>
+						)}
+						keyExtractor={(item) => item.id}
+					/>
 				)}
-				keyExtractor={(item) => item.id}
-			/>
+			</View>
 			<Button
 				disabled={tablesStore.loading}
 				title="drop all"

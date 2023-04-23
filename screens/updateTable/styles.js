@@ -1,7 +1,9 @@
-import {StyleSheet} from "react-native"
+import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
-	picker: { height: 30, width: 150 },
+	tableTitle: {
+		fontWeight: "bold",
+	},
 	centeredView: {
 		flex: 10,
 		justifyContent: "center",
@@ -9,44 +11,47 @@ export const styles = StyleSheet.create({
 		marginTop: 22,
 	},
 	form: {
+		backgroundColor: "#C0DBEA",
+		paddingHorizontal: 8,
+		paddingVertical: 10,
 		flex: 1,
 		alignItems: "center",
 		flexDirection: "column",
 		gap: 20,
 	},
-	buttonsWrapper: {
-		flexDirection: "column",
-		justifyContent: "space-between"
-	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		elevation: 2,
-	},
+	picker: { height: 30 },
+
 	input: {
 		borderBottomWidth: 1,
 	},
 	dropDownTitle: {
 		fontSize: 20,
 		fontFamily: "roboto-regular",
-		backgroundColor: '#C0DBEA'
 	},
 	checkboxContainer: {
-		
-		flexDirection: 'row',
+		flexDirection: "row",
 		marginTop: 10,
-	  },
-	  checkbox: {
-		alignSelf: 'center',
-	  },
-	  checkboxLabel: {
+	},
+	checkbox: {
+		alignSelf: "center",
+	},
+	checkboxLabel: {
 		marginLeft: 8,
-	  },
-	  categoryContainer: {
+	},
+	categoryContainer: {
 		overflow: "scroll",
-		maxHeight: "50%"
-	  },
-	  fullWindth: {
+		maxHeight: "50%",
+	},
+	fullWindth: {
 		width: "100%",
-	  }
+	},
+	buttonsWrapper: {
+		flexDirection: "column",
+		justifyContent: "space-between",
+	},
+	button: {
+		borderRadius: 20,
+		padding: 10,
+		elevation: 2,
+	},
 })
