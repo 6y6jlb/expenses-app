@@ -1,7 +1,8 @@
 import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
 import ExpenseCategories from "../database/ExpenseCategories"
-import ExpenseTable from "../database/ExpenseTables"
 import ExpenseTableCategories from "../database/ExpenseTableCategories"
+import ExpenseTable from "../database/ExpenseTables"
+import { ExpenseCategoriesDTO } from "./dto/expenseCategoriesDTO"
 import { ExpenseTableCategoriesDTO } from "./dto/expenseTableCategoriesDTO"
 import { ExpenseTablesDTO } from "./dto/expenseTablesDTO"
 
@@ -30,7 +31,7 @@ class AppService {
 			let result = await this.categories.select()
 			if (!result.length) {
 				DEFAULT_CATEGORIES.forEach(async (category) => {
-					await this.categories.store([category.title, category.description, category.title], true)
+					await this.categories.store(new ExpenseCategoriesDTO(null, category.title, category.description))
 				})
 				result = await this.getCategories()
 				console.log(result)
@@ -43,7 +44,7 @@ class AppService {
 
 	async getTableCategories(tableId) {
 		try {
-			const result = await  this.tableCategories.select({table_id: tableId})
+			const result = await this.tableCategories.select(new ExpenseTableCategoriesDTO(tableId, null, null))
 			return result
 		} catch (error) {
 			throw Error("Get table_categories error, " + error.message)
@@ -57,7 +58,7 @@ class AppService {
 			if (selectedCategories.length) {
 				selectedCategories.forEach(
 					async (categoryId) =>
-						await this.tableCategories.store(new ExpenseTableCategoriesDTO(null, categoryId, etDTO.id))
+						await this.tableCategories.store(new ExpenseTableCategoriesDTO(null, etDTO.id, categoryId))
 				)
 			}
 		} catch (error) {
