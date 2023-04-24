@@ -1,4 +1,5 @@
 import * as SQLite from "expo-sqlite"
+import { removeFalsyValuesFromObject } from "../helpers/common"
 
 class Database {
 	constructor(dbName = "app.db") {
@@ -23,17 +24,19 @@ class Database {
 		let params = []
 
 		if (where) {
-			let conditions = Object.keys(where).map((key) => `${key} = ?`)
+			const clearedWhere = removeFalsyValuesFromObject(where) 
+			let conditions = Object.keys(clearedWhere).map((key) => `${key} = ?`)
 			sql += ` WHERE ${conditions.join(" AND ")}`
-			params = Object.values(where)
+			params = Object.values(clearedWhere)
 		}
 
 		return await this.execute(sql, params)
 	}
 
 	async insert(table, data) {
-		let keys = Object.keys(data)
-		let values = Object.values(data)
+		const clearedData = removeFalsyValuesFromObject(data)
+		let keys = Object.keys(clearedData)
+		let values = Object.values(clearedData)
 		let placeholders = new Array(values.length).fill("?")
 		let sql = `INSERT INTO ${table} (${keys.join(", ")}) VALUES (${placeholders.join(", ")})`
 
@@ -41,14 +44,16 @@ class Database {
 	}
 
 	async update(table, data, where) {
-		let set = Object.keys(data).map((key) => `${key} = ?`)
-		let params = Object.values(data)
+		const clearedData = removeFalsyValuesFromObject(data)
+		let set = Object.keys(clearedData).map((key) => `${key} = ?`)
+		let params = Object.values(clearedData)
 
 		let sql = `UPDATE ${table} SET ${set.join(", ")}`
 		if (where) {
-			let conditions = Object.keys(where).map((key) => `${key} = ?`)
+			const clearedWhere = removeFalsyValuesFromObject(where)
+			let conditions = Object.keys(clearedWhere).map((key) => `${key} = ?`)
 			sql += ` WHERE ${conditions.join(" AND ")}`
-			params.push(...Object.values(where))
+			params.push(...Object.values(clearedWhere))
 		}
 
 		return await this.execute(sql, params)
@@ -59,17 +64,18 @@ class Database {
 		let params = []
 
 		if (where) {
+			const clearedWhere = removeFalsyValuesFromObject(where)
 			let conditions = Object.keys(where).map((key) => `${key} = ?`)
 			sql += ` WHERE ${conditions.join(" AND ")}`
-			params = Object.values(where)
+			params = Object.values(clearedWhere)
 		}
 
 		return await this.execute(sql, params)
 	}
 
-	 async drop(table) {
+	async drop(table) {
 		return await this.execute(`DROP TABLE IF EXISTS ${table}`)
-	 }
+	}
 }
 
 export default new Database()

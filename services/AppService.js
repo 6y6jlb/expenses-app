@@ -34,7 +34,6 @@ class AppService {
 					await this.categories.store(new ExpenseCategoriesDTO(null, category.title, category.description))
 				})
 				result = await this.getCategories()
-				console.log(result)
 			}
 			return result
 		} catch (error) {
@@ -44,7 +43,7 @@ class AppService {
 
 	async getTableCategories(tableId) {
 		try {
-			const result = await this.tableCategories.select(new ExpenseTableCategoriesDTO(tableId, null, null))
+			const result = await this.tableCategories.select(new ExpenseTableCategoriesDTO(null, tableId, null))
 			return result
 		} catch (error) {
 			throw Error("Get table_categories error, " + error.message)
@@ -54,7 +53,7 @@ class AppService {
 	async updateTable(etDTO, selectedCategories) {
 		try {
 			await this.expenseTables.update(etDTO)
-			await this.tableCategories.delete(etDTO)
+			await this.tableCategories.delete()
 			if (selectedCategories.length) {
 				selectedCategories.forEach(
 					async (categoryId) =>

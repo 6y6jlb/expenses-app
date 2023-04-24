@@ -10,7 +10,7 @@ export default function UpdateTableScreen({ route, navigation }) {
 
 	const submit = useCallback(() => {
 		updateTable.submit()
-		navigation.back()
+		navigation.goBack()
 	}, [])
 
 	useEffect(() => {

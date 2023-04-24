@@ -33,6 +33,10 @@ class AbstractDatabase {
 	async drop() {
 		return this.db.drop(this.tableName)
 	}
+
+	async delete(where) {
+		return this.db.delete(this.tableName, where)
+	}
 }
 
  export default AbstractDatabase;
