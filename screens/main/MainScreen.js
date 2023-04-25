@@ -1,11 +1,10 @@
 import React, { memo, useEffect } from "react"
-import { Button, FlatList, Text, View } from "react-native"
+import { Button, FlatList, Text, View, ActivityIndicator } from "react-native"
 import ExpenseCategories from "../../database/ExpenseCategories"
 import ExpenseTable from "../../database/ExpenseTables"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
-import { ActivityIndicator } from "react-native-web"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()

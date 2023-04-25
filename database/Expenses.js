@@ -15,4 +15,4 @@ class Expenses extends AbstractDatabase {
 
 }
 
-export default new ExpenseTable()
+export default new Expenses()
