@@ -4,6 +4,8 @@ import AppService from "../services/AppService"
 import { geDateRange } from "../helpers/dateRange"
 import moment from "moment"
 import { useTableCategoryStore } from "./tableCategoriesStore"
+import { useCategoryStore } from "./categoryStore"
+import CategoriesService from "../services/CategoriesService"
 
 export const useReportStore = create((set, get) => ({
 	headers: [],
@@ -15,17 +17,13 @@ export const useReportStore = create((set, get) => ({
 	},
 	init: async (tableId) => {
 		set({ loading: true })
-		await useTableCategoryStore.getState().fetch(tableId)
-		set({ categories: useTableCategoryStore.getState().categories })
-		set({ headers: ['дата', ...Array.from(useTableCategoryStore.getState().categories)] })
+		const categories = await CategoriesService.get({ expenses_table_id: tableId })
+		set({ headers: ["дата", ...Array.from(categories).map((el) => el.title)] })
 		const expensesByDay = []
-		const dateRange = geDateRange(moment(), moment().subtract(1, 'months'))
-		
-		set({ rows: Object.entries(dateRange).map(el=>[el[0]]) })
+		const dateRange = geDateRange(moment(), moment().subtract(1, "months"))
+
+		set({ rows: Object.entries(dateRange).map((el) => [el[0]]) })
 		set({ loading: false })
-	},
-	update: (data) => {
-		ExpenseTables.update(data)
 	},
 	removeAll: () => set({ tables: [], loading: false }),
 }))

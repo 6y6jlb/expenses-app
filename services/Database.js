@@ -3,6 +3,7 @@ import { removeFalsyValuesFromObject } from "../helpers/common"
 
 class Database {
 	constructor(dbName = "app.db") {
+		this.name = dbName;
 		this.instance = SQLite.openDatabase(dbName)
 	}
 
@@ -74,7 +75,10 @@ class Database {
 	}
 
 	async drop(table) {
-		return await this.execute(`DROP TABLE IF EXISTS ${table}`)
+		if(table) {
+			return await this.execute(`DROP TABLE IF EXISTS ${table}`)
+		}
+		throw new Error('No table name to deletion')
 	}
 }
 

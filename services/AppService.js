@@ -2,6 +2,8 @@ import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
 import ExpenseCategories from "../database/ExpenseCategories"
 import ExpenseTableCategories from "../database/ExpenseTableCategories"
 import ExpenseTable from "../database/ExpenseTables"
+import Expenses from "../database/Expenses"
+import Database from "./Database"
 import { ExpenseCategoriesDTO } from "./dto/expenseCategoriesDTO"
 import { ExpenseTableCategoriesDTO } from "./dto/expenseTableCategoriesDTO"
 import { ExpenseTablesDTO } from "./dto/expenseTablesDTO"
@@ -11,6 +13,19 @@ class AppService {
 		this.expenseTables = ExpenseTable
 		this.categories = ExpenseCategories
 		this.tableCategories = ExpenseTableCategories
+		this.expenses = Expenses
+		this.db = Database
+	}
+
+	async init() {
+		try {
+			await this.expenseTables.create()
+			await this.categories.create()
+			await this.tableCategories.create()
+			await this.expenses.create()
+		} catch (error) {
+			throw Error("Init tables error: " + error.message)
+		}
 	}
 
 	async getTables() {
@@ -63,6 +78,10 @@ class AppService {
 		} catch (error) {
 			throw Error("Update table error, " + error.message)
 		}
+	}
+
+	async drop() {
+		this.db.drop()
 	}
 }
 

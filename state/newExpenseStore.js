@@ -17,15 +17,14 @@ export const useNewExpenseStore = create((set, get) => ({
 		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
 		await useCategoryStore.getState().fetch()
 		await useTableCategoryStore.getState().fetch(tableId)
-		const categories = Array.from(await useCategoryStore.getState().categories)
 		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map((el) => el.category_id)
-		
+		const categories = Array.from(await useCategoryStore.getState().categories).filter(el=>selectedCategories.includes(el.id))
 		const data = {
 			tableId,
 			date: moment(),
 			amount: 1,
 			currency: table.currency,
-			category: "",
+			category: categories[0],
 			description: "",
 			categories: categories.filter(el=>selectedCategories.includes(el.id)),
 		}
@@ -35,17 +34,10 @@ export const useNewExpenseStore = create((set, get) => ({
 	submit: async () => {
 		set({ loading: true })
 		const data = get().data
-		const expensesDTO = new ExpensesDTO(null, moment(data.date), data.tableId, data.category, data.currency, data.description)
+		const expensesDTO = new ExpensesDTO(null, data.amount, moment(data.date), data.tableId, data.category, data.currency, data.description)
 		await Expenses.store(expensesDTO)
 		await useTableStore.getState().init()
-		set({
-			data: {},
-			loading: false,
-		})
-	},
-	store: async () => {
-		const data = get().data
-		Expenses.store(new ExpensesDTO(null, moment(data.date), data.tableId, data.category, data.currency, data.description))
+		set({loading: false})
 	},
 	updateFormValues: (key, value) => {
 		set({ data: { ...get().data, [key]: value } })

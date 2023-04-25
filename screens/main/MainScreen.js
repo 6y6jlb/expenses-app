@@ -5,11 +5,13 @@ import ExpenseTable from "../../database/ExpenseTables"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
+import AppService from "../../services/AppService"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()
 
 	useEffect(() => {
+		AppService.init()
 		tablesStore.init()
 	}, [])
 
@@ -56,8 +58,7 @@ const Main = ({ navigation }) => {
 				disabled={tablesStore.loading}
 				title="drop all"
 				onPress={async () => {
-					await ExpenseTable.drop()
-					await ExpenseCategories.drop()
+					await AppService.drop()
 				}}
 			/>
 		</View>
