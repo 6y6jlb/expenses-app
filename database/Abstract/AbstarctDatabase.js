@@ -1,24 +1,18 @@
 import Database from "../../services/Database"
 
 class AbstractDatabase {
-    constructor() {
-		this.db = Database;
-		this.tableName = undefined;
+	constructor() {
+		this.db = Database
+		this.tableName = undefined
 	}
 
-    async create() {
-        return new Promise((resolve, reject)=>{
-            resolve(new Error('This is abstarct method'))
-        })
-    }
+	async create() {
+		return new Promise((resolve, reject) => {
+			resolve(new Error("This is abstarct method"))
+		})
+	}
 
-    async select(where) {
-		try {
-			await this.create()
-		} catch (error) {
-			throw new Error(`Create ${this.tableName}, ` + error.message)
-		}
-
+	async select(where) {
 		return this.db.select(this.tableName, where)
 	}
 
@@ -39,4 +33,4 @@ class AbstractDatabase {
 	}
 }
 
- export default AbstractDatabase;
+export default AbstractDatabase

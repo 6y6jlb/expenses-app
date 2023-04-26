@@ -1,6 +1,5 @@
 import { create } from "zustand"
 import ExpenseTables from "../database/ExpenseTables"
-import AppService from "../services/AppService"
 
 export const useTableStore = create((set, get) => ({
 	tables: [],
@@ -10,7 +9,7 @@ export const useTableStore = create((set, get) => ({
 	},
 	init: async () => {
 		set({ loading: true })
-		set({ tables: await AppService.getTables() })
+		set({ tables: await ExpenseTables.select() })
 		set({ loading: false })
 	},
 	update: (data) => {

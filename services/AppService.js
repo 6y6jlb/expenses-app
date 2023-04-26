@@ -28,19 +28,6 @@ class AppService {
 		}
 	}
 
-	async getTables() {
-		try {
-			let result = await this.expenseTables.select()
-			if (!result.length) {
-				await this.expenseTables.store(new ExpenseTablesDTO(null, DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY))
-				result = this.getTables()
-			}
-			return result
-		} catch (error) {
-			throw Error("Get tables error, " + error.message)
-		}
-	}
-
 	async getCategories() {
 		try {
 			let result = await this.categories.select()
@@ -68,7 +55,7 @@ class AppService {
 	async updateTable(etDTO, selectedCategories) {
 		try {
 			await this.expenseTables.update(etDTO)
-			await this.tableCategories.delete()
+			await this.tableCategories.delete({ expense_table_id: etDTO.id })
 			if (selectedCategories.length) {
 				selectedCategories.forEach(
 					async (categoryId) =>
