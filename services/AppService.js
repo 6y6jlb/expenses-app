@@ -5,14 +5,12 @@ import ExpenseTable from "../database/ExpenseTables"
 import Expenses from "../database/Expenses"
 import Database from "./Database"
 import { ExpenseCategoriesDTO } from "./dto/expenseCategoriesDTO"
-import { ExpenseTableCategoriesDTO } from "./dto/expenseTableCategoriesDTO"
-import { ExpenseTablesDTO } from "./dto/expenseTablesDTO"
+
 
 class AppService {
 	constructor() {
 		this.expenseTables = ExpenseTable
 		this.categories = ExpenseCategories
-		this.tableCategories = ExpenseTableCategories
 		this.expenses = Expenses
 		this.db = Database
 	}
@@ -21,7 +19,6 @@ class AppService {
 		try {
 			await this.expenseTables.create()
 			await this.categories.create()
-			await this.tableCategories.create()
 			await this.expenses.create()
 		} catch (error) {
 			throw Error("Init tables error: " + error.message)
@@ -40,15 +37,6 @@ class AppService {
 			return result
 		} catch (error) {
 			throw Error("Get categories error, " + error.message)
-		}
-	}
-
-	async getTableCategories(tableId) {
-		try {
-			const result = await this.tableCategories.select(new ExpenseTableCategoriesDTO(null, tableId, null))
-			return result
-		} catch (error) {
-			throw Error("Get table_categories error, " + error.message)
 		}
 	}
 

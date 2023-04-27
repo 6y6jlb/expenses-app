@@ -16,4 +16,13 @@ export const global = StyleSheet.create({
 		textAlign: "center",
 		textTransform: "uppercase",
 	},
+	input: {
+		borderBottomWidth: 1,
+	},
+	fullWindth: {
+		width: "100%",
+	},
+	content: {
+		flex: 1,
+	},
 })

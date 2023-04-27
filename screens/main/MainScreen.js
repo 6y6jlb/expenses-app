@@ -18,7 +18,7 @@ const Main = ({ navigation }) => {
 	return (
 		<View style={global.card}>
 			<Text style={global.title}>Main</Text>
-			<View style={styles.content}>
+			<View style={global.content}>
 				{tablesStore.loading ? (
 					<ActivityIndicator size="large" />
 				) : (

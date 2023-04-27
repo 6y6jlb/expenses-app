@@ -1,11 +1,6 @@
 import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
-	content: {
-		height: "90%",
-		flex: 1,
-		justifyContent: "center"
-	},
 	itemWrapper: {
 		backgroundColor: "#C0DBEA",
 		flex: 1,

@@ -1,9 +1,9 @@
 import * as SQLite from "expo-sqlite"
-import { removeFalsyValuesFromObject } from "../helpers/common"
+import { getWhereConditionsWithParams, removeFalsyValuesFromObject } from "../helpers/common"
 
 class Database {
 	constructor(dbName = "app.db") {
-		this.name = dbName;
+		this.name = dbName
 		this.instance = SQLite.openDatabase(dbName)
 	}
 
@@ -25,10 +25,9 @@ class Database {
 		let params = []
 
 		if (where) {
-			const clearedWhere = removeFalsyValuesFromObject(where) 
-			let conditions = Object.keys(clearedWhere).map((key) => `${key} = ?`)
-			sql += ` WHERE ${conditions.join(" AND ")}`
-			params = Object.values(clearedWhere)
+			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
+			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			params = conditionsWithParams.params
 		}
 
 		return await this.execute(sql, params)
@@ -51,10 +50,9 @@ class Database {
 
 		let sql = `UPDATE ${table} SET ${set.join(", ")}`
 		if (where) {
-			const clearedWhere = removeFalsyValuesFromObject(where)
-			let conditions = Object.keys(clearedWhere).map((key) => `${key} = ?`)
-			sql += ` WHERE ${conditions.join(" AND ")}`
-			params.push(...Object.values(clearedWhere))
+			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
+			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			params = conditionsWithParams.params
 		}
 
 		return await this.execute(sql, params)
@@ -65,20 +63,19 @@ class Database {
 		let params = []
 
 		if (where) {
-			const clearedWhere = removeFalsyValuesFromObject(where)
-			let conditions = Object.keys(where).map((key) => `${key} = ?`)
-			sql += ` WHERE ${conditions.join(" AND ")}`
-			params = Object.values(clearedWhere)
+			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
+			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			params = conditionsWithParams.params
 		}
 
 		return await this.execute(sql, params)
 	}
 
 	async drop(table) {
-		if(table) {
+		if (table) {
 			return await this.execute(`DROP TABLE IF EXISTS ${table}`)
 		}
-		throw new Error('No table name to deletion')
+		throw new Error("No table name to deletion")
 	}
 }
 

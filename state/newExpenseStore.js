@@ -3,7 +3,6 @@ import { create } from "zustand"
 import Expenses from "../database/Expenses"
 import { ExpensesDTO } from "../services/dto/expensesDTO"
 import { useCategoryStore } from "./categoryStore"
-import { useTableCategoryStore } from "./tableCategoriesStore"
 import { useTableStore } from "./tableStore"
 
 export const useNewExpenseStore = create((set, get) => ({
@@ -16,17 +15,15 @@ export const useNewExpenseStore = create((set, get) => ({
 		set({ loading: true })
 		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
 		await useCategoryStore.getState().fetch()
-		await useTableCategoryStore.getState().fetch(tableId)
-		const selectedCategories = Array.from(useTableCategoryStore.getState().categories).map((el) => el.category_id)
-		const categories = Array.from(await useCategoryStore.getState().categories).filter(el=>selectedCategories.includes(el.id))
+		const categories = Array.from(await useCategoryStore.getState().categories)
 		const data = {
 			tableId,
 			date: moment(),
 			amount: 1,
 			currency: table.currency,
-			category: categories[0],
+			category: '',
 			description: "",
-			categories: categories.filter(el=>selectedCategories.includes(el.id)),
+			categories: categories,
 		}
 		set({ data: data })
 		set({ loading: false })
