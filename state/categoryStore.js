@@ -15,10 +15,15 @@ export const useCategoryStore = create((set, get) => ({
 		set({ loading: false })
 	},
 	remove: async () => {
-		set({ loading: true })
-		await ExpenseCategories.delete({ id: get().categories })
-		await get().fetch()
-		set({ loading: false })
+		try {
+			set({ loading: true })
+			await ExpenseCategories.delete({ id: get().selectedCategories })
+			await get().fetch()
+		} catch (error) {
+			console.log(error)
+		} finally {
+			set({ loading: false })
+		}
 	},
 	updateSelectedCategories: (value) => {
 		set({ selectedCategories: value })

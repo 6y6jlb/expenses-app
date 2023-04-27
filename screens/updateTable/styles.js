@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
 	},
 	centered: {
 		marginTop: 22,
-		gap: 20
+		gap: 20,
 	},
 	form: {
 		backgroundColor: "#C0DBEA",
@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
 		paddingVertical: 10,
 		alignItems: "center",
 		flexDirection: "column",
+		borderRadius: 4,
 		gap: 20,
 	},
 	picker: { height: 30 },
@@ -37,6 +38,7 @@ export const styles = StyleSheet.create({
 		maxHeight: "50%",
 	},
 	buttonsWrapper: {
+		gap: 20,
 		flexDirection: "column",
 		justifyContent: "space-between",
 	},

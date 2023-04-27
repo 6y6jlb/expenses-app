@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
 		margin: 6,
 		paddingHorizontal: 20,
 		paddingVertical: 10,
-		borderRadius: 5,
+		borderRadius: 6,
 		shadowColor: "#000",
 		flexDirection: "column",
 		justifyContent: "space-between",

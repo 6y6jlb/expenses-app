@@ -1,7 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, CheckBox, Button } from "react-native"
 import React, { useState } from "react"
+import { Button, CheckBox, FlatList, Text, TouchableOpacity, View } from "react-native"
 import { useCategoryStore } from "../../state/categoryStore"
 import { useNewCategoryStore } from "../../state/newCategoryStore"
+import { styles } from "./styles"
+import NewCategoryModal from "../modals/newCategory/newCategoryModal"
 
 const Categories = () => {
 	const [showCat, setShowCat] = useState(false)
@@ -53,54 +55,21 @@ const Categories = () => {
 							title="удалить выбранные"
 							color="#f03e6b"
 							style={[styles.button]}
-							onPress={newCategoryStore.show}
+							onPress={categoryStore.remove}
 						/>
 						<Button
 							disabled={categoryStore.loading || newCategoryStore.loading || newCategoryStore.visible}
 							title="добавить категорию"
 							color="#68ad6e"
 							style={[styles.button]}
-							onPress={categoryStore.remove}
+							onPress={newCategoryStore.show}
 						/>
 					</>
 				)}
 			</View>
+			<NewCategoryModal/>
 		</View>
 	)
 }
 
 export default Categories
-
-const styles = StyleSheet.create({
-	checkboxContainer: {
-		flexDirection: "row",
-		padding: 10,
-	},
-	checkbox: {
-		alignSelf: "center",
-	},
-	checkboxLabel: {
-		marginLeft: 8,
-	},
-	container: {
-		overflow: "scroll",
-		gap: 20,
-	},
-	form: {
-		border: "1px solid #C0DBEA",
-        gap: 20
-	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		elevation: 2,
-	},
-	fullWindth: {
-		width: "100%",
-	},
-	dropDownTitle: {
-		fontSize: 20,
-		fontFamily: "roboto-regular",
-		backgroundColor: "#C0DBEA",
-	},
-})

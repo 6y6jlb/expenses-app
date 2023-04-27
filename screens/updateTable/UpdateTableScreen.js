@@ -40,6 +40,13 @@ export default function UpdateTableScreen({ route, navigation }) {
 						style={[styles.button]}
 						onPress={submit}
 					/>
+					<Button
+						disabled={updateTableStore.loading}
+						title="назад"
+						color="#f03e6b"
+						style={[styles.button]}
+						onPress={navigation.goBack}
+					/>
 				</View>
 		</View>
 	)

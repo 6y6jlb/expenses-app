@@ -5,7 +5,7 @@ import { global } from "../../../styles/styles"
 import { styles } from "./styles"
 
 
-const newCategoryModal = (props) => {
+const NewCategoryModal = (props) => {
 	const newCategoryStore = useNewCategoryStore()
 
 	return (
@@ -23,7 +23,7 @@ const newCategoryModal = (props) => {
 					<TextInput
 						style={[global.input, global.fullWindth]}
 						placeholderTextColor="#afb4b7"
-						value={newCategoryStore.data.title}
+						value={newCategoryStore.data.description}
 						placeholder="описание"
 						onChangeText={(value) => newCategoryStore.updateFormValues("description", value)}
 					/>
@@ -48,4 +48,4 @@ const newCategoryModal = (props) => {
 	)
 }
 
-export default memo(newCategoryModal)
+export default memo(NewCategoryModal)

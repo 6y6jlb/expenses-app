@@ -3,15 +3,15 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
+		maxWidth: "85%",
+		alignSelf: "center",
 		justifyContent: "space-between",
-		marginTop: 22,
-		backgroundColor: "white",
-		maxHeight: "70%",
+		marginTop: '40%',
+		backgroundColor: "#fff",
+		maxHeight: "40%",
 		borderRadius: 20,
 		padding: 35,
 		shadowColor: "#000",
-		flexDirection: "column",
 		shadowOffset: {
 			width: 0,
 			height: 2,
