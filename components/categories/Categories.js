@@ -34,18 +34,18 @@ const Categories = () => {
 						<FlatList
 							data={categoryStore.categories}
 							renderItem={({ item }) => (
-								<View style={styles.checkboxContainer}>
-									<CheckBox
+								<View style={styles.itemContainer}>
+									{/* <CheckBox
 										value={categoryStore.selectedCategories.includes(item.id)}
 										onValueChange={(value) => updateCategory(item.id)}
 										style={styles.checkbox}
-									/>
+									/> */}
 									<Text style={styles.checkboxLabel}>{item.title}</Text>
 								</View>
 							)}
 							keyExtractor={(item) => item.id}
 						/>
-						<Button
+						{/* <Button
 							disabled={
 								!categoryStore.selectedCategories.length ||
 								categoryStore.loading ||
@@ -56,7 +56,7 @@ const Categories = () => {
 							color="#f03e6b"
 							style={[styles.button]}
 							onPress={categoryStore.remove}
-						/>
+						/> */}
 						<Button
 							disabled={categoryStore.loading || newCategoryStore.loading || newCategoryStore.visible}
 							title="добавить категорию"
@@ -67,7 +67,7 @@ const Categories = () => {
 					</>
 				)}
 			</View>
-			<NewCategoryModal/>
+			<NewCategoryModal />
 		</View>
 	)
 }

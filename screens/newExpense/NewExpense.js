@@ -20,11 +20,13 @@ export default function NewExpenseScreen({ route, navigation }) {
 	return (
 		<View style={global.card}>
 			<Text style={global.title}>Новая трата</Text>
+			<View style={[global.content]}>
 			{newExpenses.loading ? (
 				<ActivityIndicator size="large" />
 			) : (
 				<Form data={newExpenses.data} updateFormValues={newExpenses.updateFormValues} />
 			)}
+			</View>
 			<View style={styles.buttonsWrapper}>
 				<Button disabled={newExpenses.loading} title="сохранить" style={[styles.button]} onPress={submit} />
 			</View>

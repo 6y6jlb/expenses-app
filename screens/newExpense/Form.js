@@ -45,9 +45,9 @@ export default function Form({ updateFormValues, data }) {
 			<View style={[styles.fullWindth]}>
 				<Text>Категория</Text>
 				<Picker
-					selectedValue={data.category}
+					selectedValue={data.categoryId}
 					style={[styles.picker]}
-					onValueChange={(value) => updateFormValues("category", value)}
+					onValueChange={(value) => updateFormValues("categoryId", value)}
 				>
 					{Object.values(data.categories).map((category) => {
 						return <Picker.Item key={category.id} label={category.title} value={category.id} />

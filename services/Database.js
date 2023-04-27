@@ -26,7 +26,7 @@ class Database {
 
 		if (where) {
 			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
-			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")} ORDER BY id`
 			params = conditionsWithParams.params
 		}
 

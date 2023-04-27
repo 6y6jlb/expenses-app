@@ -4,12 +4,6 @@ export const styles = StyleSheet.create({
 	tableTitle: {
 		fontWeight: "bold",
 	},
-	centeredView: {
-		flex: 10,
-		justifyContent: "center",
-		alignItems: "center",
-		marginTop: 22,
-	},
 	form: {
 		backgroundColor: "#C0DBEA",
 		paddingHorizontal: 8,
@@ -18,6 +12,8 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "column",
 		gap: 20,
+		borderRadius: 6,
+		maxHeight: '50%'
 	},
 	picker: { height: 30 },
 

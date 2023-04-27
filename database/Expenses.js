@@ -15,7 +15,7 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = 'day', where = null) {
-		const sql = 'SELECT date(created_at) as expense_day, sum(amount), category_id FROM expenses GROUP BY expense_day'
+		const sql = "SELECT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id FROM expenses GROUP BY date, category_id"
 
 		return this.db.execute(sql)
 	}

@@ -21,7 +21,7 @@ export const useNewExpenseStore = create((set, get) => ({
 			date: moment(),
 			amount: 1,
 			currency: table.currency,
-			category: '',
+			categoryId: categories[0].id,
 			description: "",
 			categories: categories,
 		}
@@ -31,7 +31,8 @@ export const useNewExpenseStore = create((set, get) => ({
 	submit: async () => {
 		set({ loading: true })
 		const data = get().data
-		const expensesDTO = new ExpensesDTO(null, data.amount, moment(data.date).format('X'), data.tableId, data.category.id, data.currency, data.description)
+		const expensesDTO = new ExpensesDTO(null, data.amount, moment(data.date).format('X'), data.tableId, data.categoryId, data.currency, data.description)
+		debugger;
 		await Expenses.store(expensesDTO)
 		await useTableStore.getState().init()
 		set({loading: false})

@@ -14,13 +14,19 @@ export const useReportStore = create((set, get) => ({
 	},
 	init: async (tableId) => {
 		set({ loading: true })
-		const categories = await ExpenseCategories.select({ expenses_table_id: tableId })
-		set({ headers: ["дата", ...Array.from(categories).map((el) => el.title)] })
-		const expensesByDay = await Expenses.byGroup('day' , {expenses_table_id: tableId})
-		debugger;
-		const dateRange = geDateRange(moment(), moment().subtract(1, "months"))
+		const date = {
+			from: moment(),
+			to: moment().subtract(1, "months"),
+		}
+		const dateRange = geDateRange(date.from, date.to)
 
-		set({ rows: Object.entries(dateRange).map((el) => [el[0]]) })
+		const expensesByDay = Array.from(await Expenses.byGroup("day", { expenses_table_id: tableId }));
+		const selectedCategories = new Set(expensesByDay.map(el=>el.category_id))
+		const categories = Array.from(await ExpenseCategories.select()).filter(el=>selectedCategories.has(el.id))
+		debugger
+		set({ headers: ["дата", ...categories.map((el) => el.title)] })
+
+		set({ rows: Object.keys(dateRange).map((el) => [el[0]]) })
 		set({ loading: false })
 	},
 	removeAll: () => set({ tables: [], loading: false }),

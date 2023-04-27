@@ -1,6 +1,5 @@
 import { DEFAULT_CATEGORIES, DEFAULT_TABLE } from "../config/consts"
 import ExpenseCategories from "../database/ExpenseCategories"
-import ExpenseTableCategories from "../database/ExpenseTableCategories"
 import ExpenseTable from "../database/ExpenseTables"
 import Expenses from "../database/Expenses"
 import Database from "./Database"
