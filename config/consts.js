@@ -17,7 +17,7 @@ export const CURRENCIES = {
     },
 }
 
-export const DEFAULT_DAY_FORMAT = 'DD-MM-YYYY';
+export const DEFAULT_DAY_FORMAT = 'YYYY-MM-DD';
 
 export const DEFAULT_CATEGORIES = [
     {
