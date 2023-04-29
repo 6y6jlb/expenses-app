@@ -7359,10 +7359,9 @@ react-native-screens@~3.20.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-table-component@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/react-native-table-component/-/react-native-table-component-1.2.2.tgz#1c9bdcd8f1fd7edf10d1e93ebc3b7877ecd74def"
-  integrity sha512-7bbsi5431iWcjj3toASh8lFHGi6AG/+MTd4M7GuksXKxx/CFs/Qwv1Ys7D2wgyuYKe3hxWNfSVrteFj0tOYXYw==
+"react-native-table-component@https://github.com/slice312/react-native-table-component.git":
+  version "1.2.1"
+  resolved "https://github.com/slice312/react-native-table-component.git#e761c87ff56a463ad0452ef2a9c7ede315eef123"
 
 react-native-web@~0.18.10:
   version "0.18.12"
