@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import { Platform, Text, TextInput, View } from "react-native"
+import { Platform, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { Picker } from "@react-native-picker/picker"
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker"
 import { CURRENCIES } from "../../config/consts"
 import { styles } from "./styles"
 import moment from "moment"
 
 export default function Form({ updateFormValues, data }) {
+	const [showDatePicker, setShowDatePicker] = useState(false)
 
 	return (
 		<View style={styles.form}>
@@ -18,11 +19,24 @@ export default function Form({ updateFormValues, data }) {
 					placeholder="дата"
 					onChangeText={(value) => updateFormValues("date", value)}
 				/>
-			)
-		: (
-			<DateTimePicker  value={data.date} mode="date" onChange={(event, value) => updateFormValues("date", value)} />
-		)
-		}
+			) : (
+				<View style={[styles.fullWindth]}>
+					<Text>Date</Text>
+					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
+						<Text style={styles.input}>selected: {data.date.toLocaleString()}</Text>
+					</TouchableOpacity>
+					{showDatePicker && (
+						<DateTimePicker
+							value={data.date}
+							mode="date"
+							onChange={(event, value) => {
+								setShowDatePicker(false)
+								updateFormValues("date", value)
+							}}
+						/>
+					)}
+				</View>
+			)}
 			<TextInput
 				style={[styles.input, styles.fullWindth]}
 				placeholderTextColor="#afb4b7"
