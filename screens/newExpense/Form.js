@@ -1,6 +1,7 @@
-import React from "react"
-import { Picker, Platform, Text, TextInput, View } from "react-native"
-import DatePicker from 'react-native-date-picker'
+import React, { useState } from "react"
+import { Platform, Text, TextInput, View } from "react-native"
+import { Picker } from "@react-native-picker/picker"
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { CURRENCIES } from "../../config/consts"
 import { styles } from "./styles"
 import moment from "moment"
@@ -9,18 +10,17 @@ export default function Form({ updateFormValues, data }) {
 
 	return (
 		<View style={styles.form}>
-			{Platform.OS === 'web' 
-			? (
+			{Platform.OS === "web" ? (
 				<TextInput
-				style={[styles.input, styles.fullWindth]}
-				placeholderTextColor="#afb4b7"
-				value={moment(data.date).format('Y-MM-D')}
-				placeholder="дата"
-				onChangeText={(value) => updateFormValues("date", value)}
-			/>
+					style={[styles.input, styles.fullWindth]}
+					placeholderTextColor="#afb4b7"
+					value={moment(data.date).format("Y-MM-D")}
+					placeholder="дата"
+					onChangeText={(value) => updateFormValues("date", value)}
+				/>
 			)
 		: (
-			<DatePicker date={date}  onChange={(value) => updateFormValues("date", value)} />
+			<DateTimePicker  value={data.date} mode="date" onChange={(event, value) => updateFormValues("date", value)} />
 		)
 		}
 			<TextInput

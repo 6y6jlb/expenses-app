@@ -1,11 +1,9 @@
 import React, { memo, useEffect } from "react"
-import { Button, FlatList, Text, View, ActivityIndicator } from "react-native"
-import ExpenseCategories from "../../database/ExpenseCategories"
-import ExpenseTable from "../../database/ExpenseTables"
+import { ActivityIndicator, Button, FlatList, Text, View } from "react-native"
+import AppService from "../../services/AppService"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
-import AppService from "../../services/AppService"
 
 const Main = ({ navigation }) => {
 	const tablesStore = useTableStore()

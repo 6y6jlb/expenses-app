@@ -1,6 +1,6 @@
 import React from "react"
-
-import { Picker, Text, TextInput, View } from "react-native"
+import { Picker } from "@react-native-picker/picker"
+import { Text, TextInput, View } from "react-native"
 import { CURRENCIES } from "../../config/consts"
 import { styles } from "./styles"
 import { global } from "../../styles/styles"

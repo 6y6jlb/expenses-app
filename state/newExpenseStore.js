@@ -18,7 +18,7 @@ export const useNewExpenseStore = create((set, get) => ({
 		const categories = Array.from(await useCategoryStore.getState().categories)
 		const data = {
 			tableId,
-			date: moment(),
+			date: new Date(),
 			amount: 1,
 			currency: table.currency,
 			categoryId: categories[0].id,
