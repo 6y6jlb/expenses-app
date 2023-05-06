@@ -12,8 +12,7 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "column",
 		gap: 20,
-		borderRadius: 6,
-		maxHeight: '50%'
+		borderRadius: 6
 	},
 	picker: { height: 30 },
 
@@ -42,8 +41,9 @@ export const styles = StyleSheet.create({
 		width: "100%",
 	},
 	buttonsWrapper: {
-		flexDirection: "column",
+		flexDirection: "row",
 		justifyContent: "space-between",
+		gap: 6
 	},
 	button: {
 		borderRadius: 20,

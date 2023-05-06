@@ -9,16 +9,10 @@ export const useNewCategoryStore = create((set, get) => ({
 		description: "",
 	},
 	loading: false,
-	visible: false,
 	setCategories: (categories) => {
 		set({ categories: [...get().categories, ...categories] })
 	},
-	show: async () => {
-		set({ visible: true })
-	},
-	hide: () => {
-		set({ visible: false })
-	},
+	
 	submit: async () => {
 		set({ loading: true })
 		try {
@@ -26,7 +20,6 @@ export const useNewCategoryStore = create((set, get) => ({
 			await ExpenseCategories.store(new ExpenseCategoriesDTO(null, data.title, data.description))
 			await useCategoryStore.getState().fetch()
 			set({ loading: false })
-			get().hide()
 		} catch (error) {
 			console.log(error)
 			set({ loading: false })

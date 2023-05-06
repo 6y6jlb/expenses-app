@@ -1,15 +1,16 @@
 import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
-	itemContainer: {
+	itemsContainer: {
 		flexDirection: "row",
-		padding: 10,
+		margin: 6,
 	},
-	checkbox: {
-		alignSelf: "center",
+	checked: {
+		backgroundColor: "#68ad6e",
+		color: "#fff",
 	},
-	checkboxLabel: {
-		marginLeft: 8,
+	label: {
+		padding: 4,
 	},
 	container: {
 		overflow: "scroll",
@@ -27,7 +28,7 @@ export const styles = StyleSheet.create({
 	fullWindth: {
 		width: "100%",
 	},
-	dropDownTitle: {
+	title: {
 		fontSize: 20,
 		fontFamily: "roboto-regular",
 		backgroundColor: "#C0DBEA",

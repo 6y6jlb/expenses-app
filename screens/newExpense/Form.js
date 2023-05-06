@@ -11,32 +11,22 @@ export default function Form({ updateFormValues, data }) {
 
 	return (
 		<View style={styles.form}>
-			{Platform.OS === "web" ? (
-				<TextInput
-					style={[styles.input, styles.fullWindth]}
-					placeholderTextColor="#afb4b7"
-					value={moment(data.date).format("Y-MM-D")}
-					placeholder="дата"
-					onChangeText={(value) => updateFormValues("date", value)}
-				/>
-			) : (
-				<View style={[styles.fullWindth]}>
-					<Text>Date</Text>
+			<View style={[styles.fullWindth]}>
+				<Text>Date</Text>
+				{Platform.OS === "web" ? (
+					<TextInput
+						style={[styles.input]}
+						placeholderTextColor="#afb4b7"
+						value={moment(data.date).format("Y-MM-D")}
+						placeholder="дата"
+						onChangeText={(value) => updateFormValues("date", value)}
+					/>
+				) : (
 					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
 						<Text style={styles.input}>selected: {data.date.toLocaleString()}</Text>
 					</TouchableOpacity>
-					{showDatePicker && (
-						<DateTimePicker
-							value={data.date}
-							mode="date"
-							onChange={(event, value) => {
-								setShowDatePicker(false)
-								updateFormValues("date", value)
-							}}
-						/>
-					)}
-				</View>
-			)}
+				)}
+			</View>
 			<TextInput
 				style={[styles.input, styles.fullWindth]}
 				placeholderTextColor="#afb4b7"
@@ -68,13 +58,26 @@ export default function Form({ updateFormValues, data }) {
 					})}
 				</Picker>
 			</View>
-			<TextInput
-				style={[styles.input, styles.fullWindth]}
-				placeholderTextColor="#afb4b7"
-				value={data.description}
-				placeholder="description"
-				onChangeText={(value) => updateFormValues("description", value)}
-			/>
+			<View style={[styles.fullWindth]}>
+				<Text>Описание</Text>
+				<TextInput
+					style={[styles.input]}
+					placeholderTextColor="#afb4b7"
+					value={data.description}
+					placeholder="description"
+					onChangeText={(value) => updateFormValues("description", value)}
+				/>
+			</View>
+			{showDatePicker && (
+				<DateTimePicker
+					value={data.date}
+					mode="date"
+					onChange={(event, value) => {
+						setShowDatePicker(false)
+						updateFormValues("date", value)
+					}}
+				/>
+			)}
 		</View>
 	)
 }

@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect } from "react"
-import { ActivityIndicator, Button, Text, View, CheckBox, FlatList, TouchableOpacity } from "react-native"
+import { ActivityIndicator, Button, Text, View } from "react-native"
+import { useNewCategoryStore } from "../../state/newCategoryStore"
 import { useUpdateTableStore } from "../../state/updateTableStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
-import Categories from "../../components/categories/Categories"
 
 export default function UpdateTableScreen({ route, navigation }) {
 	const updateTableStore = useUpdateTableStore()
+	const newCategoryStore = useNewCategoryStore()
 
 	const submit = useCallback(() => {
 		updateTableStore.submit()
@@ -27,27 +28,31 @@ export default function UpdateTableScreen({ route, navigation }) {
 				{updateTableStore.loading ? (
 					<ActivityIndicator size="large" />
 				) : (
-					<>
-						<Form data={updateTableStore.data} updateFormValues={updateTableStore.updateFormValues} />
-						<Categories />
-					</>
+					<Form data={updateTableStore.data} updateFormValues={updateTableStore.updateFormValues} />
 				)}
 			</View>
 			<View style={[styles.buttonsWrapper]}>
-					<Button
-						disabled={updateTableStore.loading}
-						title="сохранить"
-						style={[styles.button]}
-						onPress={submit}
-					/>
-					<Button
-						disabled={updateTableStore.loading}
-						title="назад"
-						color="#f03e6b"
-						style={[styles.button]}
-						onPress={navigation.goBack}
-					/>
-				</View>
+				<Button
+					disabled={updateTableStore.loading}
+					title="сохранить"
+					style={[styles.button]}
+					onPress={submit}
+				/>
+				<Button
+					disabled={updateTableStore.loading}
+					title="назад"
+					color="#f03e6b"
+					style={[styles.button]}
+					onPress={navigation.goBack}
+				/>
+				<Button
+					disabled={updateTableStore.loading || newCategoryStore.loading}
+					title="добавить категорию"
+					color="#68ad6e"
+					style={[styles.button]}
+					onPress={() => navigation.navigate("new-category")}
+				/>
+			</View>
 		</View>
 	)
 }
