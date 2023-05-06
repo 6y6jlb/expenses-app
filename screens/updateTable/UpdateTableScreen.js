@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect } from "react"
+import React, { memo, useCallback, useEffect } from "react"
 import { ActivityIndicator, Button, Text, View } from "react-native"
-import { useNewCategoryStore } from "../../state/newCategoryStore"
 import { useUpdateTableStore } from "../../state/updateTableStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
 
-export default function UpdateTableScreen({ route, navigation }) {
+const UpdateTableScreen = ({ route, navigation }) => {
 	const updateTableStore = useUpdateTableStore()
-	const newCategoryStore = useNewCategoryStore()
 
 	const submit = useCallback(() => {
 		updateTableStore.submit()
@@ -45,14 +43,9 @@ export default function UpdateTableScreen({ route, navigation }) {
 					style={[styles.button]}
 					onPress={navigation.goBack}
 				/>
-				<Button
-					disabled={updateTableStore.loading || newCategoryStore.loading}
-					title="добавить категорию"
-					color="#68ad6e"
-					style={[styles.button]}
-					onPress={() => navigation.navigate("new-category")}
-				/>
 			</View>
 		</View>
 	)
 }
+
+export default memo(UpdateTableScreen)

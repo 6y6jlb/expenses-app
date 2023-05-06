@@ -17,16 +17,12 @@ export const styles = StyleSheet.create({
 		fontSize: 22,
 	},
 	buttonsWrapper: {
-		marginTop: 20,
-		width: "80%",
 		flexDirection: "column",
-		flex: 3,
+		margin: 20,
 		gap: 6,
 	},
 	button: {
 		borderRadius: 20,
 		padding: 10,
-		elevation: 2,
-		width: "fit-content",
 	},
 })

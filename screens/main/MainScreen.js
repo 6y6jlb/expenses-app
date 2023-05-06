@@ -1,12 +1,14 @@
 import React, { memo, useEffect } from "react"
 import { ActivityIndicator, Button, FlatList, Text, View } from "react-native"
 import AppService from "../../services/AppService"
+import { useNewCategoryStore } from "../../state/newCategoryStore"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
 
-const Main = ({ navigation }) => {
+const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
+	const newCategoryStore = useNewCategoryStore()
 
 	useEffect(() => {
 		AppService.init()
@@ -52,13 +54,23 @@ const Main = ({ navigation }) => {
 					/>
 				)}
 			</View>
+			<View style={styles.buttonsWrapper}>
 			<Button
 				disabled={tablesStore.loading}
+				style={[styles.button]}
 				title="drop all"
 				onPress={async () => {
 					await AppService.drop()
 				}}
 			/>
+			<Button
+				disabled={newCategoryStore.loading}
+				title="добавить категорию"
+				color="#68ad6e"
+				style={[styles.button]}
+				onPress={() => navigation.navigate("new-category")}
+			/>
+			</View>
 		</View>
 	)
 }

@@ -8,6 +8,7 @@ export const useReportStore = create((set, get) => ({
 	headers: [],
 	categories: [],
 	rows: [],
+	titles: [],
 	loading: false,
 	setTables: (tables) => {
 		set({ tables: [...tables] })
@@ -19,6 +20,7 @@ export const useReportStore = create((set, get) => ({
 			to: moment().subtract(1, "months"),
 		}
 		const rows = geDateRange(date.from, date.to)
+		const titles = []
 
 		const expensesByDay = Array.from(await Expenses.byGroup("day", { expenses_table_id: tableId }))
 
@@ -38,11 +40,12 @@ export const useReportStore = create((set, get) => ({
 
 		for (const date in rows) {
 			rows[date] = Object.values(rows[date])
-			rows[date].unshift(date)
+			titles.push(date)
 		}
 
-		set({ headers: ["дата", ...categories.map((el) => el.title)] })
+		set({ headers: [...categories.map((el) => el.title)] })
 		set({ rows: Object.values(rows) })
+		set({ titles: titles })
 		set({ loading: false })
 	},
 	removeAll: () => set({ tables: [], loading: false }),

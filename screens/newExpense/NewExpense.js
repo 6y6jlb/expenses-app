@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect } from "react"
+import React, { memo, useCallback, useEffect } from "react"
 import { ActivityIndicator, StyleSheet, Text, View, Button, ScrollView } from "react-native"
 import { useNewExpenseStore } from "../../state/newExpenseStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
 
-export default function NewExpenseScreen({ route, navigation }) {
+const NewExpenseScreen = ({ route, navigation }) => {
 	const newExpenses = useNewExpenseStore()
 
 	useEffect(() => {
@@ -20,15 +20,15 @@ export default function NewExpenseScreen({ route, navigation }) {
 	return (
 		<View style={global.card}>
 			<Text style={global.title}>Новая трата</Text>
-			
-				<ScrollView  style={[global.content]}>
-					{newExpenses.loading ? (
-						<ActivityIndicator size="large" />
-					) : (
-						<Form data={newExpenses.data} updateFormValues={newExpenses.updateFormValues} />
-					)}
-				</ScrollView>
-			
+
+			<ScrollView style={[global.content]}>
+				{newExpenses.loading ? (
+					<ActivityIndicator size="large" />
+				) : (
+					<Form data={newExpenses.data} updateFormValues={newExpenses.updateFormValues} />
+				)}
+			</ScrollView>
+
 			<View style={styles.buttonsWrapper}>
 				<Button disabled={newExpenses.loading} title="сохранить" style={[styles.button]} onPress={submit} />
 				<Button
@@ -42,3 +42,5 @@ export default function NewExpenseScreen({ route, navigation }) {
 		</View>
 	)
 }
+
+export default memo(NewExpenseScreen)
