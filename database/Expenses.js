@@ -1,8 +1,9 @@
-import AbstractDatabase from "./Abstract/AbstarctDatabase";
+import { REPORT_GROUPS } from "../config/consts"
+import AbstractDatabase from "./Abstract/AbstarctDatabase"
 
 class Expenses extends AbstractDatabase {
 	constructor() {
-		super();
+		super()
 		this.tableName = "expenses"
 	}
 
@@ -14,12 +15,22 @@ class Expenses extends AbstractDatabase {
 		return this.db.execute(sql)
 	}
 
-	async byGroup(group = 'day', where = null) {
-		const sql = "SELECT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id FROM expenses GROUP BY date, category_id"
+	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
+		let groupBy = "id"
+		let select = "id, DATE(created_at, 'unixepoch') as date, amount, category_id, currency, description"
+		switch (group) {
+			case REPORT_GROUPS.DAY:
+				groupBy = "date, category_id"
+				select = "DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id"
+				break
+
+			default:
+				break
+		}
+		const sql = "SELECT " + select + " FROM expenses GROUP BY " + groupBy
 
 		return this.db.execute(sql)
 	}
-
 }
 
 export default new Expenses()

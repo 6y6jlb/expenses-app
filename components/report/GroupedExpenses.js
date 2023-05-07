@@ -1,10 +1,12 @@
-import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React, {memo} from "react"
+import { ScrollView, View } from "react-native"
 import { Cell, Col, Row, Table, TableWrapper } from "react-native-table-component"
 import NoData from "../noData/NoData"
+import { styles } from "./styles"
 
-export default ({ data }) => {
-	if (data.tableHead.length < 2) {
+
+const GroupedExpenses = ({ data }) => {
+	if (data.tableHead.length < 1) {
 		return <NoData />
 	}
 
@@ -32,10 +34,4 @@ export default ({ data }) => {
 	)
 }
 
-const styles = StyleSheet.create({
-	container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
-	head: { height: 40, backgroundColor: "#f1f8ff" },
-	singleHead: { width: 90, height: 40, backgroundColor: "#c8e1ff" },
-	text: { margin: 6 },
-	row: { flexDirection: "row", backgroundColor: "#FFF1C1" },
-})
+export default memo(GroupedExpenses)

@@ -46,3 +46,8 @@ export const DEFAULT_TABLE = {
     TITLE: 'DEFAULT',
     CURRENCY: CURRENCIES.USD.label
 }
+
+export const REPORT_GROUPS = {
+    INDEX: 'index',
+    DAY: 'day',
+}

@@ -1,11 +1,12 @@
-import moment from "moment"
-import { DEFAULT_DAY_FORMAT } from "../config/consts"
+import { DEFAULT_DAY_FORMAT } from "../config/consts";
 
 export const geDateRange = (startDate, endDate) => {
+	const clonedStartDate = startDate.clone();
+	const clonedEndDate = endDate.clone();
 	const timeseries = {}
-	timeseries[startDate.format(DEFAULT_DAY_FORMAT)] = {}
-	while (startDate.diff(endDate, "days") > 0) {
-		const newDate = startDate.subtract(1, "days")
+	timeseries[clonedStartDate.format(DEFAULT_DAY_FORMAT)] = {}
+	while (clonedStartDate.diff(clonedEndDate, "days") > 0) {
+		const newDate = clonedStartDate.subtract(1, "days")
 		timeseries[newDate.format(DEFAULT_DAY_FORMAT)] = {}
 	}
 	return timeseries
