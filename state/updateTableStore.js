@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import ExpenseTables from "../database/ExpenseTables"
+import ExpenseTablesService from "../services/ExpenseTablesService"
 import { ExpenseTablesDTO } from "../services/dto/expenseTablesDTO"
 import { useCategoryStore } from "./categoryStore"
 import { useTableStore } from "./tableStore"
@@ -18,7 +18,7 @@ export const useUpdateTableStore = create((set, get) => ({
 		const data = {
 			id: table.id,
 			title: table.title,
-			currency: table.currency,
+			currency: table.currency
 		}
 		set({ data: data })
 		set({ loading: false })
@@ -27,7 +27,8 @@ export const useUpdateTableStore = create((set, get) => ({
 		set({ loading: true })
 		const data = get().data
 		const etDTO = new ExpenseTablesDTO(data.id, data.title, data.currency)
-		await ExpenseTables.update(etDTO)
+		await ExpenseTablesService.update(etDTO)
+		
 		await useTableStore.getState().init()
 		set({
 			data: {

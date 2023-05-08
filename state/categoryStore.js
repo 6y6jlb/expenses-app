@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import AppService from "../services/AppService"
+import CategoryService from "../services/CategoryService"
 import ExpenseCategories from "../database/ExpenseCategories"
 
 export const useCategoryStore = create((set, get) => ({
@@ -11,7 +11,7 @@ export const useCategoryStore = create((set, get) => ({
 	},
 	fetch: async () => {
 		set({ loading: true })
-		set({ categories: await AppService.getCategories() })
+		set({ categories: await CategoryService.getCategories() })
 		set({ loading: false })
 	},
 	remove: async () => {
