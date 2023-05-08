@@ -1,6 +1,6 @@
 import MainScreen from "../../screens/main/MainScreen"
 import NewCategory from "../../screens/newCategory/NewCategory"
-import NewExpense from "../../screens/newExpense/NewExpense"
+import UpsertExpense from "../../screens/upsertExpense/UpsertExpense"
 import ReportScreen from "../../screens/report/ReportScreen"
 import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
 
@@ -24,9 +24,9 @@ export const ROUTES = [
 	},
 
 	{
-		options: { title: "New Expense" },
-		path: "new-expense",
-		screen: NewExpense,
+		options: { title: "Expense" },
+		path: "upsert-expense",
+		screen: UpsertExpense,
 	},
 
 	{

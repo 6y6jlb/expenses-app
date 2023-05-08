@@ -50,6 +50,7 @@ const ReportScreen = ({ route, navigation }) => {
 						tableData: reportState.rows,
 						tableTitle: reportState.titles,
 					},
+					onChange: (id) => navigation.navigate("upsert-expense", { expense: {id} }),
 				})
 			)}
 		</View>

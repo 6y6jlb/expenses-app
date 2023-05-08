@@ -45,7 +45,7 @@ const Main = ({ route, navigation }) => {
 										disabled={tablesStore.loading}
 										style={[styles.button]}
 										title="новая трата"
-										onPress={() => navigation.navigate("new-expense", item)}
+										onPress={() => navigation.navigate("upsert-expense", { table: item })}
 									/>
 								</View>
 							</View>
@@ -55,21 +55,21 @@ const Main = ({ route, navigation }) => {
 				)}
 			</View>
 			<View style={styles.buttonsWrapper}>
-			<Button
-				disabled={tablesStore.loading}
-				style={[styles.button]}
-				title="drop all"
-				onPress={async () => {
-					await AppService.drop()
-				}}
-			/>
-			<Button
-				disabled={newCategoryStore.loading}
-				title="добавить категорию"
-				color="#68ad6e"
-				style={[styles.button]}
-				onPress={() => navigation.navigate("new-category")}
-			/>
+				<Button
+					disabled={tablesStore.loading}
+					style={[styles.button]}
+					title="drop all"
+					onPress={async () => {
+						await AppService.drop()
+					}}
+				/>
+				<Button
+					disabled={newCategoryStore.loading}
+					title="добавить категорию"
+					color="#68ad6e"
+					style={[styles.button]}
+					onPress={() => navigation.navigate("new-category")}
+				/>
 			</View>
 		</View>
 	)
