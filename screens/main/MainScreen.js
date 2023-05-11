@@ -5,10 +5,14 @@ import { useNewCategoryStore } from "../../state/newCategoryStore"
 import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
+import i18n from '../../i18n/configuration'
+
 
 const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
 	const newCategoryStore = useNewCategoryStore()
+
+	console.log(i18n.t('buttons.change'))
 
 	useEffect(() => {
 		AppService.init()
@@ -32,7 +36,7 @@ const Main = ({ route, navigation }) => {
 									<Button
 										disabled={tablesStore.loading}
 										style={[styles.button]}
-										title="изменить"
+										title={i18n.t('buttons.change')}
 										onPress={() => navigation.navigate("update", item)}
 									/>
 									<Button

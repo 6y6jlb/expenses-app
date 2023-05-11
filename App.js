@@ -1,34 +1,36 @@
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import Navigator from './components/navigation/Navigator';
-import { global } from './styles/styles';
+import { useFonts } from "expo-font"
+import * as SplashScreen from "expo-splash-screen"
+import { useCallback } from "react"
+import { SafeAreaView, StyleSheet } from "react-native"
+import Navigator from "./components/navigation/Navigator"
+import { global } from "./styles/styles"
+import i18n from "./i18n/configuration";
+import * as Localization from "expo-localization"
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
-    'roboto-light': require('./assets/fonts/Roboto-Light.ttf'),
-    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-  });
+	i18n.locale = Localization.locale
+	const [fontsLoaded] = useFonts({
+		"roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
+		"roboto-light": require("./assets/fonts/Roboto-Light.ttf"),
+		"roboto-regular": require("./assets/fonts/Roboto-Regular.ttf"),
+	})
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded) {
+			await SplashScreen.hideAsync()
+		}
+	}, [fontsLoaded])
 
-  if (!fontsLoaded) {
-    return null;
-  }
-  return (
-    <SafeAreaView onLayout={onLayoutRootView} style={global.container}>
-      <Navigator/>
-    </SafeAreaView>
-  );
+	if (!fontsLoaded) {
+		return null
+	}
+	return (
+		<SafeAreaView onLayout={onLayoutRootView} style={global.container}>
+			<Navigator />
+		</SafeAreaView>
+	)
 }
 
-const styles = StyleSheet.create({
- });
+const styles = StyleSheet.create({})
