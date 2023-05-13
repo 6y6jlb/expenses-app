@@ -3,18 +3,14 @@ import { ScrollView, View, TouchableOpacity, Text } from "react-native"
 import { Cell, Col, Row, Table, TableWrapper } from "react-native-table-component"
 import NoData from "../noData/NoData"
 import { styles } from "./styles"
+import { getArrWidth } from "../../helpers/report"
 
 const Expenses = ({ data, onChange }) => {
 	if (data.tableHead.length < 1) {
 		return <NoData />
 	}
 
-	const arrWidth = data.tableHead.map((el, index) => {
-		if (index === 0) return 100
-		if (data.tableData[index].length <= el.length) return el.length * 12 + 5
-		if (data.tableData[index].length >= el.length) return data.tableData[index].length * 10 + 5
-		return 100
-	})
+	const arrWidth = getArrWidth(data.tableHead, data.tableData)
 
 	const element = (cellData, index) => (
 		<TouchableOpacity onPress={() => onChange(cellData)}>

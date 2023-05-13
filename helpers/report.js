@@ -25,7 +25,7 @@ export const mapReportData = (group, data) => {
 
 			expenses.forEach((el) => {
 				if (timeseries[el.date]) {
-					timeseries[el.date] = { ...timeseries[el.date], [el.category_id]: el.amount }
+					timeseries[el.date] = { ...timeseries[el.date], [el.category_id]: i18n.l('currency', el.amount) }
 				}
 			})
 
@@ -46,10 +46,25 @@ export const mapReportData = (group, data) => {
 			result.rows = expenses.map((el) => {
 				el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)
 
-				return [el.date, el.amount, el.category.title, el.currency, el.description ?? "-"]
+				return [el.date, i18n.l('currency', el.amount), el.category.title, el.currency, el.description ?? "-"]
 			})
 			break
 	}
 
 	return result
 }
+
+export const getArrWidth = (headers, rows) => {
+	const arrWidth = headers.map((el, index) => {
+	  const maxColWidth = rows.reduce((prev, curr) => {
+		if (String(curr[index]).length > prev) {
+		  prev = String(curr[index]).length;
+		}
+		return prev;
+	  }, el.length);
+  
+	  return Math.min(Math.max(maxColWidth * 10 + 12, 100), 300);
+	});
+  
+	return arrWidth;
+  };

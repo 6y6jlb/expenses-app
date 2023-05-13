@@ -3,18 +3,14 @@ import { ScrollView, View } from "react-native"
 import { Cell, Col, Row, Table, TableWrapper } from "react-native-table-component"
 import NoData from "../noData/NoData"
 import { styles } from "./styles"
+import { getArrWidth } from "../../helpers/report"
 
 const GroupedExpenses = ({ data }) => {
-
 	if (data.tableHead.length < 1) {
 		return <NoData />
 	}
 
-	const arrWidth = data.tableHead.map((el, index) => {
-		if(data.tableData[index].length <= el.length) return el.length * 12 + 5
-		if(data.tableData[index].length >= el.length) return data.tableData[index].length * 10 + 5
-		return 100
-	})
+	const arrWidth = getArrWidth(data.tableHead, data.tableData)
 
 	return (
 		<ScrollView horizontal>
@@ -27,11 +23,21 @@ const GroupedExpenses = ({ data }) => {
 						</TableWrapper>
 
 						<TableWrapper style={{ flex: 1 }}>
-							<Row data={data.tableHead} style={[styles.head]} widthArr={arrWidth} textStyle={styles.text} />
+							<Row
+								data={data.tableHead}
+								style={[styles.head]}
+								widthArr={arrWidth}
+								textStyle={styles.text}
+							/>
 							{data.tableData.map((rowData, index) => (
 								<TableWrapper key={index} style={styles.row}>
 									{rowData.map((cellData, cellIndex) => (
-										<Cell key={cellIndex} width={arrWidth[cellIndex]}  	 data={cellData} textStyle={[styles.text]} />
+										<Cell
+											key={cellIndex}
+											width={arrWidth[cellIndex]}
+											data={cellData}
+											textStyle={[styles.text]}
+										/>
 									))}
 								</TableWrapper>
 							))}

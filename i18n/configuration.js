@@ -12,5 +12,6 @@ const i18n = new I18n({
 })
 
 i18n.fallbacks = true
+i18n.defaultLocale = "en";
 
 export default i18n
