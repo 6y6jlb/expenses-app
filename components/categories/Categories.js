@@ -3,6 +3,7 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native"
 import { useCategoryStore } from "../../state/categoryStore"
 import { useNewCategoryStore } from "../../state/newCategoryStore"
 import { styles } from "./styles"
+import i18n from "../../i18n/configuration"
 
 const Categories = () => {
 	const [showCat, setShowCat] = useState(false)
@@ -25,7 +26,7 @@ const Categories = () => {
 		<View style={[styles.container, styles.fullWindth]}>
 			<View style={[styles.form]}>
 				<TouchableOpacity onPress={() => setShowCat(!showCat)}>
-					<Text style={styles.title}>{showCat ? "˄" : "˅"} категории</Text>
+					<Text style={styles.title}>{showCat ? "˄" : "˅"} {i18n.t('category.title')}</Text>
 				</TouchableOpacity>
 				{showCat && (
 					<FlatList

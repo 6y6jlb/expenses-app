@@ -3,28 +3,29 @@ import NewCategory from "../../screens/newCategory/NewCategory"
 import UpsertExpense from "../../screens/upsertExpense/UpsertExpense"
 import ReportScreen from "../../screens/report/ReportScreen"
 import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
+import i18n from "../../i18n/configuration"
 
 export const ROUTES = [
 	{
-		options: { title: "Main Page" },
+		options: { title: i18n.t("navigation.title.main") },
 		path: "main",
 		screen: MainScreen,
 	},
 
 	{
-		options: { title: "Table Report" },
+		options: { title: i18n.t("navigation.title.report") },
 		path: "report",
 		screen: ReportScreen,
 	},
 
 	{
-		options: { title: "Table Update" },
+		options: { title: i18n.t("navigation.title.update_table") },
 		path: "update",
 		screen: UpdateTableScreen,
 	},
 
 	{
-		options: { title: "Expense" },
+		options: { title: i18n.t("navigation.title.expense") },
 		path: "upsert-expense",
 		screen: UpsertExpense,
 	},

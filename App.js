@@ -10,7 +10,9 @@ import * as Localization from "expo-localization"
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
+	
 	i18n.locale = Localization.locale
+
 	const [fontsLoaded] = useFonts({
 		"roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
 		"roboto-light": require("./assets/fonts/Roboto-Light.ttf"),

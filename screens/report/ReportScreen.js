@@ -7,6 +7,7 @@ import { Picker } from "@react-native-picker/picker"
 import { styles } from "./styles"
 import { REPORT_GROUPS } from "../../config/consts"
 import Expenses from "../../components/report/Expenses"
+import i18n from "../../i18n/configuration"
 
 const ReportScreen = ({ route, navigation }) => {
 	const reportState = useReportStore()
@@ -36,7 +37,7 @@ const ReportScreen = ({ route, navigation }) => {
 						onValueChange={(value) => reportState.setGroup(value)}
 					>
 						{Object.values(REPORT_GROUPS).map((group) => {
-							return <Picker.Item key={group} label={`by ${group.toUpperCase()}`} value={group} />
+							return <Picker.Item key={group} label={i18n.t(`report.by_${group}`)} value={group} />
 						})}
 					</Picker>
 				</View>

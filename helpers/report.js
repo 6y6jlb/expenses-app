@@ -1,4 +1,5 @@
 import { REPORT_GROUPS } from "../config/consts"
+import i18n from "../i18n/configuration"
 import { geDateRange } from "./dateRange"
 
 export const mapReportData = (group, data) => {
@@ -38,8 +39,9 @@ export const mapReportData = (group, data) => {
 			break
 
 		default:
-
-			result.headers = ["date", "amount", "category", "currency", "description"]
+			result.headers = ["date", "amount", "category", "currency", "description"].map((el) =>
+				i18n.t(`report.headers.${el}`)
+			)
 			result.titles = expenses.map((el) => el.id)
 			result.rows = expenses.map((el) => {
 				el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)

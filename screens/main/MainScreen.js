@@ -12,7 +12,6 @@ const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
 	const newCategoryStore = useNewCategoryStore()
 
-	console.log(i18n.t('buttons.change'))
 
 	useEffect(() => {
 		AppService.init()
@@ -42,13 +41,13 @@ const Main = ({ route, navigation }) => {
 									<Button
 										disabled={tablesStore.loading}
 										style={[styles.button]}
-										title="к отчету"
+										title={i18n.t('buttons.report')}
 										onPress={() => navigation.navigate("report", item)}
 									/>
 									<Button
 										disabled={tablesStore.loading}
 										style={[styles.button]}
-										title="новая трата"
+										title={i18n.t('buttons.expense_add')}
 										onPress={() => navigation.navigate("upsert-expense", { table: item })}
 									/>
 								</View>
@@ -62,14 +61,14 @@ const Main = ({ route, navigation }) => {
 				<Button
 					disabled={tablesStore.loading}
 					style={[styles.button]}
-					title="drop all"
+					title={i18n.t('buttons.drop')}
 					onPress={async () => {
 						await AppService.drop()
 					}}
 				/>
 				<Button
 					disabled={newCategoryStore.loading}
-					title="добавить категорию"
+					title={i18n.t('buttons.category_add')}
 					color="#68ad6e"
 					style={[styles.button]}
 					onPress={() => navigation.navigate("new-category")}

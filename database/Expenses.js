@@ -16,6 +16,7 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
+	
 		let groupBy = "id"
 		let select = "id, DATE(created_at, 'unixepoch') as date, amount, category_id, currency, description"
 		switch (group) {
