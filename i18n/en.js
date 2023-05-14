@@ -14,8 +14,16 @@ export default {
 		description: "Description",
 	},
 	report: {
-		by_index: "Default",
-		by_day: "By Day",
+		filters: {
+			period: {
+				title: "Period",
+			},
+			group: {
+				title: "Grouping",
+				by_index: "By Default",
+				by_day: "By Day",
+			},
+		},
 		headers: {
 			date: "Date",
 			amount: "Amount",
@@ -34,5 +42,13 @@ export default {
 			update_table: "Update Table",
 			expense: "Expense",
 		},
+	},
+	periods: {
+		all_time: "All Time",
+		day: "One Day",
+		month: "One Month",
+		year: "One Year",
+		week: "One Week",
+		current_month: "This Month",
 	},
 }

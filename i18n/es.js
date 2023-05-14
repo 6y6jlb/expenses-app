@@ -14,8 +14,16 @@ export default {
 		description: "Descripción",
 	},
 	report: {
-		by_index: "Por defecto",
-		by_day: "Por días",
+		filters: {
+			period: {
+				title: "Período",
+			},
+			group: {
+				title: "Agrupación",
+				by_index: "Por Defecto",
+				by_day: "Por Día",
+			},
+		},
 		headers: {
 			date: "Fecha",
 			amount: "Cantidad",
@@ -30,9 +38,17 @@ export default {
 	navigation: {
 		title: {
 			main: "Principal",
-			report: "Informe",
-			update_table: "Actualizar tabla",
+			report: "Reporte",
+			update_table: "Actualizar Tabla",
 			expense: "Gasto",
 		},
+	},
+	periods: {
+		all_time: "Todo el Tiempo",
+		day: "Un Día",
+		month: "Un Mes",
+		year: "Un Año",
+		week: "Una Semana",
+		current_month: "Este Mes",
 	},
 }

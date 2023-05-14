@@ -1,4 +1,4 @@
-import { REPORT_GROUPS } from "../config/consts"
+import { DEFAULT_DAY_FORMAT, REPORT_GROUPS } from "../config/consts"
 import AbstractDatabase from "./Abstract/AbstarctDatabase"
 
 class Expenses extends AbstractDatabase {
@@ -16,19 +16,29 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
-	
+
 		let groupBy = "id"
 		let select = "id, DATE(created_at, 'unixepoch') as date, amount, category_id, currency, description"
 		switch (group) {
 			case REPORT_GROUPS.DAY:
-				groupBy = "date, category_id"
-				select = "DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id"
+				groupBy = "date, category_id, currency"
+				select = "DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
 				break
 
 			default:
 				break
 		}
-		const sql = "SELECT " + select + " FROM expenses GROUP BY " + groupBy
+		
+		let sql = "SELECT " + select + " FROM expenses"
+
+		if(where) {
+
+		sql += " WHERE created_at BETWEEN " + where.to.format("X" ) + " AND " + where.from.format("X")
+
+		}
+
+		sql += " GROUP BY " + groupBy
+
 
 		return this.db.execute(sql)
 	}

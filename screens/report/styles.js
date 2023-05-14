@@ -2,12 +2,24 @@ import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
 	header: {
-		flexDirection: 'column',
-		
+		flexDirection: "column",
 	},
 	filtersContainer: {
-		backgroundColor: "#f1f8ff",
-		margin: 16
+		margin: 16,
+		gap: 10,
 	},
-	picker: {  },
+
+	filterItem: {
+		borderColor: "#f1f8ff",
+		borderBottomWidth: 4,
+	},
+	filterLabel: {
+		fontFamily: "roboto-bold",
+		paddingVertical: 10,
+		textAlign: "left",
+		textTransform: "lowercase"
+	},
+	picker: {
+		
+	},
 })

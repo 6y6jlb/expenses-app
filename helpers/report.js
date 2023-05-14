@@ -1,10 +1,13 @@
-import { REPORT_GROUPS } from "../config/consts"
+import { CURRENCIES, REPORT_GROUPS } from "../config/consts"
 import i18n from "../i18n/configuration"
-import { geDateRange } from "./dateRange"
+import DateTimeService from "../services/DateTimeService"
 
-export const mapReportData = (group, data) => {
-	const { filters, categories, expenses } = data
-	const timeseries = geDateRange(filters.date.from, filters.date.to)
+
+export const mapReportData = ({ filters, categories, expenses }) => {
+	
+	const period = DateTimeService.getDatePeriod(filters.period)
+
+	const timeseries = DateTimeService.getDateSeries(period.from, period.to)
 
 	const tableCategories = new Set(expenses.map((el) => el.category_id))
 	const filteredCategories = categories.filter((el) => tableCategories.has(el.id))
@@ -15,7 +18,7 @@ export const mapReportData = (group, data) => {
 		titles: [],
 	}
 
-	switch (group) {
+	switch (filters.group) {
 		case REPORT_GROUPS.DAY:
 			for (const date in timeseries) {
 				filteredCategories.forEach((el) => {
@@ -25,7 +28,7 @@ export const mapReportData = (group, data) => {
 
 			expenses.forEach((el) => {
 				if (timeseries[el.date]) {
-					timeseries[el.date] = { ...timeseries[el.date], [el.category_id]: i18n.l('currency', el.amount) }
+					timeseries[el.date] = { ...timeseries[el.date], [el.category_id]: i18n.numberToCurrency( el.amount,{unit: CURRENCIES[el.currency].symbol}) }
 				}
 			})
 
@@ -46,7 +49,7 @@ export const mapReportData = (group, data) => {
 			result.rows = expenses.map((el) => {
 				el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)
 
-				return [el.date, i18n.l('currency', el.amount), el.category.title, el.currency, el.description ?? "-"]
+				return [el.date, i18n.numberToCurrency( el.amount, {unit: CURRENCIES[el.currency].symbol}), el.category.title, el.currency, el.description ?? "-"]
 			})
 			break
 	}

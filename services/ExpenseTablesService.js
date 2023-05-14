@@ -15,10 +15,13 @@ class ExpenseTablesService {
 			await this.expenseTables.update(exDto)
 
 			if (currentTable.currency !== exDto.currency) {
-				const expenses = this.expenses.select({ expenses_table_id: exDto.id })
-				const rate = await Exchange.get({ count: 1, current: currentTable.currency, target: exDto.currency })
+
+				const expenses = await this.expenses.select({ expenses_table_id: exDto.id })
+
+				const rate = await Exchange.get({ count: 1, current: exDto.currency, target: currentTable.currency })
+				
 				expenses.forEach(async (el) => {
-					await this.expenseTables.update(
+					await this.expenses.update(
 						{ currency: exDto.currency, amount: rate * el.amount },
 						{ id: el.id }
 					)

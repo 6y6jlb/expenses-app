@@ -14,8 +14,17 @@ export default {
 		description: "Описание",
 	},
 	report: {
-		by_index: "По Умолчанию",
-		by_day: "По дням",
+		filters: {
+			period: {
+				title: "Период",
+			},
+			group: {
+				title: "Группировка",
+				by_index: "По Умолчанию",
+				by_day: "По дням",
+			},
+		},
+
 		headers: {
 			date: "Дата",
 			amount: "Сумма",
@@ -34,5 +43,13 @@ export default {
 			update_table: "Обновление таблицы",
 			expense: "Трата",
 		},
+	},
+	periods: {
+		all_time: "За все время",
+		day: "За один день",
+		month: "За один месяц",
+		year: "За один год",
+		week: "За одну неделю",
+		current_month: "За этот месяц",
 	},
 }

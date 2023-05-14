@@ -13,7 +13,7 @@ class Database {
 				tx.executeSql(
 					sql,
 					params,
-					(_, { rows }) => resolve(rows._array ?? rows),
+					(_, { rows }) => resolve(Array.from(rows._array ?? rows)),
 					(_, error) => reject(error)
 				)
 			})

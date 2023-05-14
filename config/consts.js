@@ -1,18 +1,18 @@
 export const CURRENCIES = {
 	RUB: {
-		icon: "",
+		symbol: "₽",
 		label: "RUB",
 	},
 	USD: {
-		icon: "",
+		symbol: "$",
 		label: "USD",
 	},
 	GEL: {
-		icon: "",
+		symbol: "ლ",
 		label: "GEL",
 	},
 	EUR: {
-		icon: "",
+		symbol: "€",
 		label: "EUR",
 	},
 }
@@ -50,6 +50,13 @@ export const DEFAULT_TABLE = {
 export const REPORT_GROUPS = {
 	INDEX: "index",
 	DAY: "day",
+}
+
+export const REPORT_PERIODS = {
+	// ALL_TIME: "all_time",
+	DAY: "day",
+	MONTH: "month",
+	YEAR: "year",
 }
 
 export const SERVICE = {
