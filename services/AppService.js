@@ -1,6 +1,8 @@
 import ExpenseCategories from "../database/ExpenseCategories"
 import ExpenseTable from "../database/ExpenseTables"
+import ExpenseTags from "../database/ExpenseTags"
 import Expenses from "../database/Expenses"
+import Tags from "../database/Tags"
 import Database from "./Database"
 
 
@@ -9,6 +11,8 @@ class AppService {
 		this.expenseTables = ExpenseTable
 		this.categories = ExpenseCategories
 		this.expenses = Expenses
+		this.tags = Tags
+		this.expenseTags = ExpenseTags
 		this.db = Database
 	}
 
@@ -16,7 +20,9 @@ class AppService {
 		try {
 			await this.expenseTables.create()
 			await this.categories.create()
+			await this.tags.create()
 			await this.expenses.create()
+			await this.expenseTags.create()
 		} catch (error) {
 			throw Error("Init tables error: " + error.message)
 		}
