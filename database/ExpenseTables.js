@@ -16,11 +16,20 @@ class ExpenseTable extends AbstractDatabase {
 
 	async select(where) {
 		let result
+		let sql = `SELECT * FROM ${this.tableName} JOIN tags on expense_tags.expense_id = ${this.tableName}.id`
+		let params = []
+
+		if (where) {
+			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
+			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")} ORDER BY id`
+			params = conditionsWithParams.params
+		}
+
 		try {
-			result = await this.db.select(this.tableName, where)
+			result = await this.execute(sql, params)
 			if (!result.length) {
 				await this.store(new ExpenseTablesDTO(null, DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY))
-				result = await this.db.select(this.tableName, where)
+				result = await this.select.select(where)
 			}
 			result
 		} catch (error) {

@@ -6,13 +6,11 @@ import { useCategoryStore } from "./categoryStore"
 import { useTableStore } from "./tableStore"
 import { useReportStore } from "./reportStore"
 import Exchange from "../http/Exchange"
+import Tags from "../database/Tags"
 
 export const useExpenseStore = create((set, get) => ({
 	data: {},
 	loading: true,
-	setTables: (tables) => {
-		set({ tables: [...tables] })
-	},
 	init: async (params) => {
 		set({ loading: true })
 
@@ -20,9 +18,11 @@ export const useExpenseStore = create((set, get) => ({
 
 		await useCategoryStore.getState().fetch()
 		const categories = Array.from(await useCategoryStore.getState().categories)
-
+		const tags = Array.from(await Tags.select())
+		console.log(tags)
 		const data = {
 			categories: categories,
+			tags: tags
 		}
 
 		if (params.table?.id) {
