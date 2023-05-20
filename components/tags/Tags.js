@@ -1,9 +1,8 @@
 import React from "react"
-import { FlatList, Text, View } from "react-native"
-import i18n from "../../i18n/configuration"
+import { FlatList, View } from "react-native"
+import { useTagsStore } from "../../state/tagsStore"
 import Badge from "../badge/Badge"
 import { styles } from "./styles"
-import { useTagsStore } from "../../state/tagsStore"
 
 const Tags = () => {
 	const store = useTagsStore()

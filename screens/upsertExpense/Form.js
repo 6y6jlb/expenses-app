@@ -5,6 +5,7 @@ import DateTimePicker from "@react-native-community/datetimepicker"
 import { CURRENCIES } from "../../config/consts"
 import { styles } from "./styles"
 import moment from "moment"
+import Tags from "../../components/tags/Tags"
 
 export default function Form({ updateFormValues, data }) {
 	const [showDatePicker, setShowDatePicker] = useState(false)
@@ -68,6 +69,7 @@ export default function Form({ updateFormValues, data }) {
 					onChangeText={(value) => updateFormValues("description", value)}
 				/>
 			</View>
+			<Tags/>
 			{showDatePicker && (
 				<DateTimePicker
 					value={data.date}

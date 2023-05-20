@@ -9,6 +9,11 @@ export default {
 		add: "Добавить",
 		back: "Назад",
 		tags: "Теги",
+		save: "Сохранить"
+	},
+	expenses: {
+		new: "Новая трата",
+		change: "Изменение траты",
 	},
 	form: {
 		title: "Имя",

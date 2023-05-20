@@ -9,6 +9,11 @@ export default {
 		add: "Add",
 		back: "Back",
 		tags: "Tags",
+		save: "Save"
+	},
+	expenses: {
+		new: "New expense",
+		change: "Change expense",
 	},
 	form: {
 		title: "Name",
