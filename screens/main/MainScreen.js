@@ -14,8 +14,12 @@ const Main = ({ route, navigation }) => {
 
 
 	useEffect(() => {
-		AppService.init()
-		tablesStore.init()
+
+		const init = async () => {
+			await AppService.init()
+			await tablesStore.init()
+		}
+		init()
 	}, [])
 
 	return (
@@ -72,6 +76,13 @@ const Main = ({ route, navigation }) => {
 					color="#68ad6e"
 					style={[styles.button]}
 					onPress={() => navigation.navigate("new-category")}
+				/>
+				<Button
+					disabled={newCategoryStore.loading}
+					title={i18n.t('buttons.tags')}
+					color="#68ad6e"
+					style={[styles.button]}
+					onPress={() => navigation.navigate("tags")}
 				/>
 			</View>
 		</View>

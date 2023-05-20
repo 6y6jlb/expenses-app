@@ -7,8 +7,9 @@ class ExpenseTags extends AbstractDatabase {
 	}
 
 	async create() {
+
 		const sql =
-			"CREATE TABLE IF NOT EXISTS expense_tags (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			"CREATE TABLE IF NOT EXISTS expense_tags (id INTEGER PRIMARY KEY AUTOINCREMENT, expense_id INTEGER NOT NULL, tag_id INTEGER NOT NULL, " +
 			"FOREIGN KEY (expense_id) REFERENCES expenses (id), " +
 			"FOREIGN KEY (tag_id) REFERENCES tags (id));"
 

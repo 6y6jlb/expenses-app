@@ -8,10 +8,15 @@ export default {
 		drop: "Сбросить",
 		add: "Добавить",
 		back: "Назад",
+		tags: "Теги",
 	},
 	form: {
 		title: "Имя",
 		description: "Описание",
+		new_tag: "Новый тег"
+	},
+	tags: {
+		title: "Теги",
 	},
 	report: {
 		filters: {
@@ -35,6 +40,7 @@ export default {
 	},
 	category: {
 		title: "Категории",
+		new_category: "Новая категория",
 	},
 	navigation: {
 		title: {
@@ -42,6 +48,8 @@ export default {
 			report: "Отчет",
 			update_table: "Обновление таблицы",
 			expense: "Трата",
+			new_category: "Новая категория",
+			tags: "Теги",
 		},
 	},
 	periods: {

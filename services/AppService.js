@@ -10,8 +10,8 @@ class AppService {
 	constructor() {
 		this.expenseTables = ExpenseTable
 		this.categories = ExpenseCategories
-		this.expenses = Expenses
 		this.tags = Tags
+		this.expenses = Expenses
 		this.expenseTags = ExpenseTags
 		this.db = Database
 	}

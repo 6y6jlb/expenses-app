@@ -1,9 +1,10 @@
 import MainScreen from "../../screens/main/MainScreen"
-import NewCategory from "../../screens/newCategory/NewCategory"
-import UpsertExpense from "../../screens/upsertExpense/UpsertExpense"
+import NewCategoryScreen from "../../screens/newCategory/NewCategory"
+import UpsertExpenseScreen from "../../screens/upsertExpense/UpsertExpense"
 import ReportScreen from "../../screens/report/ReportScreen"
 import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
 import i18n from "../../i18n/configuration"
+import TagsScreen from "../../screens/Tags/TagsScreen"
 
 export const ROUTES = [
 	{
@@ -27,12 +28,18 @@ export const ROUTES = [
 	{
 		options: { title: i18n.t("navigation.title.expense") },
 		path: "upsert-expense",
-		screen: UpsertExpense,
+		screen: UpsertExpenseScreen,
 	},
 
 	{
-		options: { title: "New Category" },
+		options: { title: i18n.t("navigation.title.tags") },
+		path: "tags",
+		screen: TagsScreen,
+	},
+
+	{
+		options: { title: i18n.t("navigation.title.new_category") },
 		path: "new-category",
-		screen: NewCategory,
+		screen: NewCategoryScreen,
 	},
 ]

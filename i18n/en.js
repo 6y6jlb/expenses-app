@@ -8,10 +8,15 @@ export default {
 		drop: "Reset",
 		add: "Add",
 		back: "Back",
+		tags: "Tags",
 	},
 	form: {
 		title: "Name",
 		description: "Description",
+		new_tag: "New tag"
+	},
+	tags: {
+		title: "Tags",
 	},
 	report: {
 		filters: {
@@ -34,6 +39,7 @@ export default {
 	},
 	category: {
 		title: "Categories",
+		new_category: "New category",
 	},
 	navigation: {
 		title: {
@@ -41,6 +47,8 @@ export default {
 			report: "Report",
 			update_table: "Update Table",
 			expense: "Expense",
+			new_category: "New category",
+			tags: "Tags",
 		},
 	},
 	periods: {

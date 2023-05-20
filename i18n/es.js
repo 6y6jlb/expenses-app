@@ -8,10 +8,12 @@ export default {
 		drop: "Resetear",
 		add: "Agregar",
 		back: "Volver",
+		tags: "Etiquetas",
 	},
 	form: {
 		title: "Nombre",
 		description: "Descripción",
+		new_tag: "Nueva etiqueta"
 	},
 	report: {
 		filters: {
@@ -32,8 +34,12 @@ export default {
 			description: "Descripción",
 		},
 	},
+	tags: {
+		title: "Etiquetas",
+	},
 	category: {
 		title: "Categorías",
+		new_category: "Nueva categoría",
 	},
 	navigation: {
 		title: {
@@ -41,6 +47,8 @@ export default {
 			report: "Reporte",
 			update_table: "Actualizar Tabla",
 			expense: "Gasto",
+			new_category: "Nueva categoría",
+			tags: "Etiquetas",
 		},
 	},
 	periods: {

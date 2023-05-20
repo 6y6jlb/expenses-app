@@ -11,7 +11,8 @@ export default function Badge({title, color}) {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     marginVertical: 8,
     marginHorizontal: 16,
     alignItems: 'center',

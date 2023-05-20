@@ -35,6 +35,7 @@ export const useExpenseStore = create((set, get) => ({
 			data["tableCurrency"] = table.currency
 			data["categoryId"] = categories[0].id
 			data["description"] = ""
+			data["tags"] = []
 		} else if (params.expense?.id) {
 			const expense = (await Expenses.select({ id: params.expense.id }))[0]
 			table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
@@ -46,6 +47,7 @@ export const useExpenseStore = create((set, get) => ({
 			data["tableCurrency"] = table.currency
 			data["categoryId"] = expense.category_id
 			data["description"] = expense.description ?? ""
+			data["tags"] = []
 		}
 
 		set({ data: data })
