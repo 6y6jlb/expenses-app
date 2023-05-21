@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import { FlatList, Text, TouchableOpacity, View } from "react-native"
-import { useCategoryStore } from "../../state/categoryStore"
-import { useNewCategoryStore } from "../../state/newCategoryStore"
-import { styles } from "./styles"
 import i18n from "../../i18n/configuration"
+import { useCategoryStore } from "../../state/categoryStore"
+import { styles } from "./styles"
 
 const Categories = () => {
 	const [showCat, setShowCat] = useState(false)

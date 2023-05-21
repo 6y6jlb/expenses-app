@@ -18,7 +18,10 @@ export default {
 	form: {
 		title: "Имя",
 		description: "Описание",
-		new_tag: "Новый тег"
+		new_tag: "Новый тег",
+		currency: "Валюта",
+		category: "Категория",
+		date: "Дата"
 	},
 	tags: {
 		title: "Теги",

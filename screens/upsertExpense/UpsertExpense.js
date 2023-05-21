@@ -5,7 +5,6 @@ import { useExpenseStore } from "../../state/expenseStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
-import Tags from "../../components/tags/Tags"
 
 const UpsertExpenseScreen = ({ route, navigation }) => {
 	const store = useExpenseStore()
@@ -40,7 +39,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 				/>
 				<Button
 					disabled={store.loading}
-					title="назад"
+					title={i18n.t("buttons.back")}
 					style={[styles.button]}
 					color="#f03e6b"
 					onPress={navigation.goBack}

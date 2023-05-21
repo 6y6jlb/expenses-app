@@ -9,7 +9,7 @@ export const useTagsStore = create((set, get) => ({
 	loading: false,
 	init: async () => {
 		set({ loading: true })
-		set({ tags: await Tags.select(), loading: false })
+		set({ tags: (await Tags.select()).map(el=>({...el, selected: false})), loading: false })
 	},
 	store: (tag) => {
 		set({ tags: [...get().categories, ...categories] })
@@ -30,5 +30,11 @@ export const useTagsStore = create((set, get) => ({
 	},
 	updateFormValues: (key, value) => {
 		set({ form: { ...get().form, [key]: value } })
+	},
+	togleTags: (tag) => {
+		const mappedTags = get().tags.map(el=>{
+			return el.id === tag.id ? {...el, selected: !el.selected} : el
+		});
+		set({ tags: mappedTags })
 	},
 }))

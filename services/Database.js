@@ -8,12 +8,23 @@ class Database {
 	}
 
 	async execute(sql, params = null) {
+		
 		return new Promise((resolve, reject) => {
+			let successCallback = (_, { rows }) => {
+				resolve(Array.from(rows._array ?? rows))
+				
+			}
+			if(sql.toLowerCase().includes('insert')) {
+				successCallback = (_, { insertId }) => {
+					resolve(insertId)
+					
+				}
+			}
 			this.instance.transaction((tx) => {
 				tx.executeSql(
 					sql,
 					params,
-					(_, { rows }) => resolve(Array.from(rows._array ?? rows)),
+					successCallback,
 					(_, error) => reject(error)
 				)
 			})

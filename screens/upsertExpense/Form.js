@@ -6,6 +6,7 @@ import { CURRENCIES } from "../../config/consts"
 import { styles } from "./styles"
 import moment from "moment"
 import Tags from "../../components/tags/Tags"
+import i18n from "../../i18n/configuration"
 
 export default function Form({ updateFormValues, data }) {
 	const [showDatePicker, setShowDatePicker] = useState(false)
@@ -13,13 +14,13 @@ export default function Form({ updateFormValues, data }) {
 	return (
 		<View style={styles.form}>
 			<View style={[styles.fullWindth]}>
-				<Text>Date</Text>
+				<Text>{i18n.t("form.date")}</Text>
 				{Platform.OS === "web" ? (
 					<TextInput
 						style={[styles.input]}
 						placeholderTextColor="#afb4b7"
 						value={moment(data.date).format("Y-MM-D")}
-						placeholder="дата"
+						placeholder={i18n.t("form.date")}
 						onChangeText={(value) => updateFormValues("date", value)}
 					/>
 				) : (
@@ -32,11 +33,11 @@ export default function Form({ updateFormValues, data }) {
 				style={[styles.input, styles.fullWindth]}
 				placeholderTextColor="#afb4b7"
 				value={data.amount}
-				placeholder="amount"
+				placeholder={i18n.t("form.amount")}
 				onChangeText={(value) => updateFormValues("amount", value)}
 			/>
 			<View style={[styles.fullWindth]}>
-				<Text>валюта</Text>
+				<Text>{i18n.t("form.currency")}</Text>
 				<Picker
 					selectedValue={data.currency}
 					style={[styles.picker]}
@@ -48,7 +49,7 @@ export default function Form({ updateFormValues, data }) {
 				</Picker>
 			</View>
 			<View style={[styles.fullWindth]}>
-				<Text>Категория</Text>
+				<Text>{i18n.t("form.category")}</Text>
 				<Picker
 					selectedValue={data.categoryId}
 					style={[styles.picker]}
@@ -60,16 +61,16 @@ export default function Form({ updateFormValues, data }) {
 				</Picker>
 			</View>
 			<View style={[styles.fullWindth]}>
-				<Text>Описание</Text>
+				<Text>{i18n.t("form.description")}</Text>
 				<TextInput
 					style={[styles.input]}
 					placeholderTextColor="#afb4b7"
 					value={data.description}
-					placeholder="description"
+					placeholder={i18n.t("form.description")}
 					onChangeText={(value) => updateFormValues("description", value)}
 				/>
 			</View>
-			<Tags/>
+			<Tags selected={data.tags} />
 			{showDatePicker && (
 				<DateTimePicker
 					value={data.date}

@@ -28,7 +28,7 @@ class ExpenseTablesService {
 				})
 			}
 		} catch (error) {
-			throw Error("Init tables error: " + error.message)
+			throw Error(`${this.constructor.name}: ${error.message}`)
 		}
 	}
 }
