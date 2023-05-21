@@ -32,6 +32,7 @@ export default {
 			category: "Categoría",
 			currency: "Moneda",
 			description: "Descripción",
+			tags: "Etiquetas",
 		},
 	},
 	tags: {

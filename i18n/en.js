@@ -40,6 +40,7 @@ export default {
 			category: "Category",
 			currency: "Currency",
 			description: "Description",
+			tags: "Tags",
 		},
 	},
 	category: {

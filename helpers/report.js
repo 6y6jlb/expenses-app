@@ -42,14 +42,14 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 			break
 
 		default:
-			result.headers = ["date", "amount", "category", "currency", "description"].map((el) =>
+			result.headers = ["date", "amount", "category", "currency", "description", "tags"].map((el) =>
 				i18n.t(`report.headers.${el}`)
 			)
 			result.titles = expenses.map((el) => el.id)
 			result.rows = expenses.map((el) => {
 				el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)
 
-				return [el.date, i18n.numberToCurrency( el.amount, {unit: CURRENCIES[el.currency].symbol}), el.category.title, el.currency, el.description ?? "-"]
+				return [el.date, i18n.numberToCurrency( el.amount, {unit: CURRENCIES[el.currency].symbol}), el.category.title, el.currency, el.description ?? "-", el.tags]
 			})
 			break
 	}

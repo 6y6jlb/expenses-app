@@ -16,9 +16,10 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
-
-		let groupBy = "id"
-		let select = "id, DATE(created_at, 'unixepoch') as date, amount, category_id, currency, description"
+		let groupBy = "e.id"
+		let select =
+			"e.id as id, DATE(e.created_at, 'unixepoch') as date, amount, category_id, currency, description, GROUP_CONCAT(t.title) AS tags"
+		let join = ""
 		switch (group) {
 			case REPORT_GROUPS.DAY:
 				groupBy = "date, category_id, currency"
@@ -26,19 +27,17 @@ class Expenses extends AbstractDatabase {
 				break
 
 			default:
+				join = "JOIN expense_tags as et on et.expense_id = e.id JOIN tags as t on t.id = et.tag_id"
 				break
 		}
-		
-		let sql = "SELECT " + select + " FROM expenses"
 
-		if(where) {
+		let sql = "SELECT " + select + " FROM expenses as e " + join
 
-		sql += " WHERE created_at BETWEEN " + where.to.format("X" ) + " AND " + where.from.format("X")
-
+		if (where) {
+			sql += " WHERE created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
 		}
 
 		sql += " GROUP BY " + groupBy
-
 
 		return this.db.execute(sql)
 	}

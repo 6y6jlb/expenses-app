@@ -44,6 +44,7 @@ export default {
 			category: "Категория",
 			currency: "Валюта",
 			description: "Описание",
+			tags: "Теги"
 		},
 	},
 	category: {
