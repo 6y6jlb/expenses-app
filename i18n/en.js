@@ -9,7 +9,7 @@ export default {
 		add: "Add",
 		back: "Back",
 		tags: "Tags",
-		save: "Save"
+		save: "Save",
 	},
 	expenses: {
 		new: "New expense",
@@ -18,7 +18,10 @@ export default {
 	form: {
 		title: "Name",
 		description: "Description",
-		new_tag: "New tag"
+		new_tag: "New tag",
+		currency: "Currency",
+		category: "Category",
+		date: "Date",
 	},
 	tags: {
 		title: "Tags",

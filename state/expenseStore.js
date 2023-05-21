@@ -1,15 +1,14 @@
 import moment from "moment"
 import { create } from "zustand"
+import ExpenseTags from "../database/ExpenseTags"
 import Expenses from "../database/Expenses"
+import Tags from "../database/Tags"
+import Exchange from "../http/Exchange"
+import ExpensesService from "../services/ExpensesService"
 import { ExpensesDTO } from "../services/dto/expensesDTO"
 import { useCategoryStore } from "./categoryStore"
-import { useTableStore } from "./tableStore"
 import { useReportStore } from "./reportStore"
-import Exchange from "../http/Exchange"
-import Tags from "../database/Tags"
-import ExpenseTags from "../database/ExpenseTags"
-import ExpensesService from "../services/ExpensesService"
-import { useTagsStore } from "./tagsStore"
+import { useTableStore } from "./tableStore"
 
 export const useExpenseStore = create((set, get) => ({
 	data: {},
@@ -34,11 +33,12 @@ export const useExpenseStore = create((set, get) => ({
 			data["tableCurrency"] = table.currency
 			data["categoryId"] = categories[0].id
 			data["description"] = ""
-			data["preSelectedTags"] = []
+			data["selectedTags"] = []
 		} else if (params.expense?.id) {
 			const expense = (await Expenses.select({ id: params.expense.id }))[0]
 			table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
-			const preSelectedTags = await ExpenseTags.select({ expense_id: expense.id })
+			const tags = await Tags.select()
+			const preSelectedTags = (await ExpenseTags.select({ expense_id: expense.id })).map((el) => el.tag_id)
 
 			data["expenseId"] = expense.id
 			data["date"] = new Date(expense.created_at * 1000)
@@ -47,7 +47,7 @@ export const useExpenseStore = create((set, get) => ({
 			data["tableCurrency"] = table.currency
 			data["categoryId"] = expense.category_id
 			data["description"] = expense.description ?? ""
-			data["preSelectedTags"] = preSelectedTags
+			data["tags"] = tags.map((el) => ({ ...el, selected: preSelectedTags.includes(el.id) }))
 		}
 
 		set({ data: data })
@@ -60,8 +60,6 @@ export const useExpenseStore = create((set, get) => ({
 			data.amount = await Exchange.get({ count: data.amount, target: data.currency, current: data.tableCurrency })
 		}
 
-		const selectedTags = useTagsStore.getState().tags.filter((el) => el.selected)
-
 		const expensesDTO = new ExpensesDTO(
 			data.expenseId ?? null,
 			data.amount,
@@ -70,7 +68,7 @@ export const useExpenseStore = create((set, get) => ({
 			data.categoryId,
 			data.tableCurrency,
 			data.description,
-			selectedTags
+			data.tags.filter((el) => el.selected)
 		)
 
 		await ExpensesService.handle(expensesDTO)

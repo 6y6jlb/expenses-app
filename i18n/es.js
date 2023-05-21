@@ -13,7 +13,10 @@ export default {
 	form: {
 		title: "Nombre",
 		description: "Descripción",
-		new_tag: "Nueva etiqueta"
+		new_tag: "Nueva etiqueta",
+		currency: "Moneda",
+		category: "Categoría",
+		date: "Fecha",
 	},
 	report: {
 		filters: {

@@ -11,6 +11,13 @@ import i18n from "../../i18n/configuration"
 export default function Form({ updateFormValues, data }) {
 	const [showDatePicker, setShowDatePicker] = useState(false)
 
+	const toggle = (value) => {
+		const newTags = data.tags.map(el=>{
+			return el.id === value.id ? {...el, selected: !el.selected} : el
+		});
+		updateFormValues("tags", newTags)
+	}
+
 	return (
 		<View style={styles.form}>
 			<View style={[styles.fullWindth]}>
@@ -70,7 +77,7 @@ export default function Form({ updateFormValues, data }) {
 					onChangeText={(value) => updateFormValues("description", value)}
 				/>
 			</View>
-			<Tags selected={data.tags} />
+			<Tags toggle={toggle} selectedIds={data.tags.filter(el=>el.selected).map((el) => el.id)} />
 			{showDatePicker && (
 				<DateTimePicker
 					value={data.date}
