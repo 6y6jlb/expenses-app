@@ -85,6 +85,10 @@ export class DBDto {
 		this.#delete = value
 	}
 
+	/**
+	 * @returns {string}
+	 * @throws {Error}
+	 */
 	selectSqlStatement() {
 		if (!(this.#select && this.#from)) {
 			console.log(this)
@@ -93,6 +97,10 @@ export class DBDto {
 		return `${this.#select} ${this.#from} ${this.#join} ${this.#where} ${this.#group} ${this.#order};`
 	}
 
+	/**
+	 * @returns {string}
+	 * @throws {Error}
+	 */
 	insertSqlStatement() {
 		if (!(this.#insert && this.#values)) {
 			console.log(this)
@@ -101,6 +109,10 @@ export class DBDto {
 		return `${this.#insert} ${this.#values} ${this.#where};`
 	}
 
+	/**
+	 * @returns {string}
+	 * @throws {Error}
+	 */
 	updateSqlStatement() {
 		if (!(this.#update && this.#set)) {
 			console.log(this)
@@ -109,6 +121,10 @@ export class DBDto {
 		return `${this.#update} ${this.#set} ${this.#where};`
 	}
 
+	/**
+	 * @returns {string}
+	 * @throws {Error}
+	 */
 	deleteSqlStatement() {
 		if (!(this.#delete)) {
 			console.log(this)
