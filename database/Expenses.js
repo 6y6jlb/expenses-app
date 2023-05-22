@@ -1,4 +1,4 @@
-import { DEFAULT_DAY_FORMAT, REPORT_GROUPS } from "../config/consts"
+import { REPORT_GROUPS } from "../config/consts"
 import AbstractDatabase from "./Abstract/AbstarctDatabase"
 
 class Expenses extends AbstractDatabase {
@@ -16,30 +16,27 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
-		let groupBy = "e.id"
-		let select =
-			"e.id as id, DATE(e.created_at, 'unixepoch') as date, amount, category_id, currency, description, GROUP_CONCAT(t.title) AS tags"
-		let join = ""
+		this.dto.from = " FROM expenses as e "
+
 		switch (group) {
 			case REPORT_GROUPS.DAY:
-				groupBy = "date, category_id, currency"
-				select = "DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
+				this.dto.group = " GROUP BY date, category_id, currency"
+				this.dto.select ="SELECT DISTINCT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
 				break
 
 			default:
-				join = "JOIN expense_tags as et on et.expense_id = e.id JOIN tags as t on t.id = et.tag_id"
+				this.dto.join = " LEFT JOIN expense_tags as et on et.expense_id = e.id LEFT JOIN tags as t on t.id = et.tag_id"
+				this.dto.group = " GROUP BY e.id, date, category_id, currency, description"
+				this.dto.select ="SELECT DISTINCT e.id as id, DATE(e.created_at, 'unixepoch') as date, amount, category_id, currency, description, GROUP_CONCAT(t.title) AS tags"
+				this.dto.order = " ORDER BY e.id DESC "
 				break
 		}
 
-		let sql = "SELECT " + select + " FROM expenses as e " + join
-
 		if (where) {
-			sql += " WHERE created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
+			this.dto.where = " WHERE e.created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
 		}
 
-		sql += " GROUP BY " + groupBy
-
-		return this.db.execute(sql)
+		return this.db.execute(this.dto.toSql())
 	}
 }
 

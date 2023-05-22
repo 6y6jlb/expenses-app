@@ -1,7 +1,9 @@
 import Database from "../../services/Database"
+import { DBDto } from "../../services/dto/DBDto"
 
 class AbstractDatabase {
 	constructor() {
+		this.dto = new DBDto()
 		this.db = Database
 		this.tableName = undefined
 	}
