@@ -50,6 +50,6 @@ export class DBDto {
 			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
-		return this.#select + this.#from + this.#join + this.#where + this.#group + this.#order
+		return `${this.#select} ${this.#from} ${this.#join} ${this.#where} ${this.#group} ${this.#order}`
 	}
 }

@@ -1,4 +1,5 @@
 import { REPORT_GROUPS } from "../config/consts"
+import { DBDto } from "../services/dto/DBDto"
 import AbstractDatabase from "./Abstract/AbstarctDatabase"
 
 class Expenses extends AbstractDatabase {
@@ -16,27 +17,29 @@ class Expenses extends AbstractDatabase {
 	}
 
 	async byGroup(group = REPORT_GROUPS.DAY, where = null) {
-		this.dto.from = " FROM expenses as e "
+
+		const dto = new DBDto()
+		dto.from = " FROM expenses as e "
 
 		switch (group) {
 			case REPORT_GROUPS.DAY:
-				this.dto.group = " GROUP BY date, category_id, currency"
-				this.dto.select ="SELECT DISTINCT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
+				dto.group = " GROUP BY date, category_id, currency"
+				dto.select ="SELECT DISTINCT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
 				break
 
 			default:
-				this.dto.join = " LEFT JOIN expense_tags as et on et.expense_id = e.id LEFT JOIN tags as t on t.id = et.tag_id"
-				this.dto.group = " GROUP BY e.id, date, category_id, currency, description"
-				this.dto.select ="SELECT DISTINCT e.id as id, DATE(e.created_at, 'unixepoch') as date, amount, category_id, currency, description, GROUP_CONCAT(t.title) AS tags"
-				this.dto.order = " ORDER BY e.id DESC "
+				dto.join = " LEFT JOIN expense_tags as et on et.expense_id = e.id LEFT JOIN tags as t on t.id = et.tag_id"
+				dto.group = " GROUP BY e.id, date, category_id, currency, description"
+				dto.select ="SELECT DISTINCT e.id as id, DATE(e.created_at, 'unixepoch') as date, amount, category_id, currency, description, GROUP_CONCAT(t.title) AS tags"
+				dto.order = " ORDER BY e.id DESC "
 				break
 		}
 
 		if (where) {
-			this.dto.where = " WHERE e.created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
+			this.where = " WHERE e.created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
 		}
 
-		return this.db.execute(this.dto.toSql())
+		return this.db.execute(dto.toSql())
 	}
 }
 
