@@ -65,7 +65,8 @@ class Database {
 		let set = Object.keys(clearedData).map((key) => `${key} = ?`)
 		let params = Object.values(clearedData)
 
-		dto.update = `UPDATE ${table} SET ${set.join(", ")}`
+		dto.update = `UPDATE ${table}`
+		dto.set = `SET ${set.join(", ")}`
 		if (where) {
 			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
 			dto.where = ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`

@@ -1,6 +1,7 @@
 import ExpenseTable from "../database/ExpenseTables"
 import Expenses from "../database/Expenses"
 import Exchange from "../http/Exchange"
+import { ExpenseTablesDTO } from "./dto/expenseTablesDTO"
 
 class ExpenseTablesService {
 	constructor() {
@@ -8,21 +9,24 @@ class ExpenseTablesService {
 		this.expenses = Expenses
 	}
 
-	async update(exDto) {
+	/**
+	 * @param {ExpenseTablesDTO} dto
+	 */
+	async update(dto) {
 		try {
-			const currentTable = (await this.expenseTables.select({ id: exDto.id }))[0]
+			const currentTable = (await this.expenseTables.select({ id: dto.id }))[0]
 
-			await this.expenseTables.update(exDto)
+			await this.expenseTables.update(dto)
 
-			if (currentTable.currency !== exDto.currency) {
+			if (currentTable.currency !== dto.currency) {
 
-				const expenses = await this.expenses.select({ expenses_table_id: exDto.id })
+				const expenses = await this.expenses.select({ expenses_table_id: dto.id })
 
-				const rate = await Exchange.get({ count: 1, current: exDto.currency, target: currentTable.currency })
+				const rate = await Exchange.get({ count: 1, current: dto.currency, target: currentTable.currency })
 				
 				expenses.forEach(async (el) => {
 					await this.expenses.update(
-						{ currency: exDto.currency, amount: rate * el.amount },
+						{ currency: dto.currency, amount: rate * el.amount },
 						{ id: el.id }
 					)
 				})

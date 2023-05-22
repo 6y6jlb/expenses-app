@@ -1,7 +1,7 @@
 import ExpenseTable from "../database/ExpenseTables"
 import ExpenseTags from "../database/ExpenseTags"
 import Expenses from "../database/Expenses"
-
+import { ExpensesDTO } from "./dto/expensesDTO"
 
 class ExpenseTablesService {
 	constructor() {
@@ -10,21 +10,22 @@ class ExpenseTablesService {
 		this.expenseTags = ExpenseTags
 	}
 
-	async handle(expensesDTO) {
+	/**
+	 * @param {ExpensesDTO} dto
+	 */
+	async handle(dto) {
 		try {
-			if(expensesDTO.id) {
-				await this.expenses.update(expensesDTO.toModel(), { id: expensesDTO.id })
-				
-				await this.expenseTags.delete({expense_id: expensesDTO.id})
+			if (dto.id) {
+				await this.expenses.update(dto.toModel(), { id: dto.id })
+
+				await this.expenseTags.delete({ expense_id: dto.id })
 			} else {
-				expensesDTO.id = await this.expenses.store(expensesDTO.toModel())
+				dto.id = await this.expenses.store(dto.toModel())
 			}
 
-			expensesDTO.tags.forEach(async el=>{
-				await this.expenseTags.store({expense_id: expensesDTO.id, tag_id: el.id})
+			dto.tags.forEach(async (el) => {
+				await this.expenseTags.store({ expense_id: dto.id, tag_id: el.id })
 			})
-			
-			
 		} catch (error) {
 			throw Error(`${this.constructor.name}: ${error.message}`)
 		}

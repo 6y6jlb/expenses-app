@@ -94,11 +94,11 @@ export class DBDto {
 	}
 
 	insertSqlStatement() {
-		if (!(this.#insert && this.values)) {
+		if (!(this.#insert && this.#values)) {
 			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
-		return `${this.#insert} ${this.values} ${this.where};`
+		return `${this.#insert} ${this.#values} ${this.#where};`
 	}
 
 	updateSqlStatement() {
@@ -106,7 +106,7 @@ export class DBDto {
 			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
-		return `${this.#update} ${this.#set} ${this.where};`
+		return `${this.#update} ${this.#set} ${this.#where};`
 	}
 
 	deleteSqlStatement() {
@@ -114,6 +114,6 @@ export class DBDto {
 			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
-		return `${this.#update} ${this.where};`
+		return `${this.#update} ${this.#where};`
 	}
 }
