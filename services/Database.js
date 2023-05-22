@@ -1,5 +1,6 @@
 import * as SQLite from "expo-sqlite"
 import { getWhereConditionsWithParams, removeFalsyValuesFromObject } from "../helpers/common"
+import { DBDto } from "./dto/DBDto"
 
 class Database {
 	constructor(dbName = "app.db") {
@@ -32,54 +33,60 @@ class Database {
 	}
 
 	async select(table, where) {
-		let sql = `SELECT * FROM ${table}`
+		const dto = new DBDto()
+		dto.select = `SELECT * FROM ${table}`
 		let params = []
 
 		if (where) {
 			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
-			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")} ORDER BY id`
+			dto.where = `WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			dto.order = "ORDER BY id"
 			params = conditionsWithParams.params
 		}
 
-		return await this.execute(sql, params)
+		return await this.execute(dto.selectSqlStatement(), params)
 	}
 
 	async insert(table, data) {
+		const dto = new DBDto()
 		const clearedData = removeFalsyValuesFromObject(data)
 		let keys = Object.keys(clearedData)
 		let values = Object.values(clearedData)
 		let placeholders = new Array(values.length).fill("?")
-		let sql = `INSERT INTO ${table} (${keys.join(", ")}) VALUES (${placeholders.join(", ")})`
+		dto.insert = `INSERT INTO ${table} (${keys.join(", ")})`
+		dto.values = `VALUES (${placeholders.join(", ")})`
 
-		return await this.execute(sql, values)
+		return await this.execute(dto.insertSqlStatement(), values)
 	}
 
 	async update(table, data, where) {
+		const dto = new DBDto()
 		const clearedData = removeFalsyValuesFromObject(data)
 		let set = Object.keys(clearedData).map((key) => `${key} = ?`)
 		let params = Object.values(clearedData)
 
-		let sql = `UPDATE ${table} SET ${set.join(", ")}`
+		dto.update = `UPDATE ${table} SET ${set.join(", ")}`
 		if (where) {
 			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
-			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			dto.where = ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
 			params = conditionsWithParams.params
 		}
 
-		return await this.execute(sql, params)
+		return await this.execute(dto.updateSqlStatement(), params)
 	}
 
 	async delete(table, where) {
-		let sql = `DELETE FROM ${table}`
+		const dto = new DBDto()
+		dto.delete = `DELETE FROM ${table}`
 		let params = []
 
 		if (where) {
 			const conditionsWithParams = getWhereConditionsWithParams(removeFalsyValuesFromObject(where), params)
-			sql += ` WHERE ${conditionsWithParams.conditions.join(" AND ")}`
+			dto.where = `WHERE ${conditionsWithParams.conditions.join(" AND ")}`
 			params = conditionsWithParams.params
 		}
 
-		return await this.execute(sql, params)
+		return await this.execute(dto.deleteSqlStatement(), params)
 	}
 
 	async drop(table) {
