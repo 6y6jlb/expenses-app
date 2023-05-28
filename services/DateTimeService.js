@@ -4,9 +4,6 @@ import { DEFAULT_DAY_FORMAT, REPORT_PERIODS } from "../config/consts"
 class DateTimeService {
 	constructor() {}
 
-	/**
-	 * @param {string} periodKey
-	 */
 	getDatePeriod(periodKey) {
 		const period = {
 			from: moment(),
@@ -29,10 +26,7 @@ class DateTimeService {
 		return period
 	}
 
-	/**
-	 * @param {moment} startDate
-	 * @param {moment} endDate
-	 */
+
 	getDateSeries(startDate, endDate) {
 		const clonedStartDate = startDate.clone()
 		const clonedEndDate = endDate.clone()

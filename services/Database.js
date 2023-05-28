@@ -8,11 +8,7 @@ class Database {
 		this.instance = SQLite.openDatabase(dbName)
 	}
 
-	/**
-	 * @param {string} sql 
-	 * @param {Array<string>|null} params 
-	 * @returns {Promise}
-	 */
+
 	async execute(sql, params) {
 		
 		return new Promise((resolve, reject) => {
@@ -37,14 +33,11 @@ class Database {
 		})
 	}
 
-	/**
-	 * @param {string} table 
-	 * @param {Array<string>|null} where 
-	 * @returns {void}
-	 */
+
 	async select(table, where) {
 		const dto = new DBDto()
-		dto.select = `SELECT * FROM ${table}`
+		dto.select = `SELECT *`
+		dto.from = `FROM ${table}`
 		let params = []
 
 		if (where) {
@@ -57,10 +50,7 @@ class Database {
 		return await this.execute(dto.selectSqlStatement(), params)
 	}
 
-	/**
-	 * @param {string} table 
-	 * @param {Array<string>|null} data 
-	 */
+
 	async insert(table, data) {
 		const dto = new DBDto()
 		const clearedData = removeFalsyValuesFromObject(data)
@@ -73,11 +63,7 @@ class Database {
 		return await this.execute(dto.insertSqlStatement(), values)
 	}
 
-	/**
-	 * @param {string} table 
-	 * @param {Array<string>|null} data 
-	 * @param {Array<string>|null} where 
-	 */
+
 	async update(table, data, where) {
 		const dto = new DBDto()
 		const clearedData = removeFalsyValuesFromObject(data)
@@ -95,10 +81,7 @@ class Database {
 		return await this.execute(dto.updateSqlStatement(), params)
 	}
 
-	/**
-	 * @param {string} table 
-	 * @param {Array<string>|null} where 
-	 */
+
 	async delete(table, where) {
 		const dto = new DBDto()
 		dto.delete = `DELETE FROM ${table}`
@@ -113,9 +96,7 @@ class Database {
 		return await this.execute(dto.deleteSqlStatement(), params)
 	}
 
-	/**
-	 * @param {string} table 
-	 */
+
 	async drop(table) {
 		if (table) {
 			return await this.execute(`DROP TABLE IF EXISTS ${table}`)

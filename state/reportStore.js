@@ -4,6 +4,7 @@ import ExpenseCategories from "../database/ExpenseCategories"
 import Expenses from "../database/Expenses"
 import { mapReportData } from "../helpers/report"
 import DateTimeService from "../services/DateTimeService"
+import ExportService from "../services/ExportService"
 
 export const useReportStore = create((set, get) => ({
 	headers: [],
@@ -45,5 +46,19 @@ export const useReportStore = create((set, get) => ({
 		set({ titles, rows, headers })
 		set({ loading: false })
 	},
+	export: async () => {
+		set({ loading: true })
+		try {
+			const data = {
+				headers: get().headers,
+				rows: get().rows,
+				titles: get().titles,
+			}
+			ExportService.export(data)
+		} catch (error) {
+			console.warn(error)
+		}
+		set({ loading: false })
+	}
 
 }))

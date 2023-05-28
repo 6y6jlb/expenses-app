@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react"
-import { View, Text, ActivityIndicator } from "react-native"
+import { View, Text, ActivityIndicator, Button } from "react-native"
 import GropedExpenses from "../../components/report/GroupedExpenses"
 import { global } from "../../styles/styles"
 import { useReportStore } from "../../state/reportStore"
@@ -10,10 +10,10 @@ import Expenses from "../../components/report/Expenses"
 import i18n from "../../i18n/configuration"
 
 const ReportScreen = ({ route, navigation }) => {
-	const reportState = useReportStore()
+	const store = useReportStore()
 
 	useEffect(() => {
-		reportState.init(route.params.id)()
+		store.init(route.params.id)()
 	}, [])
 
 	const getReportComponent = (group, props) => {
@@ -31,24 +31,38 @@ const ReportScreen = ({ route, navigation }) => {
 			<View style={styles.header}>
 				<Text style={global.title}>{route.params.title}</Text>
 				<View style={styles.filtersContainer}>
+					<Button
+						title={i18n.t("buttons.export")}
+						disabled={store.loading}
+						onPress={async () => {
+							await store.export()
+						}}
+					/>
 					<View style={styles.filterItem}>
 						<Text style={styles.filterLabel}>{i18n.t("report.filters.group.title")}</Text>
 						<Picker
-							selectedValue={reportState.filters.group}
+						disabled={store.loading}
+							selectedValue={store.filters.group}
 							style={[styles.picker]}
-							onValueChange={(value) => reportState.setFilter("group", value)}
+							onValueChange={(value) => store.setFilter("group", value)}
 						>
 							{Object.values(REPORT_GROUPS).map((group) => {
-								return <Picker.Item key={group} label={i18n.t(`report.filters.group.by_${group}`)} value={group} />
+								return (
+									<Picker.Item
+										key={group}
+										label={i18n.t(`report.filters.group.by_${group}`)}
+										value={group}
+									/>
+								)
 							})}
 						</Picker>
 					</View>
 					<View style={styles.filterItem}>
 						<Text style={styles.filterLabel}>{i18n.t("report.filters.period.title")}</Text>
 						<Picker
-							selectedValue={reportState.filters.period}
+							selectedValue={store.filters.period}
 							style={[styles.picker]}
-							onValueChange={(value) => reportState.setFilter("period", value)}
+							onValueChange={(value) => store.setFilter("period", value)}
 						>
 							{Object.values(REPORT_PERIODS).map((period) => {
 								return <Picker.Item key={period} label={i18n.t(`periods.${period}`)} value={period} />
@@ -57,14 +71,14 @@ const ReportScreen = ({ route, navigation }) => {
 					</View>
 				</View>
 			</View>
-			{reportState.loading ? (
+			{store.loading ? (
 				<ActivityIndicator size="large" />
 			) : (
-				getReportComponent(reportState.filters.group, {
+				getReportComponent(store.filters.group, {
 					data: {
-						tableHead: reportState.headers,
-						tableData: reportState.rows,
-						tableTitle: reportState.titles,
+						tableHead: store.headers,
+						tableData: store.rows,
+						tableTitle: store.titles,
 					},
 					onChange: (id) => navigation.navigate("upsert-expense", { expense: { id } }),
 				})

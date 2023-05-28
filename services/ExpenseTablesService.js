@@ -9,9 +9,7 @@ class ExpenseTablesService {
 		this.expenses = Expenses
 	}
 
-	/**
-	 * @param {ExpenseTablesDTO} dto
-	 */
+
 	async update(dto) {
 		try {
 			const currentTable = (await this.expenseTables.select({ id: dto.id }))[0]

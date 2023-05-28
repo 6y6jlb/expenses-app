@@ -1,7 +1,6 @@
 import ExpenseTable from "../database/ExpenseTables"
 import ExpenseTags from "../database/ExpenseTags"
 import Expenses from "../database/Expenses"
-import { ExpensesDTO } from "./dto/expensesDTO"
 
 class ExpenseTablesService {
 	constructor() {
@@ -10,9 +9,7 @@ class ExpenseTablesService {
 		this.expenseTags = ExpenseTags
 	}
 
-	/**
-	 * @param {ExpensesDTO} dto
-	 */
+
 	async handle(dto) {
 		try {
 			if (dto.id) {

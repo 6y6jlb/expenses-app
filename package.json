@@ -19,6 +19,7 @@
     "expo-file-system": "~15.2.2",
     "expo-font": "~11.1.1",
     "expo-localization": "^14.1.1",
+    "expo-sharing": "~11.2.2",
     "expo-splash-screen": "~0.18.1",
     "expo-sqlite": "^11.1.1",
     "expo-status-bar": "~1.4.4",
@@ -32,6 +33,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-table-component": "https://github.com/slice312/react-native-table-component.git",
     "react-native-web": "~0.18.10",
+    "xlsx": "^0.18.5",
     "zustand": "^4.3.7"
   },
   "devDependencies": {
