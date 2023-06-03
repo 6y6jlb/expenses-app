@@ -41,7 +41,7 @@ const ReportScreen = ({ route, navigation }) => {
 					<View style={styles.filterItem}>
 						<Text style={styles.filterLabel}>{i18n.t("report.filters.group.title")}</Text>
 						<Picker
-						disabled={store.loading}
+							disabled={store.loading}
 							selectedValue={store.filters.group}
 							style={[styles.picker]}
 							onValueChange={(value) => store.setFilter("group", value)}
