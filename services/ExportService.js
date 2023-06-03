@@ -7,6 +7,27 @@ import * as MediaLibrary from "expo-media-library"
 class ExportService {
 	constructor() {}
 
+	async requestPermissions() {
+		const { status: msPermissionStatus } = await MediaLibrary.requestPermissionsAsync()
+		const flPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+		if (msPermissionStatus !== "granted") {
+			console.error("Permission to access media library denied.")
+		}
+		
+		if (!flPermissions.granted) {
+			console.log('not granted')
+			return;
+		  }
+	}
+
+	async checkPermissions() {
+		const { status } = await MediaLibrary.getPermissionsAsync()
+		const flPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+		if (status !== "granted" || !flPermissions.granted) {
+			await this.requestPermissions()
+		}
+	}
+
 	async generate(data) {
 		let wb = XLSX.utils.book_new()
 
@@ -17,18 +38,21 @@ class ExportService {
 	}
 
 	async write(generatedFile) {
-		// const now = new Date()
-		// const fileName = now.toISOString
-		// const fileUri = FileSystem.cacheDirectory + fileName + '.xlsx'
 		try {
-			// await FileSystem.writeAsStringAsync(fileUri, fileName, { encoding: FileSystem.EncodingType.UTF8 })
-			let fileUri = FileSystem.documentDirectory + "text.txt"
-			await FileSystem.writeAsStringAsync(fileUri, "Hello World", { encoding: FileSystem.EncodingType.UTF8 })
+			await this.checkPermissions()
+
+			const fileUri = FileSystem.documentDirectory + "/text.txt"
+			console.log(fileUri)
+			await FileSystem.writeAsStringAsync(fileUri, "Hello World", {
+				encoding: FileSystem.EncodingType.UTF8,
+			})
+			console.log("writeAsStringAsync")
 			const asset = await MediaLibrary.createAssetAsync(fileUri)
-			await MediaLibrary.createAlbumAsync("Download", asset, false)
-			console.log("here")
-			await FileSystem.writeAsStringAsync(fileUri, "Hello World", { encoding: FileSystem.EncodingType.UTF8 })
+			// await MediaLibrary.createAlbumAsync('Download', asset, false);
+
+			console.log("File saved successfully")
 		} catch (error) {
+			console.log("Error details:", error.message, error.code)
 			console.log("Error writing file:", error)
 		}
 	}
