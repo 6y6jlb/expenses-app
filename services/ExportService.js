@@ -9,19 +9,20 @@ class ExportService {
 
 	async requestPermissions() {
 		const { status: msPermissionStatus } = await MediaLibrary.requestPermissionsAsync()
-		const flPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+		const flPermissions = await FileSystem.StorageAccessFramework.requestPermissionsAsync()
 		if (msPermissionStatus !== "granted") {
-			console.error("Permission to access media library denied.")
+			console.error("Permission denied.")
 		}
-		
+
 		if (!flPermissions.granted) {
-			console.log('not granted')
-			return;
-		  }
+			console.log("not granted")
+			return
+		}
 	}
 
 	async checkPermissions() {
 		const { status } = await MediaLibrary.getPermissionsAsync()
+		await MediaLibrary.getAlbumsAsync()
 		const flPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
 		if (status !== "granted" || !flPermissions.granted) {
 			await this.requestPermissions()
@@ -38,17 +39,18 @@ class ExportService {
 	}
 
 	async write(generatedFile) {
+		const albumName = "reports"
+		const fileName = "text"
+
 		try {
 			await this.checkPermissions()
-
-			const fileUri = FileSystem.documentDirectory + "/text.txt"
+			await MediaLibrary.getAlbumAsync(albumName)
+			const fileUri = FileSystem.documentDirectory + fileName + ".json"
 			console.log(fileUri)
 			await FileSystem.writeAsStringAsync(fileUri, "Hello World", {
 				encoding: FileSystem.EncodingType.UTF8,
 			})
-			console.log("writeAsStringAsync")
-			const asset = await MediaLibrary.createAssetAsync(fileUri)
-			// await MediaLibrary.createAlbumAsync('Download', asset, false);
+	
 
 			console.log("File saved successfully")
 		} catch (error) {

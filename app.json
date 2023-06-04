@@ -30,7 +30,7 @@
       [
         "expo-media-library",
         {
-          "isAccessMediaLocationEnabled": true
+          "isAccessMediaLocationEnabled": false
         }
       ]
     ]

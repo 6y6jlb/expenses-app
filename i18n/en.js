@@ -10,6 +10,7 @@ export default {
 		back: "Back",
 		tags: "Tags",
 		save: "Save",
+		export: "Export"
 	},
 	expenses: {
 		new: "New expense",

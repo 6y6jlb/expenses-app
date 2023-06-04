@@ -9,7 +9,8 @@ export default {
 		add: "Добавить",
 		back: "Назад",
 		tags: "Теги",
-		save: "Сохранить"
+		save: "Сохранить",
+		export: "Экспорт"
 	},
 	expenses: {
 		new: "Новая трата",
