@@ -3,6 +3,7 @@ import XLSX from "xlsx"
 import * as FileSystem from "expo-file-system"
 import * as Sharing from "expo-sharing"
 import * as MediaLibrary from "expo-media-library"
+import { DEFAULT_DAY_FORMAT } from "../config/consts"
 
 class ExportService {
 	constructor() {}
@@ -21,47 +22,49 @@ class ExportService {
 	}
 
 	async checkPermissions() {
-		const { status } = await MediaLibrary.getPermissionsAsync()
-		await MediaLibrary.getAlbumsAsync()
-		const flPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
-		if (status !== "granted" || !flPermissions.granted) {
+		const mlPermissions = await MediaLibrary.getPermissionsAsync()
+		const fsPermissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+
+		if (!fsPermissions.granted || !mlPermissions.granted) {
 			await this.requestPermissions()
 		}
 	}
 
-	async generate(data) {
-		let wb = XLSX.utils.book_new()
+	async write(name, data) {
+		const content = "hellp world"
 
-		let ws = XLSX.utils.json_to_sheet([...data.headers])
-
-		XLSX.utils.book_append_sheet(wb, ws, "Users")
-		const wbout = XLSX.write(wb, { type: "binary", bookType: "xlsx" })
-	}
-
-	async write(generatedFile) {
-		const albumName = "reports"
-		const fileName = "text"
+		const fileUri = `${FileSystem.cacheDirectory}${name}.json`
 
 		try {
-			await this.checkPermissions()
-			await MediaLibrary.getAlbumAsync(albumName)
-			const fileUri = FileSystem.documentDirectory + fileName + ".json"
-			console.log(fileUri)
-			await FileSystem.writeAsStringAsync(fileUri, "Hello World", {
-				encoding: FileSystem.EncodingType.UTF8,
-			})
-	
-
-			console.log("File saved successfully")
+			await FileSystem.writeAsStringAsync(fileUri, content)
+			const info = await FileSystem.getInfoAsync(fileUri)
+			return info.exists ? fileUri : false
 		} catch (error) {
-			console.log("Error details:", error.message, error.code)
-			console.log("Error writing file:", error)
+			throw Error("Writing file error:", error.message, error.code)
 		}
 	}
 
-	async share(xlsFile) {
+	async writeXls(name, data) {
+		const fileUri = `${FileSystem.cacheDirectory}${name}.xlsx`
+
+		try {
+			const worksheet = XLSX.utils.aoa_to_sheet([...data.rows])
+			const workbook = XLSX.utils.book_new()
+			XLSX.utils.book_append_sheet(workbook, worksheet, "Reports")
+			const wbout = await XLSX.write(workbook, { type: "base64", bookType: "xlsx" })
+			await FileSystem.writeAsStringAsync(fileUri, wbout, {
+				encoding: FileSystem.EncodingType.Base64,
+			})
+			const info = await FileSystem.getInfoAsync(fileUri)
+			return info.exists ? fileUri : false
+		} catch (error) {
+			throw Error("Writing file error:", error.message, error.code)
+		}
+	}
+
+	async share(file) {
 		if (Sharing.isAvailableAsync()) {
-			Sharing.shareAsync(xlsFile, {
+			Sharing.shareAsync(file, {
 				mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // Android
 				dialogTitle: "Your dialog title here", // Android and Web
 				UTI: "com.microsoft.excel.xlsx", // iOS
@@ -76,14 +79,41 @@ class ExportService {
 	}
 
 	async export(data) {
+		const fileName = `${moment().format(DEFAULT_DAY_FORMAT)}`
 		try {
-			// const generatedFile = await this.generate(data)
-			await this.write()
-			console.log("writed")
-			// await this.share(generatedFile)
-			console.log("Successfull export file")
+			// await this.checkPermissions()
+
+			// const writedFileUri = await this.write(fileName, data)
+			const writedFileUri = await this.writeXls(fileName, data)
+			if (writedFileUri) {
+				await this.share(writedFileUri)
+				console.log("Successfull export file")
+			} else {
+				console.log("No file uri")
+			}
 		} catch (error) {
 			console.log("Error export file:", error)
+		}
+	}
+
+	async newExport(data) {
+		try {
+			this.checkPermissions()
+
+			const worksheet = XLSX.utils.aoa_to_sheet([...data.rows])
+
+			const workbook = XLSX.utils.book_new()
+
+			XLSX.utils.book_append_sheet(workbook, worksheet, "Reports")
+
+			const wbout = await XLSX.write(workbook, { type: "base64", bookType: "xlsx" })
+			const uri = FileSystem.documentDirectory + "data.xlsx"
+			await FileSystem.writeAsStringAsync(uri, wbout, {
+				encoding: FileSystem.EncodingType.Base64,
+			})
+			await this.share(uri)
+		} catch (error) {
+			console.log("Error saving or sharing XLSX file:", error)
 		}
 	}
 }

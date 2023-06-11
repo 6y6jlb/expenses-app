@@ -54,7 +54,7 @@ export const useReportStore = create((set, get) => ({
 				rows: get().rows,
 				titles: get().titles,
 			}
-			ExportService.export(data)
+			await ExportService.export(data)
 		} catch (error) {
 			console.warn(error)
 		}
