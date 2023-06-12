@@ -61,7 +61,7 @@ export const REPORT_PERIODS = {
 
 export const SERVICE = {
 	MAIN: {
-		BASE: "https://lbas.website:5000/api",
+		BASE: "https://lbas.website:5000/api/",
 		PATH: {
 			EXHCANGE: {
                 RATE: "exchange/rate"

@@ -11,22 +11,19 @@ const Tags = ({ toggle = () => {}, selectedIds = [] }) => {
 	useEffect(() => {
 		store.init()
 	}, [])
-console.log(selectedIds)
+
 	return (
-		<View>
-			<FlatList
-				contentContainerStyle={[styles.container]}
-				data={store.tags}
-				renderItem={({ item }) => (
-					<TouchableOpacity onPress={() => toggle(item)}>
+		<View style={styles.container}>
+			{store.tags.map((tag, index) => {
+				return (
+					<TouchableOpacity onPress={() => toggle(tag)} key={index}>
 						<Badge
-							title={item.title}
-							type={selectedIds.includes(item.id) ? BADGE_TYPES.PRIMARY : BADGE_TYPES.SECONDARY}
+							title={tag.title}
+							type={selectedIds.includes(tag.id) ? BADGE_TYPES.PRIMARY : BADGE_TYPES.SECONDARY}
 						/>
 					</TouchableOpacity>
-				)}
-				keyExtractor={(item) => item.id}
-			/>
+				)
+			})}
 		</View>
 	)
 }

@@ -18,6 +18,7 @@ export const useTagsStore = create((set, get) => ({
 		try {
 			const form = get().form
 			await Tags.store(form)
+			await get().updateFormValues('title', '')
 			await get().init()
 		} catch (error) {
 			console.log(error)

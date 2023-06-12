@@ -16,7 +16,7 @@ class ExportService {
 		}
 
 		if (!flPermissions.granted) {
-			console.log("not granted")
+			console.error("Permission denied.")
 			return
 		}
 	}
@@ -31,8 +31,7 @@ class ExportService {
 	}
 
 	async write(name, data) {
-		const content = "hellp world"
-
+		const content = JSON.stringify(data)
 		const fileUri = `${FileSystem.cacheDirectory}${name}.json`
 
 		try {
@@ -46,9 +45,8 @@ class ExportService {
 
 	async writeXls(name, data) {
 		const fileUri = `${FileSystem.cacheDirectory}${name}.xlsx`
-
 		try {
-			const worksheet = XLSX.utils.aoa_to_sheet([...data.rows])
+			const worksheet = XLSX.utils.aoa_to_sheet(data)
 			const workbook = XLSX.utils.book_new()
 			XLSX.utils.book_append_sheet(workbook, worksheet, "Reports")
 			const wbout = await XLSX.write(workbook, { type: "base64", bookType: "xlsx" })
@@ -79,6 +77,7 @@ class ExportService {
 	}
 
 	async export(data) {
+		console.log(data)
 		const fileName = `${moment().format(DEFAULT_DAY_FORMAT)}`
 		try {
 			// await this.checkPermissions()
@@ -96,26 +95,6 @@ class ExportService {
 		}
 	}
 
-	async newExport(data) {
-		try {
-			this.checkPermissions()
-
-			const worksheet = XLSX.utils.aoa_to_sheet([...data.rows])
-
-			const workbook = XLSX.utils.book_new()
-
-			XLSX.utils.book_append_sheet(workbook, worksheet, "Reports")
-
-			const wbout = await XLSX.write(workbook, { type: "base64", bookType: "xlsx" })
-			const uri = FileSystem.documentDirectory + "data.xlsx"
-			await FileSystem.writeAsStringAsync(uri, wbout, {
-				encoding: FileSystem.EncodingType.Base64,
-			})
-			await this.share(uri)
-		} catch (error) {
-			console.log("Error saving or sharing XLSX file:", error)
-		}
-	}
 }
 
 export default new ExportService()

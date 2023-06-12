@@ -28,8 +28,8 @@ export const useReportStore = create((set, get) => ({
 	init:
 		(tableId) =>
 		async (group = REPORT_GROUPS.DAY) => {
-			get().setFilter('group', group)
-			set({ tableId})
+			get().setFilter("group", group)
+			set({ tableId })
 			await get().fetch()
 		},
 	fetch: async () => {
@@ -38,7 +38,13 @@ export const useReportStore = create((set, get) => ({
 
 		const period = DateTimeService.getDatePeriod(filters.period)
 
-		const expenses = Array.from(await Expenses.byGroup(filters.group, { expenses_table_id: get().tableId , from: period.from, to: period.to }))
+		const expenses = Array.from(
+			await Expenses.byGroup(filters.group, {
+				expenses_table_id: get().tableId,
+				from: period.from,
+				to: period.to,
+			})
+		)
 
 		const categories = Array.from(await ExpenseCategories.select())
 		const { headers, rows, titles } = mapReportData({ filters, categories, expenses })
@@ -49,16 +55,15 @@ export const useReportStore = create((set, get) => ({
 	export: async () => {
 		set({ loading: true })
 		try {
-			const data = {
-				headers: get().headers,
-				rows: get().rows,
-				titles: get().titles,
-			}
-			await ExportService.export(data)
+			const titles = get().titles
+
+			await ExportService.export([
+				["", ...get().headers],
+				...get().rows.map((el, index) => [titles[index], ...el]),
+			])
 		} catch (error) {
 			console.warn(error)
 		}
 		set({ loading: false })
-	}
-
+	},
 }))

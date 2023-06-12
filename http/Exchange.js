@@ -4,14 +4,17 @@ class Exchange {
 	constructor() {}
 
 	async get(params) {
-		const url = new URL(`${SERVICE.MAIN.BASE}/${SERVICE.MAIN.PATH.EXHCANGE.RATE}`)
+		const url = new URL(`${SERVICE.MAIN.BASE}${SERVICE.MAIN.PATH.EXHCANGE.RATE}`)
 
 		for (const key in params) {
 			url.searchParams.append(key, params[key])
 		}
+
+		
 		try {
-			const response = await fetch(url)
+			const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
             const json = await response.json()
+			
             return json
 		} catch (error) {
 			console.log(error)

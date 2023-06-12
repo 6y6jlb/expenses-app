@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 		alignItems: "center",
 		borderRadius: 10,
-		width: "fit-content",
+		
 	},
 	title: {
 		fontSize: 14,
