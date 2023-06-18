@@ -23,6 +23,7 @@ export const useUpdateTableStore = create((set, get) => ({
 			id: table.id,
 			title: table.title,
 			currency: table.currency,
+			exchangeRate: "1",
 		}
 		set({ form, data: { table } })
 		set({ loading: false })

@@ -7,6 +7,7 @@ import { global } from "../../styles/styles"
 import i18n from "../../i18n/configuration"
 
 export default function Form({ updateFormValues, data }) {
+
 	return (
 		<View style={styles.form}>
 			<TextInput
