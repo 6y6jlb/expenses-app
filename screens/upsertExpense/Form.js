@@ -48,6 +48,7 @@ export default function Form({ updateFormValues, data }) {
 				<Picker
 					selectedValue={data.currency}
 					style={[styles.picker]}
+					enabled={false}
 					onValueChange={(value) => updateFormValues("currency", value)}
 				>
 					{Object.values(CURRENCIES).map((currency) => {

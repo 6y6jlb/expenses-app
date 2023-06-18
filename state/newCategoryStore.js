@@ -9,6 +9,7 @@ export const useNewCategoryStore = create((set, get) => ({
 		description: "",
 	},
 	loading: false,
+	categories: [],
 	setCategories: (categories) => {
 		set({ categories: [...get().categories, ...categories] })
 	},

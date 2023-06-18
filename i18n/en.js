@@ -2,27 +2,33 @@ export default {
 	no_data: "No data",
 	buttons: {
 		change: "Change",
-		report: "Go to report",
-		expense_add: "Add new expense",
-		category_add: "Add category",
+		report: "Go to Report",
+		expense_add: "New Expense",
+		category_add: "Add Category",
 		drop: "Reset",
 		add: "Add",
 		back: "Back",
 		tags: "Tags",
 		save: "Save",
-		export: "Export"
+		export: "Export",
+		back: "Back",
 	},
 	expenses: {
-		new: "New expense",
-		change: "Change expense",
+		new: "New Expense",
+		change: "Edit Expense",
 	},
 	form: {
-		title: "Name",
+		title: "Title",
 		description: "Description",
-		new_tag: "New tag",
+		new_tag: "New Tag",
 		currency: "Currency",
 		category: "Category",
+		exchange_rate: "Exchange Rate",
 		date: "Date",
+	},
+	table: {
+		change: "Edit Table",
+		exchange_rate_hint: "Exchange rate {current} to {target}",
 	},
 	tags: {
 		title: "Tags",
@@ -49,7 +55,7 @@ export default {
 	},
 	category: {
 		title: "Categories",
-		new_category: "New category",
+		new_category: "New Category",
 	},
 	navigation: {
 		title: {
@@ -57,7 +63,7 @@ export default {
 			report: "Report",
 			update_table: "Update Table",
 			expense: "Expense",
-			new_category: "New category",
+			new_category: "New Category",
 			tags: "Tags",
 		},
 	},

@@ -6,8 +6,12 @@ import { useTableStore } from "./tableStore"
 
 export const useUpdateTableStore = create((set, get) => ({
 	data: {
+		table: {},
+	},
+	form: {
 		title: "",
 		currency: "",
+		exchangeRate: "1",
 	},
 	loading: false,
 	init: async (tableId) => {
@@ -15,30 +19,24 @@ export const useUpdateTableStore = create((set, get) => ({
 		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
 		await useCategoryStore.getState().fetch()
 
-		const data = {
+		const form = {
 			id: table.id,
 			title: table.title,
-			currency: table.currency
+			currency: table.currency,
 		}
-		set({ data: data })
+		set({ form, data: { table } })
 		set({ loading: false })
 	},
 	submit: async () => {
 		set({ loading: true })
-		const data = get().data
-		const etDTO = new ExpenseTablesDTO(data.id, data.title, data.currency)
-		await ExpenseTablesService.update(etDTO)
-		
+		const form = get().form
+		const tableDTO = new ExpenseTablesDTO(form.id, form.title, form.currency, form.exchangeRate)
+		await ExpenseTablesService.update(tableDTO)
+
 		await useTableStore.getState().init()
-		set({
-			data: {
-				title: "",
-				currency: "",
-			},
-			loading: false,
-		})
+		set({ loading: false })
 	},
 	updateFormValues: (key, value) => {
-		set({ data: { ...get().data, [key]: value } })
+		set({ form: { ...get().form, [key]: value } })
 	},
 }))

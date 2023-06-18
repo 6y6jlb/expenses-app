@@ -10,7 +10,8 @@ export default {
 		back: "Назад",
 		tags: "Теги",
 		save: "Сохранить",
-		export: "Экспорт"
+		export: "Экспорт",
+		back: "Назад",
 	},
 	expenses: {
 		new: "Новая трата",
@@ -22,7 +23,13 @@ export default {
 		new_tag: "Новый тег",
 		currency: "Валюта",
 		category: "Категория",
-		date: "Дата"
+		exchange_rate: "Обменный курс",
+		date: "Дата",
+	},
+	table: {
+		change: "Изменение таблицы",
+		exchange_rate_hint: "Курс обмена {current} на {target}"
+		
 	},
 	tags: {
 		title: "Теги",
@@ -45,7 +52,7 @@ export default {
 			category: "Категория",
 			currency: "Валюта",
 			description: "Описание",
-			tags: "Теги"
+			tags: "Теги",
 		},
 	},
 	category: {

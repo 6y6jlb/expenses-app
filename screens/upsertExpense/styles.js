@@ -41,9 +41,10 @@ export const styles = StyleSheet.create({
 		width: "100%",
 	},
 	buttonsWrapper: {
-		flexDirection: "row",
+		marginTop: 12,
+		gap: 6,
+		flexDirection: "column",
 		justifyContent: "space-between",
-		gap: 6
 	},
 	button: {
 		borderRadius: 20,

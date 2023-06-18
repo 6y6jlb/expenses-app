@@ -38,10 +38,10 @@ export const styles = StyleSheet.create({
 		maxHeight: "50%",
 	},
 	buttonsWrapper: {
+		marginTop: 12,
 		gap: 6,
-		flexDirection: "row",
+		flexDirection: "column",
 		justifyContent: "space-between",
-		flexWrap: 'wrap'
 	},
 	button: {
 		borderRadius: 20,

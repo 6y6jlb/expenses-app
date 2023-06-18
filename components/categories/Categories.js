@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { FlatList, Text, TouchableOpacity, View } from "react-native"
 import i18n from "../../i18n/configuration"
 import { useCategoryStore } from "../../state/categoryStore"
@@ -8,6 +8,10 @@ const Categories = () => {
 	const [showCat, setShowCat] = useState(false)
 
 	const categoryStore = useCategoryStore()
+
+	useEffect(() => {
+		categoryStore.fetch()
+	}, [])
 
 	const updateCategory = (categoryId) => {
 		const selected = categoryStore.selectedCategories
@@ -25,13 +29,18 @@ const Categories = () => {
 		<View style={[styles.container, styles.fullWindth]}>
 			<View style={[styles.form]}>
 				<TouchableOpacity onPress={() => setShowCat(!showCat)}>
-					<Text style={styles.title}>{showCat ? "˄" : "˅"} {i18n.t('category.title')}</Text>
+					<Text style={styles.title}>
+						{showCat ? "˄" : "˅"} {i18n.t("category.title")}
+					</Text>
 				</TouchableOpacity>
-				{showCat && (
-					<FlatList
-						data={categoryStore.categories}
-						renderItem={({ item }) => (
-							<TouchableOpacity onPress={() => updateCategory(item.id)} style={[styles.itemsContainer]}>
+				{showCat &&
+					categoryStore.categories.map((item) => {
+						return (
+							<TouchableOpacity
+								key={item.id}
+								onPress={() => updateCategory(item.id)}
+								style={[styles.itemsContainer]}
+							>
 								<Text
 									style={[
 										styles.label,
@@ -41,10 +50,8 @@ const Categories = () => {
 									{item.title}
 								</Text>
 							</TouchableOpacity>
-						)}
-						keyExtractor={(item) => item.id}
-					/>
-				)}
+						)
+					})}
 			</View>
 		</View>
 	)

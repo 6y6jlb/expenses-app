@@ -2,21 +2,36 @@ export default {
 	no_data: "No hay datos",
 	buttons: {
 		change: "Cambiar",
-		report: "Ir al informe",
-		expense_add: "Nueva gasto",
-		category_add: "Agregar categoría",
-		drop: "Resetear",
+		report: "Ir a Informe",
+		expense_add: "Nueva Gasto",
+		category_add: "Agregar Categoría",
+		drop: "Restablecer",
 		add: "Agregar",
 		back: "Volver",
 		tags: "Etiquetas",
+		save: "Guardar",
+		export: "Exportar",
+		back: "Volver",
+	},
+	expenses: {
+		new: "Nuevo Gasto",
+		change: "Editar Gasto",
 	},
 	form: {
-		title: "Nombre",
+		title: "Título",
 		description: "Descripción",
-		new_tag: "Nueva etiqueta",
+		new_tag: "Nueva Etiqueta",
 		currency: "Moneda",
 		category: "Categoría",
+		exchange_rate: "Tipo de Cambio",
 		date: "Fecha",
+	},
+	table: {
+		change: "Editar Tabla",
+		exchange_rate_hint: "Tipo de cambio {current} a {target}",
+	},
+	tags: {
+		title: "Etiquetas",
 	},
 	report: {
 		filters: {
@@ -38,20 +53,17 @@ export default {
 			tags: "Etiquetas",
 		},
 	},
-	tags: {
-		title: "Etiquetas",
-	},
 	category: {
 		title: "Categorías",
-		new_category: "Nueva categoría",
+		new_category: "Nueva Categoría",
 	},
 	navigation: {
 		title: {
 			main: "Principal",
-			report: "Reporte",
+			report: "Informe",
 			update_table: "Actualizar Tabla",
 			expense: "Gasto",
-			new_category: "Nueva categoría",
+			new_category: "Nueva Categoría",
 			tags: "Etiquetas",
 		},
 	},

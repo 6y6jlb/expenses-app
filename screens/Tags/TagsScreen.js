@@ -1,11 +1,10 @@
 import React, { memo, useCallback, useEffect } from "react"
-import { Button, Text, TextInput, View } from "react-native"
-import Categories from "../../components/categories/Categories"
+import { Button, ScrollView, Text, TextInput, View } from "react-native"
+import Tags from '../../components/tags/Tags'
 import i18n from "../../i18n/configuration"
 import { useTagsStore } from "../../state/tagsStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
-import Tags from '../../components/tags/Tags';
 
 const TagsScreen = ({ route, navigation }) => {
 	const store = useTagsStore()
@@ -19,6 +18,7 @@ const TagsScreen = ({ route, navigation }) => {
 	}, [])
 
 	return (
+		<ScrollView>
 		<View style={global.card}>
 			<Text style={global.title}>{i18n.t('tags.title')}</Text>
             <Tags/>
@@ -48,6 +48,7 @@ const TagsScreen = ({ route, navigation }) => {
 				/>
 			</View>
 		</View>
+		</ScrollView>
 	)
 }
 

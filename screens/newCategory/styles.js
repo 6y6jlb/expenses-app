@@ -8,7 +8,9 @@ export const styles = StyleSheet.create({
 		gap: 20,
 	},
 	buttonsWrapper: {
-		flexDirection: "row",
+		marginTop: 12,
+		gap: 6,
+		flexDirection: "column",
 		justifyContent: "space-between",
 	},
 	button: {
