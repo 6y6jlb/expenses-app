@@ -28,7 +28,7 @@ export default {
 	},
 	table: {
 		change: "Editar Tabla",
-		exchange_rate_hint: "Tipo de cambio {current} a {target}",
+		exchange_rate_hint: "Tipo de cambio {{current}} a {{target}}",
 	},
 	tags: {
 		title: "Etiquetas",

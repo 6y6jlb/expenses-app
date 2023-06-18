@@ -28,7 +28,7 @@ export default {
 	},
 	table: {
 		change: "Изменение таблицы",
-		exchange_rate_hint: "Курс обмена {current} на {target}"
+		exchange_rate_hint: "Курс обмена {{current}} на {{target}}"
 		
 	},
 	tags: {

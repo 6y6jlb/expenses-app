@@ -28,7 +28,7 @@ export default {
 	},
 	table: {
 		change: "Edit Table",
-		exchange_rate_hint: "Exchange rate {current} to {target}",
+		exchange_rate_hint: "Exchange rate {{current}} to {{target}}",
 	},
 	tags: {
 		title: "Tags",
