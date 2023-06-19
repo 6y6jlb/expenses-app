@@ -4,6 +4,7 @@ import Tags from "../database/Tags"
 export const useTagsStore = create((set, get) => ({
 	form: {
 		title: "",
+		allow_expenses: false
 	},
 	tags: [],
 	loading: false,
@@ -19,6 +20,7 @@ export const useTagsStore = create((set, get) => ({
 			const form = get().form
 			await Tags.store(form)
 			await get().updateFormValues('title', '')
+			await get().updateFormValues('allow_expenses', false)
 			await get().init()
 		} catch (error) {
 			console.log(error)

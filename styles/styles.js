@@ -16,6 +16,11 @@ export const global = StyleSheet.create({
 		textAlign: "center",
 		textTransform: "uppercase",
 	},
+	hint: {
+		fontSize: 16,
+		fontFamily: "roboto-light",
+		textTransform: "none",
+	},
 	input: {
 		borderBottomWidth: 1,
 	},

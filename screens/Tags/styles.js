@@ -3,10 +3,9 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
 	form: {
 		flex: 1,
-		alignItems: "center",
+		alignItems: "stretch",
 		flexDirection: "column",
 		gap: 20,
-		marginTop: 20
 	},
 	buttonsWrapper: {
 		marginTop: 12,
@@ -18,5 +17,15 @@ export const styles = StyleSheet.create({
 		borderRadius: 20,
 		padding: 10,
 		elevation: 2,
+	},
+	checkboxContainer: {
+		flexDirection: "row",
+		marginTop: 10,
+	},
+	checkbox: {
+		alignSelf: "center",
+	},
+	checkboxLabel: {
+		marginLeft: 8,
 	},
 })

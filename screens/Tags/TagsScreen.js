@@ -1,17 +1,18 @@
 import React, { memo, useCallback, useEffect } from "react"
 import { Button, ScrollView, Text, TextInput, View } from "react-native"
-import Tags from '../../components/tags/Tags'
+import Tags from "../../components/tags/Tags"
 import i18n from "../../i18n/configuration"
 import { useTagsStore } from "../../state/tagsStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
+import Checkbox from "expo-checkbox"
 
 const TagsScreen = ({ route, navigation }) => {
 	const store = useTagsStore()
 
-    useEffect(()=>{
-        store.init()
-    },[])
+	useEffect(() => {
+		store.init()
+	}, [])
 
 	const submit = useCallback(() => {
 		store.submit()
@@ -19,35 +20,50 @@ const TagsScreen = ({ route, navigation }) => {
 
 	return (
 		<ScrollView>
-		<View style={global.card}>
-			<Text style={global.title}>{i18n.t('tags.title')}</Text>
-            <Tags/>
-			<View style={styles.form}>
-                <Text>{i18n.t('form.new_tag')}</Text>
-				<TextInput
-					style={[global.input, global.fullWindth]}
-					placeholderTextColor="#afb4b7"
-					value={store.form.title}
-					onChangeText={(value) => store.updateFormValues("title", value)}
-				/>
-			</View>
+			<View style={global.card}>
+				<Text style={global.title}>{i18n.t("tags.title")}</Text>
+				<Tags />
+				<View style={styles.form}>
+					<View>
+						<Text>{i18n.t("form.title")}</Text>
+						<TextInput
+							style={[global.input, global.fullWindth]}
+							placeholderTextColor="#afb4b7"
+							value={store.form.title}
+							onChangeText={(value) => store.updateFormValues("title", value)}
+						/>
+					</View>
+					<View>
+						<View style={styles.checkboxContainer}>
+							<Checkbox
+								value={store.form.allow_expenses}
+								onValueChange={(value) => store.updateFormValues("allow_expenses", value)}
+								style={styles.checkbox}
+							/>
+							<Text style={styles.checkboxLabel}>{i18n.t("form.allow_expenses")}</Text>
+						</View>
+						<Text style={global.hint}>
+							{i18n.t(store.form.allow_expenses ? "tags.allow_expenses" : "tags.not_allow_expenses")}
+						</Text>
+					</View>
+				</View>
 
-			<View style={styles.buttonsWrapper}>
-				<Button
-					disabled={store.loading}
-					title={i18n.t('buttons.add')}
-					style={[styles.button]}
-					onPress={submit}
-				/>
-				<Button
-					disabled={store.loading}
-					title={i18n.t('buttons.back')}
-					color="#f03e6b"
-					style={[styles.button]}
-					onPress={navigation.goBack}
-				/>
+				<View style={styles.buttonsWrapper}>
+					<Button
+						disabled={store.loading}
+						title={i18n.t("buttons.add")}
+						style={[styles.button]}
+						onPress={submit}
+					/>
+					<Button
+						disabled={store.loading}
+						title={i18n.t("buttons.back")}
+						color="#f03e6b"
+						style={[styles.button]}
+						onPress={navigation.goBack}
+					/>
+				</View>
 			</View>
-		</View>
 		</ScrollView>
 	)
 }
