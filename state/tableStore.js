@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import ExpenseTables from "../database/ExpenseTables"
+import { ExpenseTable } from "../database/ExpenseTables"
 
 export const useTableStore = create((set, get) => ({
 	tables: [],
@@ -9,11 +9,11 @@ export const useTableStore = create((set, get) => ({
 	},
 	init: async () => {
 		set({ loading: true })
-		set({ tables: await ExpenseTables.select() })
+		set({ tables: await new ExpenseTable().select() })
 		set({ loading: false })
 	},
 	update: (data) => {
-		ExpenseTables.update(data)
+		ExpenseTable.update(data)
 	},
 	removeAll: () => set({ tables: [], loading: false }),
 }))

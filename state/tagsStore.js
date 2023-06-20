@@ -4,13 +4,13 @@ import Tags from "../database/Tags"
 export const useTagsStore = create((set, get) => ({
 	form: {
 		title: "",
-		allow_expenses: false
+		allow_expenses: false,
 	},
 	tags: [],
 	loading: false,
 	init: async () => {
 		set({ loading: true })
-		set({ tags: await Tags.select()})
+		set({ tags: await new Tags().select() })
 		set({ loading: false })
 	},
 
@@ -19,12 +19,11 @@ export const useTagsStore = create((set, get) => ({
 		try {
 			const form = get().form
 			await Tags.store(form)
-			await get().updateFormValues('title', '')
-			await get().updateFormValues('allow_expenses', false)
+			await get().updateFormValues("title", "")
+			await get().updateFormValues("allow_expenses", false)
 			await get().init()
 		} catch (error) {
 			console.log(error)
-			
 		} finally {
 			set({ loading: false })
 		}

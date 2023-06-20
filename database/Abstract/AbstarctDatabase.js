@@ -1,9 +1,8 @@
-import Database from "../../services/Database"
-import { DBDto } from "../../services/dto/DBDto"
+import { Database } from "../../services/Database"
 
-class AbstractDatabase {
+export class AbstractDatabase {
 	constructor() {
-		this.db = Database
+		this.db = new Database()
 		this.tableName = undefined
 	}
 
@@ -33,5 +32,3 @@ class AbstractDatabase {
 		return this.db.delete(this.tableName, where)
 	}
 }
-
-export default AbstractDatabase

@@ -1,6 +1,6 @@
-import AbstractDatabase from "./Abstract/AbstarctDatabase"
+import {AbstractDatabase} from "./Abstract/AbstarctDatabase"
 
-class ExpenseTags extends AbstractDatabase {
+export class ExpenseTags extends AbstractDatabase {
 	constructor() {
 		super()
 		this.tableName = "expense_tags"
@@ -17,4 +17,3 @@ class ExpenseTags extends AbstractDatabase {
 	}
 }
 
-export default new ExpenseTags()

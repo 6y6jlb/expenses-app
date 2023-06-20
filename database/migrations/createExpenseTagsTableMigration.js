@@ -1,7 +1,11 @@
-import ExpenseTags from "../ExpenseTags"
+import {ExpenseTags} from "../ExpenseTags"
 
 
 export class CreateExpenseTagsMigration extends ExpenseTags {
+    constructor() {
+		super()
+	}
+    
     async up() {
         this.create()
     }

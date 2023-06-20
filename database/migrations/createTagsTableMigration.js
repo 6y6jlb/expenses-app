@@ -1,12 +1,15 @@
-import Tags from "../Tags"
+import { Tag } from "../Tags"
 
+export class CreateTagsTableMigration extends Tag {
+	constructor() {
+		super()
+	}
 
-export class CreateTagsTableMigration extends Tags {
-    async up() {
-        this.create()
-    }
+	async up() {
+		this.create()
+	}
 
-    async down() {
-        this.drop()
-    }
+	async down() {
+		this.drop()
+	}
 }

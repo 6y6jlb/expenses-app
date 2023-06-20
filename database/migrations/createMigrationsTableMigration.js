@@ -1,11 +1,15 @@
-import Migration from "../Migration";
+import {Migration} from "../Migration"
 
 export class CreateMigrationsTableMigration extends Migration {
-    async up() {
-        this.create()
-    }
+	constructor() {
+		super()
+	}
 
-    async down() {
-        this.drop()
-    }
+	async up() {
+		this.create()
+	}
+
+	async down() {
+		this.drop()
+	}
 }

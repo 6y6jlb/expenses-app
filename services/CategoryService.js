@@ -1,10 +1,10 @@
 import { DEFAULT_CATEGORIES } from "../config/consts"
-import ExpenseCategories from "../database/ExpenseCategories"
+import { ExpenseCategories } from "../database/ExpenseCategories"
 import { ExpenseCategoriesDTO } from "./dto/expenseCategoriesDTO"
 
 class CategoryService {
 	constructor() {
-		this.categories = ExpenseCategories
+		this.categories = new ExpenseCategories()
 	}
 
 	async getCategories() {

@@ -1,10 +1,9 @@
-import { removeFalsyValuesFromObject } from "../helpers/common"
-import AbstractDatabase from "./Abstract/AbstarctDatabase"
+import {AbstractDatabase} from "./Abstract/AbstarctDatabase"
 
-class ExpenseCategories extends AbstractDatabase {
+export class ExpenseCategories extends AbstractDatabase {
 	constructor() {
-		super()
-		this.tableName = "expense_categories"
+		super();
+		this.tableName = "expense_categories";
 	}
 
 	async create() {
@@ -14,4 +13,4 @@ class ExpenseCategories extends AbstractDatabase {
 	}
 }
 
-export default new ExpenseCategories()
+

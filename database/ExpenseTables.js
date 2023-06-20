@@ -1,8 +1,8 @@
 import { DEFAULT_TABLE } from "../config/consts"
 import { ExpenseTablesDTO } from "../services/dto/expenseTablesDTO"
-import AbstractDatabase from "./Abstract/AbstarctDatabase"
+import { AbstractDatabase } from "./Abstract/AbstarctDatabase"
 
-class ExpenseTable extends AbstractDatabase {
+export class ExpenseTable extends AbstractDatabase {
 	constructor() {
 		super()
 		this.tableName = "expense_tables"
@@ -29,5 +29,3 @@ class ExpenseTable extends AbstractDatabase {
 		return Promise.resolve(result)
 	}
 }
-
-export default new ExpenseTable()

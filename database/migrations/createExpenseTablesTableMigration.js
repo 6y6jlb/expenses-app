@@ -1,12 +1,15 @@
-import ExpenseTables from "../ExpenseTables"
+import { ExpenseTable } from "../ExpenseTables"
 
+export class CreateExpenseTableMigration extends ExpenseTable {
+	constructor() {
+		super()
+	}
 
-export class CreateExpenseTableMigration extends ExpenseTables {
-    async up() {
-        this.create()
-    }
+	async up() {
+		this.create()
+	}
 
-    async down() {
-        this.drop()
-    }
+	async down() {
+		this.drop()
+	}
 }

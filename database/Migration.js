@@ -1,6 +1,6 @@
-import AbstractDatabase from "./Abstract/AbstarctDatabase"
+import {AbstractDatabase} from "./Abstract/AbstarctDatabase"
 
-class Migration extends AbstractDatabase {
+export class Migration extends AbstractDatabase {
 	constructor() {
 		super()
 		this.tableName = "migration"
@@ -8,10 +8,9 @@ class Migration extends AbstractDatabase {
 
 	async create() {
 		const sql =
-			"CREATE TABLE IF NOT EXISTS migration (id INTEGER PRIMARY KEY AUTOINCREMENT, slug TEXT UNIQUE);"
+			"CREATE TABLE IF NOT EXISTS migration (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE);"
 		return this.db.execute(sql)
 	}
 
 }
 
-export default new Tags()

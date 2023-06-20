@@ -1,11 +1,11 @@
-import ExpenseTable from "../database/ExpenseTables"
-import Expenses from "../database/Expenses"
+import {ExpenseTable} from "../database/ExpenseTables"
+import {Expenses} from "../database/Expenses"
 // import Exchange from "../http/Exchange"
 
 class ExpenseTablesService {
 	constructor() {
-		this.expenseTables = ExpenseTable
-		this.expenses = Expenses
+		this.expenseTables = new ExpenseTable()
+		this.expenses = new Expenses()
 	}
 
 	async update(dto) {

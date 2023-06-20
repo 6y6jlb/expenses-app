@@ -1,8 +1,8 @@
 import moment from "moment"
 import { create } from "zustand"
-import ExpenseTags from "../database/ExpenseTags"
-import Expenses from "../database/Expenses"
-import Tags from "../database/Tags"
+import { ExpenseTags } from "../database/ExpenseTags"
+import { Expenses } from "../database/Expenses"
+import { Tag } from "../database/Tags"
 import Exchange from "../http/Exchange"
 import ExpensesService from "../services/ExpensesService"
 import { ExpensesDTO } from "../services/dto/expensesDTO"
@@ -20,7 +20,8 @@ export const useExpenseStore = create((set, get) => ({
 
 		await useCategoryStore.getState().fetch()
 		const categories = Array.from(await useCategoryStore.getState().categories)
-		const tags = Array.from(await Tags.select())
+		const tag = new Tag()
+		const tags = Array.from(await tag.select())
 		const data = { categories, tags }
 
 		if (params.table?.id) {
@@ -35,10 +36,10 @@ export const useExpenseStore = create((set, get) => ({
 			data["description"] = ""
 			data["selectedTags"] = []
 		} else if (params.expense?.id) {
-			const expense = (await Expenses.select({ id: params.expense.id }))[0]
+			const expense = (await new Expenses().select({ id: params.expense.id }))[0]
 			table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
-			const tags = await Tags.select()
-			const preSelectedTags = (await ExpenseTags.select({ expense_id: expense.id })).map((el) => el.tag_id)
+			const tags = await tag.select()
+			const preSelectedTags = await (new ExpenseTags().select({ expense_id: expense.id })).map((el) => el.tag_id)
 
 			data["expenseId"] = expense.id
 			data["date"] = new Date(expense.created_at * 1000)

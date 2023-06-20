@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite"
 import { getWhereConditionsWithParams, removeFalsyValuesFromObject } from "../helpers/common"
 import { DBDto } from "./dto/DBDto"
 
-class Database {
+export class Database {
 	constructor(dbName = "app.db") {
 		this.name = dbName
 		this.instance = SQLite.openDatabase(dbName)
@@ -105,4 +105,3 @@ class Database {
 	}
 }
 
-export default new Database()
