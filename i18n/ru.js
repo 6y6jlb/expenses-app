@@ -24,7 +24,6 @@ export default {
 		category: "Категория",
 		exchange_rate: "Обменный курс",
 		date: "Дата",
-		allow_expenses: "Может включать платеж"
 	},
 	table: {
 		change: "Изменение таблицы",
@@ -33,8 +32,6 @@ export default {
 	},
 	tags: {
 		title: "Теги",
-		allow_expenses: "При создании платежа с этим тегом можно будет указать сумму",
-		not_allow_expenses: "При создании платежа с этим тегом нельзя будет указать сумму"
 	},
 	report: {
 		filters: {

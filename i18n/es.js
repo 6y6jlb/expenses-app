@@ -24,7 +24,6 @@ export default {
 		category: "Categoría",
 		exchange_rate: "Tipo de Cambio",
 		date: "Fecha",
-		allow_expenses: "Permitir Gastos",
 	},
 	table: {
 		change: "Cambiar Tabla",
@@ -32,8 +31,6 @@ export default {
 	},
 	tags: {
 		title: "Etiquetas",
-		allow_expenses: "Al crear un gasto con esta etiqueta, se puede especificar el monto",
-		not_allow_expenses: "Al crear un gasto con esta etiqueta, no se puede especificar el monto",
 	},
 	report: {
 		filters: {

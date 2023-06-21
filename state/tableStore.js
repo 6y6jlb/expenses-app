@@ -9,7 +9,7 @@ export const useTableStore = create((set, get) => ({
 	},
 	init: async () => {
 		set({ loading: true })
-		set({ tables: await new ExpenseTable().select() })
+		set({ tables: await (new ExpenseTable()).select() })
 		set({ loading: false })
 	},
 	update: (data) => {

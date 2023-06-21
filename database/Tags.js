@@ -8,7 +8,7 @@ export class Tag extends AbstractDatabase {
 
 	async create() {
 		const sql =
-			"CREATE TABLE IF NOT EXISTS tags (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, allow_expenses INTEGER);"
+			"CREATE TABLE IF NOT EXISTS tags (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE);"
 		return this.db.execute(sql)
 	}
 }

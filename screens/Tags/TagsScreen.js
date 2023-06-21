@@ -33,19 +33,6 @@ const TagsScreen = ({ route, navigation }) => {
 							onChangeText={(value) => store.updateFormValues("title", value)}
 						/>
 					</View>
-					<View>
-						<View style={styles.checkboxContainer}>
-							<Checkbox
-								value={store.form.allow_expenses}
-								onValueChange={(value) => store.updateFormValues("allow_expenses", value)}
-								style={styles.checkbox}
-							/>
-							<Text style={styles.checkboxLabel}>{i18n.t("form.allow_expenses")}</Text>
-						</View>
-						<Text style={global.hint}>
-							{i18n.t(store.form.allow_expenses ? "tags.allow_expenses" : "tags.not_allow_expenses")}
-						</Text>
-					</View>
 				</View>
 
 				<View style={styles.buttonsWrapper}>

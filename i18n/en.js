@@ -24,7 +24,6 @@ export default {
 		category: "Category",
 		exchange_rate: "Exchange Rate",
 		date: "Date",
-		allow_expenses: "Allow Expenses",
 	},
 	table: {
 		change: "Edit Table",
@@ -32,8 +31,6 @@ export default {
 	},
 	tags: {
 		title: "Tags",
-		allow_expenses: "When creating an expense with this tag, you can specify the amount",
-		not_allow_expenses: "When creating an expense with this tag, you cannot specify the amount",
 	},
 	report: {
 		filters: {
