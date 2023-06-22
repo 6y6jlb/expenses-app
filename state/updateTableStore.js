@@ -3,6 +3,8 @@ import ExpenseTablesService from "../services/ExpenseTablesService"
 import { ExpenseTablesDTO } from "../services/dto/expenseTablesDTO"
 import { useCategoryStore } from "./categoryStore"
 import { useTableStore } from "./tableStore"
+import { showMessage, hideMessage, MessageType } from "react-native-flash-message"
+import i18n from "../i18n/configuration"
 
 export const useUpdateTableStore = create((set, get) => ({
 	data: {
@@ -32,7 +34,14 @@ export const useUpdateTableStore = create((set, get) => ({
 		set({ loading: true })
 		const form = get().form
 		const tableDTO = new ExpenseTablesDTO(form.id, form.title, form.currency, form.exchangeRate)
-		await ExpenseTablesService.update(tableDTO)
+
+		try {
+			await ExpenseTablesService.update(tableDTO)
+			showMessage({ type: "success", message: i18n.t("notification.table_update_success") })
+		} catch (error) {
+			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.table_update_error") })
+		}
 
 		await useTableStore.getState().init()
 		set({ loading: false })

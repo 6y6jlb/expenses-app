@@ -1,5 +1,4 @@
 import React from "react"
-
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { ROUTES } from "./service"
@@ -12,12 +11,7 @@ export default function () {
 			<Stack.Navigator>
 				{ROUTES.map((route, index) => {
 					return (
-						<Stack.Screen
-							key={index}
-							name={route.path}
-							component={route.screen}
-							options={route.options}
-						/>
+						<Stack.Screen key={index} name={route.path} component={route.screen} options={route.options} />
 					)
 				})}
 			</Stack.Navigator>

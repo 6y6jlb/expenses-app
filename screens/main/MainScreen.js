@@ -6,11 +6,9 @@ import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
 import i18n from "../../i18n/configuration"
-import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
-
+import ScreenLayout from "../../layouts/ScreenLayout"
 
 const Main = ({ route, navigation }) => {
-
 	const tablesStore = useTableStore()
 	const newCategoryStore = useNewCategoryStore()
 
@@ -22,81 +20,73 @@ const Main = ({ route, navigation }) => {
 		init()
 	}, [])
 
-	useEffect(()=>{
-		showMessage({
-			message: 'hellpp',
-			type: "info",
-		})
-	},[])
-
 	return (
-		<View style={global.card}>
-			<Text style={global.title}>Main</Text>
-			<View style={global.content}>
-				{tablesStore.loading ? (
-					<ActivityIndicator size="large" />
-				) : (
-					<FlatList
-						data={tablesStore.tables}
-						renderItem={({ item }) => (
-							<View style={styles.itemWrapper}>
-								<Text style={styles.itemTitle}>{item.title}</Text>
+		<ScreenLayout>
+			<View style={global.card}>
+				<Text style={global.title}>Main</Text>
+				<View style={global.content}>
+					{tablesStore.loading ? (
+						<ActivityIndicator size="large" />
+					) : (
+						<FlatList
+							data={tablesStore.tables}
+							renderItem={({ item }) => (
+								<View style={styles.itemWrapper}>
+									<Text style={styles.itemTitle}>{item.title}</Text>
 
-								<View style={styles.buttonsWrapper}>
-									<Button
-										disabled={tablesStore.loading}
-										style={[styles.button]}
-										title={i18n.t("buttons.change")}
-										onPress={() => navigation.navigate("update", item)}
-									/>
-									<Button
-										disabled={tablesStore.loading}
-										style={[styles.button]}
-										title={i18n.t("buttons.report")}
-										onPress={() => navigation.navigate("report", item)}
-									/>
-									<Button
-										disabled={tablesStore.loading}
-										style={[styles.button]}
-										title={i18n.t("buttons.expense_add")}
-										onPress={() => navigation.navigate("upsert-expense", { table: item })}
-									/>
+									<View style={styles.buttonsWrapper}>
+										<Button
+											disabled={tablesStore.loading}
+											style={[styles.button]}
+											title={i18n.t("buttons.change")}
+											onPress={() => navigation.navigate("update", item)}
+										/>
+										<Button
+											disabled={tablesStore.loading}
+											style={[styles.button]}
+											title={i18n.t("buttons.report")}
+											onPress={() => navigation.navigate("report", item)}
+										/>
+										<Button
+											disabled={tablesStore.loading}
+											style={[styles.button]}
+											title={i18n.t("buttons.expense_add")}
+											onPress={() => navigation.navigate("upsert-expense", { table: item })}
+										/>
+									</View>
 								</View>
-							</View>
-						)}
-						keyExtractor={(item) => item.id}
+							)}
+							keyExtractor={(item) => item.id}
+						/>
+					)}
+				</View>
+				<View style={styles.buttonsWrapper}>
+					<Button
+						disabled={tablesStore.loading}
+						style={[styles.button]}
+						title={i18n.t("buttons.drop")}
+						onPress={async () => {
+							await AppService.drop()
+						}}
 					/>
-				)}
+					<Button
+						disabled={newCategoryStore.loading}
+						title={i18n.t("buttons.category_add")}
+						color="#68ad6e"
+						style={[styles.button]}
+						onPress={() => navigation.navigate("new-category")}
+					/>
+					<Button
+						disabled={newCategoryStore.loading}
+						title={i18n.t("buttons.tags")}
+						color="#68ad6e"
+						style={[styles.button]}
+						onPress={() => navigation.navigate("tags")}
+					/>
+				</View>
 			</View>
-			<View style={styles.buttonsWrapper}>
-				<Button
-					disabled={tablesStore.loading}
-					style={[styles.button]}
-					title={i18n.t("buttons.drop")}
-					onPress={async () => {
-						await AppService.drop()
-					}}
-				/>
-				<Button
-					disabled={newCategoryStore.loading}
-					title={i18n.t("buttons.category_add")}
-					color="#68ad6e"
-					style={[styles.button]}
-					onPress={() => navigation.navigate("new-category")}
-				/>
-				<Button
-					disabled={newCategoryStore.loading}
-					title={i18n.t("buttons.tags")}
-					color="#68ad6e"
-					style={[styles.button]}
-					onPress={() => navigation.navigate("tags")}
-				/>
-			</View>
-			<FlashMessage position="top" />
-		</View>
+		</ScreenLayout>
 	)
 }
-
-
 
 export default memo(Main)

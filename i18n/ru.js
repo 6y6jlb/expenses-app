@@ -11,7 +11,6 @@ export default {
 		tags: "Теги",
 		save: "Сохранить",
 		export: "Экспорт",
-		back: "Назад",
 	},
 	expenses: {
 		new: "Новая трата",
@@ -76,4 +75,8 @@ export default {
 		week: "За одну неделю",
 		current_month: "За этот месяц",
 	},
+	notification: {
+		table_update_success: "Таблица успешно изменена",
+		table_update_error: "Ошибка при изменении таблицы",
+	}
 }
