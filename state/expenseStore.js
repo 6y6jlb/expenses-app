@@ -25,35 +25,40 @@ export const useExpenseStore = create((set, get) => ({
 		const tags = Array.from(await tag.select())
 		const data = { categories, tags }
 
-		if (params.table?.id) {
-			table = Array.from(useTableStore.getState().tables).find((el) => el.id === params.table.id)
+		try {
+			if (params.table?.id) {
+				table = Array.from(useTableStore.getState().tables).find((el) => el.id === params.table.id)
 
-			data["tableId"] = params.table.id
-			data["date"] = new Date()
-			data["amount"] = "1"
-			data["currency"] = table.currency
-			data["tableCurrency"] = table.currency
-			data["categoryId"] = categories[0].id
-			data["description"] = ""
-			data["selectedTags"] = []
-		} else if (params.expense?.id) {
-			const expense = (await new Expenses().select({ id: params.expense.id }))[0]
-			table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
-			const tags = await tag.select()
-			const preSelectedTags = await new ExpenseTags().select({ expense_id: expense.id }).map((el) => el.tag_id)
+				data["tableId"] = params.table.id
+				data["date"] = new Date()
+				data["amount"] = "1"
+				data["currency"] = table.currency
+				data["tableCurrency"] = table.currency
+				data["categoryId"] = categories[0].id
+				data["description"] = ""
+				data["selectedTags"] = []
+			} else if (params.expense?.id) {
+				const expense = (await new Expenses().select({ id: params.expense.id }))[0]
+				table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
+				const tags = await tag.select()
+				const expenseTags = await new ExpenseTags().select({ expense_id: expense.id })
+				const expensesTagsIds = expenseTags.map((el) => el.tag_id)
 
-			data["expenseId"] = expense.id
-			data["date"] = new Date(expense.created_at * 1000)
-			data["amount"] = expense.amount
-			data["currency"] = expense.currency
-			data["tableCurrency"] = table.currency
-			data["categoryId"] = expense.category_id
-			data["description"] = expense.description ?? ""
-			data["tags"] = tags.map((el) => ({ ...el, selected: preSelectedTags.includes(el.id) }))
+				data["expenseId"] = expense.id
+				data["date"] = new Date(expense.created_at * 1000)
+				data["amount"] = String(expense.amount)
+				data["currency"] = expense.currency
+				data["tableCurrency"] = table.currency
+				data["categoryId"] = expense.category_id
+				data["description"] = expense.description ?? ""
+				data["tags"] = tags.map((el) => ({ ...el, selected: expensesTagsIds.includes(el.id) }))
+			}
+		} catch (error) {
+			console.log(error)
+		} finally {
+			set({ data: data })
+			set({ loading: false })
 		}
-
-		set({ data: data })
-		set({ loading: false })
 	},
 	submit: async () => {
 		set({ loading: true })
@@ -87,7 +92,7 @@ export const useExpenseStore = create((set, get) => ({
 				await useTableStore.getState().init()
 			}
 			set({ loading: false })
-			set({ data: { ...get().data, amount: '1', description: '', selectedTags: [] } })
+			set({ data: { ...get().data, amount: "1", description: "", selectedTags: [] } })
 		}
 	},
 	updateFormValues: (key, value) => {

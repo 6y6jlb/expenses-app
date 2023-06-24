@@ -36,7 +36,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 				</ScrollView>
 
 				<View style={styles.buttonsWrapper}>
-					{!route.params.expense.id && (
+					{!route.params.expense?.id && (
 						<Button
 							disabled={store.loading}
 							title={i18n.t("buttons.save_and_stay")}

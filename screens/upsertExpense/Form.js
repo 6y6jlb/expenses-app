@@ -37,7 +37,7 @@ export default function Form({ updateFormValues, data }) {
 					/>
 				) : (
 					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
-						<Text style={styles.input}>{data.date.toLocaleString()}</Text>
+						<Text style={styles.input}>{data.date?.toLocaleString()}</Text>
 					</TouchableOpacity>
 				)}
 			</View>
