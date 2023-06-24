@@ -1,6 +1,8 @@
 import { create } from "zustand"
 import CategoryService from "../services/CategoryService"
-import ExpenseCategories from "../database/ExpenseCategories"
+import { ExpenseCategories } from "../database/ExpenseCategories"
+import i18n from "../i18n/configuration"
+import { showMessage } from "react-native-flash-message"
 
 export const useCategoryStore = create((set, get) => ({
 	categories: [],
@@ -17,10 +19,12 @@ export const useCategoryStore = create((set, get) => ({
 	remove: async () => {
 		try {
 			set({ loading: true })
-			await ExpenseCategories.delete({ id: get().selectedCategories })
+			await new ExpenseCategories().delete({ id: get().selectedCategories })
+			showMessage({ type: "success", message: i18n.t("notification.category_remove_success") })
 			await get().fetch()
 		} catch (error) {
 			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.category_remove_error") })
 		} finally {
 			set({ loading: false })
 		}

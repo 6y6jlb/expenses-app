@@ -21,7 +21,7 @@ const Main = ({ route, navigation }) => {
 	}, [])
 
 	return (
-		<ScreenLayout>
+
 			<View style={global.card}>
 				<Text style={global.title}>Main</Text>
 				<View style={global.content}>
@@ -85,7 +85,7 @@ const Main = ({ route, navigation }) => {
 					/>
 				</View>
 			</View>
-		</ScreenLayout>
+
 	)
 }
 

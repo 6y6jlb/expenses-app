@@ -1,7 +1,9 @@
 import { create } from "zustand"
-import ExpenseCategories from "../database/ExpenseCategories"
+import {ExpenseCategories} from "../database/ExpenseCategories"
 import { ExpenseCategoriesDTO } from "../services/dto/expenseCategoriesDTO"
 import { useCategoryStore } from "./categoryStore"
+import i18n from "../i18n/configuration"
+import { showMessage } from "react-native-flash-message"
 
 export const useNewCategoryStore = create((set, get) => ({
 	data: {
@@ -18,11 +20,13 @@ export const useNewCategoryStore = create((set, get) => ({
 		set({ loading: true })
 		try {
 			const data = get().data
-			await ExpenseCategories.store(new ExpenseCategoriesDTO(null, data.title, data.description))
+			await new ExpenseCategories().store(new ExpenseCategoriesDTO(null, data.title, data.description))
+			showMessage({ type: "success", message: i18n.t("notification.category_save_success") })
 			await useCategoryStore.getState().fetch()
-			set({ loading: false })
 		} catch (error) {
 			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.category_save_error") })
+		} finally {
 			set({ loading: false })
 		}
 	},

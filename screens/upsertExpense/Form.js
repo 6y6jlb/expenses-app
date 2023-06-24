@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { Platform, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { Picker } from "@react-native-picker/picker"
 import DateTimePicker from "@react-native-community/datetimepicker"
@@ -11,10 +11,15 @@ import i18n from "../../i18n/configuration"
 export default function Form({ updateFormValues, data }) {
 	const [showDatePicker, setShowDatePicker] = useState(false)
 
+	const selectedTags = useMemo(
+		() => (data.tags.length ? data.tags.filter((el) => el.selected).map((el) => el.id) : []),
+		[data]
+	)
+
 	const toggle = (value) => {
-		const newTags = data.tags.map(el=>{
-			return el.id === value.id ? {...el, selected: !el.selected} : el
-		});
+		const newTags = data.tags.map((el) => {
+			return el.id === value.id ? { ...el, selected: !el.selected } : el
+		})
 		updateFormValues("tags", newTags)
 	}
 
@@ -78,7 +83,7 @@ export default function Form({ updateFormValues, data }) {
 					onChangeText={(value) => updateFormValues("description", value)}
 				/>
 			</View>
-			<Tags toggle={toggle} selectedIds={data.tags.filter(el=>el.selected).map((el) => el.id)} />
+			<Tags toggle={toggle} selectedIds={selectedTags} />
 			{showDatePicker && (
 				<DateTimePicker
 					value={data.date}

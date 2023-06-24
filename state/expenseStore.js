@@ -3,12 +3,13 @@ import { create } from "zustand"
 import { ExpenseTags } from "../database/ExpenseTags"
 import { Expenses } from "../database/Expenses"
 import { Tag } from "../database/Tags"
-import Exchange from "../http/Exchange"
 import ExpensesService from "../services/ExpensesService"
 import { ExpensesDTO } from "../services/dto/expensesDTO"
 import { useCategoryStore } from "./categoryStore"
 import { useReportStore } from "./reportStore"
 import { useTableStore } from "./tableStore"
+import i18n from "../i18n/configuration"
+import { showMessage } from "react-native-flash-message"
 
 export const useExpenseStore = create((set, get) => ({
 	data: {},
@@ -39,7 +40,7 @@ export const useExpenseStore = create((set, get) => ({
 			const expense = (await new Expenses().select({ id: params.expense.id }))[0]
 			table = Array.from(useTableStore.getState().tables).find((el) => el.id === expense.expenses_table_id)
 			const tags = await tag.select()
-			const preSelectedTags = await (new ExpenseTags().select({ expense_id: expense.id })).map((el) => el.tag_id)
+			const preSelectedTags = await new ExpenseTags().select({ expense_id: expense.id }).map((el) => el.tag_id)
 
 			data["expenseId"] = expense.id
 			data["date"] = new Date(expense.created_at * 1000)
@@ -57,29 +58,37 @@ export const useExpenseStore = create((set, get) => ({
 	submit: async () => {
 		set({ loading: true })
 		const data = get().data
-		if (data.currency !== data.tableCurrency) {
-			data.amount = await Exchange.get({ count: data.amount, target: data.currency, current: data.tableCurrency })
+		try {
+			// backend current ssl issue with react-native
+			// if (data.currency !== data.tableCurrency) {
+			// 	data.amount = await Exchange.get({ count: data.amount, target: data.currency, current: data.tableCurrency })
+			// }
+
+			const expensesDTO = new ExpensesDTO(
+				data.expenseId ?? null,
+				data.amount,
+				moment(data.date).format("X"),
+				data.tableId ?? null,
+				data.categoryId,
+				data.tableCurrency,
+				data.description,
+				data.tags.filter((el) => el.selected)
+			)
+
+			await ExpensesService.handle(expensesDTO)
+			showMessage({ type: "success", message: i18n.t("notification.expense_save_success") })
+		} catch (error) {
+			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.expense_save_error") })
+		} finally {
+			if (data.expenseId) {
+				await useReportStore.getState().fetch()
+			} else {
+				await useTableStore.getState().init()
+			}
+			set({ loading: false })
+			set({ data: { ...get().data, amount: '1', description: '', selectedTags: [] } })
 		}
-
-		const expensesDTO = new ExpensesDTO(
-			data.expenseId ?? null,
-			data.amount,
-			moment(data.date).format("X"),
-			data.tableId ?? null,
-			data.categoryId,
-			data.tableCurrency,
-			data.description,
-			data.tags.filter((el) => el.selected)
-		)
-
-		await ExpensesService.handle(expensesDTO)
-		if (data.expenseId) {
-			await useReportStore.getState().fetch()
-		} else {
-			await useTableStore.getState().init()
-		}
-
-		set({ loading: false })
 	},
 	updateFormValues: (key, value) => {
 		set({ data: { ...get().data, [key]: value } })

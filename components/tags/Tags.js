@@ -13,6 +13,7 @@ const Tags = ({ toggle = () => {}, selectedIds = [] }) => {
 	}, [])
 
 	return (
+		
 		<View style={styles.container}>
 			{store.tags.map((tag, index) => {
 				return (

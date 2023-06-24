@@ -4,13 +4,13 @@ import { useCallback } from "react"
 import { SafeAreaView, StyleSheet } from "react-native"
 import Navigator from "./components/navigation/Navigator"
 import { global } from "./styles/styles"
-import i18n from "./i18n/configuration";
+import i18n from "./i18n/configuration"
 import * as Localization from "expo-localization"
+import ScreenLayout from "./layouts/ScreenLayout"
 
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-	
 	i18n.locale = Localization.locale
 
 	const [fontsLoaded] = useFonts({
@@ -30,7 +30,9 @@ export default function App() {
 	}
 	return (
 		<SafeAreaView onLayout={onLayoutRootView} style={global.container}>
-			<Navigator />
+			<ScreenLayout>
+				<Navigator />
+			</ScreenLayout>
 		</SafeAreaView>
 	)
 }

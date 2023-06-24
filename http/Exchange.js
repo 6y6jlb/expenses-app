@@ -1,6 +1,7 @@
 import { SERVICE } from "../config/consts"
 
 class Exchange {
+	
 	constructor() {}
 
 	async get(params) {
@@ -12,7 +13,7 @@ class Exchange {
 
 		
 		try {
-			const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+			const response = await fetch(url)
             const json = await response.json()
 			
             return json

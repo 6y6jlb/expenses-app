@@ -1,10 +1,12 @@
 import { create } from "zustand"
 import { REPORT_GROUPS, REPORT_PERIODS } from "../config/consts"
-import {ExpenseCategories} from "../database/ExpenseCategories"
-import {Expenses} from "../database/Expenses"
+import { ExpenseCategories } from "../database/ExpenseCategories"
+import { Expenses } from "../database/Expenses"
 import { mapReportData } from "../helpers/report"
 import DateTimeService from "../services/DateTimeService"
 import ExportService from "../services/ExportService"
+import i18n from "../i18n/configuration"
+import { showMessage } from "react-native-flash-message"
 
 export const useReportStore = create((set, get) => ({
 	headers: [],
@@ -39,14 +41,14 @@ export const useReportStore = create((set, get) => ({
 		const period = DateTimeService.getDatePeriod(filters.period)
 
 		const expenses = Array.from(
-			await (new Expenses()).byGroup(filters.group, {
+			await new Expenses().byGroup(filters.group, {
 				expenses_table_id: get().tableId,
 				from: period.from,
 				to: period.to,
 			})
 		)
 
-		const categories = Array.from(await (new ExpenseCategories()).select())
+		const categories = Array.from(await new ExpenseCategories().select())
 		const { headers, rows, titles } = mapReportData({ filters, categories, expenses })
 
 		set({ titles, rows, headers })
@@ -61,9 +63,12 @@ export const useReportStore = create((set, get) => ({
 				["", ...get().headers],
 				...get().rows.map((el, index) => [titles[index], ...el]),
 			])
+			showMessage({ type: "success", message: i18n.t("notification.report_export_success") })
 		} catch (error) {
-			console.warn(error)
+			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.report_export_error") })
+		} finally {
+			set({ loading: false })
 		}
-		set({ loading: false })
 	},
 }))

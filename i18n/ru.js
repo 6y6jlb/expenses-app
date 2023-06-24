@@ -10,6 +10,8 @@ export default {
 		back: "Назад",
 		tags: "Теги",
 		save: "Сохранить",
+		save_and_quit: "Сохранить и выйти",
+		save_and_stay: "Сохранить и остаться",
 		export: "Экспорт",
 	},
 	expenses: {
@@ -76,7 +78,17 @@ export default {
 		current_month: "За этот месяц",
 	},
 	notification: {
-		table_update_success: "Таблица успешно изменена",
-		table_update_error: "Ошибка при изменении таблицы",
+		table_save_success: "Таблица успешно изменена",
+		table_save_error: "Ошибка при изменении таблицы",
+		tag_save_success: "Тег успешно сохранен",
+		tag_save_error: "Ошибка при сохранении тега",
+		category_save_success: "Категория успешно сохранена",
+		category_save_error: "Ошибка при сохранении категории",
+		category_remove_success: "Категория успешно удалена",
+		category_remove_error: "Ошибка при удалении категории",
+		report_export_success: "Данные успешно экспортированны",
+		report_export_error: "Ошибка при экспорте данных",
+		expense_save_success: "Данные успешно сохранены",
+		expense_save_error: "Ошибка при сохранении",
 	}
 }

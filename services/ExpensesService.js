@@ -1,14 +1,13 @@
-import ExpenseTable from "../database/ExpenseTables"
-import ExpenseTags from "../database/ExpenseTags"
-import Expenses from "../database/Expenses"
+import { ExpenseTable } from "../database/ExpenseTables"
+import { ExpenseTags } from "../database/ExpenseTags"
+import { Expenses } from "../database/Expenses"
 
 class ExpenseTablesService {
 	constructor() {
-		this.expenseTables = ExpenseTable
-		this.expenses = Expenses
-		this.expenseTags = ExpenseTags
+		this.expenseTables = new ExpenseTable()
+		this.expenses = new Expenses()
+		this.expenseTags = new ExpenseTags()
 	}
-
 
 	async handle(dto) {
 		try {
