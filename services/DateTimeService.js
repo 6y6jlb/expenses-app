@@ -11,13 +11,13 @@ class DateTimeService {
 		}
 		switch (periodKey) {
 			case REPORT_PERIODS.MONTH:
-				period.to = moment().subtract(1, "month")
+				period.to = moment().startOf('month')
 				break
 			case REPORT_PERIODS.DAY:
-				period.to = moment().subtract(1, "day")
+				period.to = moment().startOf("day")
 				break
 			case REPORT_PERIODS.YEAR:
-				period.to = moment().subtract(1, "year")
+				period.to = moment().startOf("year")
 				break
 			default:
 				break

@@ -38,7 +38,7 @@ export class Expenses extends AbstractDatabase {
 		}
 
 		if (where) {
-			this.where = " WHERE e.created_at BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
+			this.where = " WHERE date BETWEEN " + where.to.format("X") + " AND " + where.from.format("X")
 		}
 
 		return this.db.execute(dto.selectSqlStatement())

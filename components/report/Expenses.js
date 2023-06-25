@@ -1,10 +1,10 @@
 import React, { memo } from "react"
-import { ScrollView, View, TouchableOpacity, Text, Pressable, Button } from "react-native"
-import { Cell, Col, Row, Table, TableWrapper } from "react-native-table-component"
-import NoData from "../noData/NoData"
-import { styles } from "./styles"
+import { Button, ScrollView, Text, View } from "react-native"
+import { Cell, Row, Table, TableWrapper } from "react-native-table-component"
 import { getArrWidth } from "../../helpers/report"
 import i18n from "../../i18n/configuration"
+import NoData from "../noData/NoData"
+import { styles } from "./styles"
 
 const Expenses = ({ data, onChange, onRemove }) => {
 	if (data.tableHead.length < 1) {
@@ -16,7 +16,7 @@ const Expenses = ({ data, onChange, onRemove }) => {
 	const firstRowElement = (cellData, index) => (
 		<View style={styles.cell}>
 			<Button
-				style={styles.button}
+				color="#cc8e37"
 				onPress={() => onChange(cellData)}
 				title={cellData + "." + i18n.t("buttons.change")}
 			/>
@@ -27,7 +27,7 @@ const Expenses = ({ data, onChange, onRemove }) => {
 		if (showLastItemView) {
 			return (
 				<View style={styles.cell}>
-					<Button style={styles.button} color="#FFF1C1" onPress={() => onRemove(cellData)} title={"❌"} />
+					<Button color="#FFF1C1" onPress={() => onRemove(cellData)} title={"❌"} />
 				</View>
 			)
 		} else {

@@ -76,6 +76,7 @@ export const useReportStore = create((set, get) => ({
 		set({ loading: true })
 		try {
 			await new Expenses().delete({id: expenseId})
+			await get().fetch()
 			showMessage({ type: "success", message: i18n.t("notification.report_expense_delete_success") })
 		} catch (error) {
 			console.log(error)

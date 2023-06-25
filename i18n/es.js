@@ -71,12 +71,12 @@ export default {
 		},
 	},
 	periods: {
-		all_time: "Todo el Tiempo",
-		day: "Un Día",
-		month: "Un Mes",
-		year: "Un Año",
-		week: "Una Semana",
-		current_month: "Este Mes",
+		all_time: "Todo el tiempo",
+		day: "Hoy",
+		month: "Este mes",
+		year: "Este año",
+		week: "Esta semana",
+		"30_days": "Últimos 30 días",
 	},
 	notification: {
 		table_save_success: "Table successfully saved",

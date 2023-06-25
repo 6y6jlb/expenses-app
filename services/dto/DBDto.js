@@ -16,7 +16,6 @@ export class DBDto {
 
 	selectSqlStatement() {
 		if (!(this.select && this.from)) {
-			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
 		return `${this.select} ${this.from} ${this.join} ${this.where} ${this.group} ${this.order};`
@@ -24,7 +23,6 @@ export class DBDto {
 
 	insertSqlStatement() {
 		if (!(this.insert && this.values)) {
-			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
 		return `${this.insert} ${this.values} ${this.where};`
@@ -32,7 +30,6 @@ export class DBDto {
 
 	updateSqlStatement() {
 		if (!(this.update && this.set)) {
-			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
 		return `${this.update} ${this.set} ${this.where};`
@@ -40,9 +37,8 @@ export class DBDto {
 
 	deleteSqlStatement() {
 		if (!this.delete) {
-			console.log(this)
 			throw new Error("Incorrect db statement")
 		}
-		return `${this.update} ${this.where};`
+		return `${this.delete} ${this.where};`
 	}
 }

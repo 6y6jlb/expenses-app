@@ -72,11 +72,11 @@ export default {
 	},
 	periods: {
 		all_time: "All Time",
-		day: "One Day",
-		month: "One Month",
-		year: "One Year",
-		week: "One Week",
-		current_month: "This Month",
+		day: "Today",
+		month: "This Month",
+		year: "This Year",
+		week: "This Week",
+		"30_days": "Last 30 Days",
 	},
 	notification: {
 		table_save_success: "Table successfully saved",

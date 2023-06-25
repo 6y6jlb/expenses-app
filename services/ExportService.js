@@ -47,6 +47,7 @@ class ExportService {
 		const fileUri = `${FileSystem.cacheDirectory}${name}.xlsx`
 		try {
 			const worksheet = XLSX.utils.aoa_to_sheet(data)
+			worksheet['!cols'] = this.fitToColumn(data);
 			const workbook = XLSX.utils.book_new()
 			XLSX.utils.book_append_sheet(workbook, worksheet, "Reports")
 			const wbout = await XLSX.write(workbook, { type: "base64", bookType: "xlsx" })
@@ -77,7 +78,6 @@ class ExportService {
 	}
 
 	async export(data) {
-		console.log(data)
 		const fileName = `${moment().format(DEFAULT_DAY_FORMAT)}`
 		try {
 			// await this.checkPermissions()
@@ -93,6 +93,11 @@ class ExportService {
 		} catch (error) {
 			console.log("Error export file:", error)
 		}
+	}
+
+	fitToColumn(arrayOfArray) {
+		// get maximum character of each column
+		return arrayOfArray[0].map((a, i) => ({ wch: Math.max(...arrayOfArray.map(a2 => a2[i] ? a2[i].toString().length : 0)) }));
 	}
 
 }

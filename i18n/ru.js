@@ -72,11 +72,11 @@ export default {
 	},
 	periods: {
 		all_time: "За все время",
-		day: "За один день",
-		month: "За один месяц",
-		year: "За один год",
-		week: "За одну неделю",
-		current_month: "За этот месяц",
+		day: "За сегодня",
+		month: "За этот месяц",
+		year: "За этот год",
+		week: "За эту неделю",
+		"30_days": "За этот месяц",
 	},
 	notification: {
 		table_save_success: "Таблица успешно изменена",
