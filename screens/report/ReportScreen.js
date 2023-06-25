@@ -85,6 +85,7 @@ const ReportScreen = ({ route, navigation }) => {
 							tableTitle: store.report.titles,
 						},
 						onChange: (id) => navigation.navigate("upsert-expense", { expense: { id } }),
+						onRemove: (id) => store.remove(id),
 					})
 				)}
 			</View>

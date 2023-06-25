@@ -13,7 +13,6 @@ export class MigrationService {
 				const migration = new migrationClass()
 				await migration.up()
 				if (await this.allowStore(migrationClass.name)) {
-					console.log(migrationClass.name)
 					await this.db.store({ name: migrationClass.name })
 				}
 			})
@@ -23,7 +22,7 @@ export class MigrationService {
 	}
 
 	async allowStore(name) {
-		const result = await this.db.select(name)
-		return !!result.length
+		const result = await this.db.select({name})
+		return !result.length
 	}
 }

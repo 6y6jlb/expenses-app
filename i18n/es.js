@@ -26,6 +26,7 @@ export default {
 		category: "Categoría",
 		exchange_rate: "Tipo de Cambio",
 		date: "Fecha",
+		amount: "Cantidad",
 	},
 	table: {
 		change: "Cambiar Tabla",
@@ -52,6 +53,7 @@ export default {
 			currency: "Moneda",
 			description: "Descripción",
 			tags: "Etiquetas",
+			empty: "",
 		},
 	},
 	category: {
@@ -89,5 +91,7 @@ export default {
 		report_export_error: "Error exporting data",
 		expense_save_success: "Data successfully saved",
 		expense_save_error: "Error saving data",
+		report_expense_delete_success: "Gasto eliminado",
+		report_expense_delete_error: "Error al eliminar el gasto",
 	},
 }

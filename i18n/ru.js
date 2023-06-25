@@ -25,11 +25,11 @@ export default {
 		category: "Категория",
 		exchange_rate: "Обменный курс",
 		date: "Дата",
+		amount: "Сумма",
 	},
 	table: {
 		change: "Изменение таблицы",
-		exchange_rate_hint: "Курс обмена {{current}} на {{target}}"
-		
+		exchange_rate_hint: "Курс обмена {{current}} на {{target}}",
 	},
 	tags: {
 		title: "Теги",
@@ -53,6 +53,7 @@ export default {
 			currency: "Валюта",
 			description: "Описание",
 			tags: "Теги",
+			empty: "",
 		},
 	},
 	category: {
@@ -90,5 +91,7 @@ export default {
 		report_export_error: "Ошибка при экспорте данных",
 		expense_save_success: "Данные успешно сохранены",
 		expense_save_error: "Ошибка при сохранении",
-	}
+		report_expense_delete_success: "Трата удалена",
+		report_expense_delete_error: "Ошибка при удалении траты",
+	},
 }

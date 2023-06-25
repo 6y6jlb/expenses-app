@@ -71,4 +71,17 @@ export const useReportStore = create((set, get) => ({
 			set({ loading: false })
 		}
 	},
+
+	remove: async (expenseId) => {
+		set({ loading: true })
+		try {
+			await new Expenses().delete({id: expenseId})
+			showMessage({ type: "success", message: i18n.t("notification.report_expense_delete_success") })
+		} catch (error) {
+			console.log(error)
+			showMessage({ type: "danger", message: i18n.t("notification.report_expense_delete_error") })
+		} finally {
+			set({ loading: false })
+		}
+	}
 }))

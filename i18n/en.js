@@ -22,6 +22,7 @@ export default {
 	form: {
 		title: "Name",
 		description: "Description",
+		amount: "Amount",
 		currency: "Currency",
 		category: "Category",
 		exchange_rate: "Exchange Rate",
@@ -52,6 +53,7 @@ export default {
 			currency: "Currency",
 			description: "Description",
 			tags: "Tags",
+			empty: "",
 		},
 	},
 	category: {
@@ -89,5 +91,7 @@ export default {
 		report_export_error: "Error exporting data",
 		expense_save_success: "Data successfully saved",
 		expense_save_error: "Error saving data",
+		report_expense_delete_success: "Expense deleted",
+		report_expense_delete_error: "Error deleting expense",
 	},
 }
