@@ -6,7 +6,6 @@ import { useTableStore } from "../../state/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
 import i18n from "../../i18n/configuration"
-import ScreenLayout from "../../layouts/ScreenLayout"
 
 const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
@@ -20,6 +19,7 @@ const Main = ({ route, navigation }) => {
 		init()
 	}, [])
 
+	
 	return (
 
 			<View style={global.card}>

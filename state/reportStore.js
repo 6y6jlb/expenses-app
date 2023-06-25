@@ -2,26 +2,28 @@ import { create } from "zustand"
 import { REPORT_GROUPS, REPORT_PERIODS } from "../config/consts"
 import { ExpenseCategories } from "../database/ExpenseCategories"
 import { Expenses } from "../database/Expenses"
-import { mapReportData } from "../helpers/report"
+import { mapExportData, mapReportData } from "../helpers/report"
 import DateTimeService from "../services/DateTimeService"
 import ExportService from "../services/ExportService"
 import i18n from "../i18n/configuration"
 import { showMessage } from "react-native-flash-message"
 
 export const useReportStore = create((set, get) => ({
-	headers: [],
-	categories: [],
-	rows: [],
-	titles: [],
 	tableId: null,
+	report: {
+		headers: [],
+		rows: [],
+		titles: [],
+	},
+	data: {
+		categories: [],
+		expenses: [],
+	},
 	filters: {
 		group: REPORT_GROUPS.DAY,
 		period: REPORT_PERIODS.MONTH,
 	},
 	loading: false,
-	setTables: (tables) => {
-		set({ tables: [...tables] })
-	},
 
 	setFilter: async (key, value) => {
 		set({ filters: { ...get().filters, [key]: value } })
@@ -49,20 +51,18 @@ export const useReportStore = create((set, get) => ({
 		)
 
 		const categories = Array.from(await new ExpenseCategories().select())
-		const { headers, rows, titles } = mapReportData({ filters, categories, expenses })
 
-		set({ titles, rows, headers })
+		const data = { categories, expenses }
+		const { headers, rows, titles } = mapReportData({filters, ...data})
+
+		set({ data })
+		set({ report: { titles, rows, headers } })
 		set({ loading: false })
 	},
 	export: async () => {
 		set({ loading: true })
 		try {
-			const titles = get().titles
-
-			await ExportService.export([
-				["", ...get().headers],
-				...get().rows.map((el, index) => [titles[index], ...el]),
-			])
+			await ExportService.export(mapExportData({filters: get().filters,...get().data}))
 			showMessage({ type: "success", message: i18n.t("notification.report_export_success") })
 		} catch (error) {
 			console.log(error)

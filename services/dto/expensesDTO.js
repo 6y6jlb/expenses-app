@@ -1,7 +1,7 @@
 export class ExpensesDTO {
 	constructor(id, amount, created_at, expenses_table_id, category_id, currency, description, tags) {
 		this.id = id
-		this.amount = amount
+		this.amount = String(amount).replace(',','.')
 		this.created_at = created_at
 		this.expenses_table_id = expenses_table_id
 		this.category_id = category_id
@@ -10,7 +10,7 @@ export class ExpensesDTO {
 		this.tags = tags
 	}
 
-	toModel() {
+	toArray() {
 		return {
 			amount: this.amount,
 			created_at: this.created_at,

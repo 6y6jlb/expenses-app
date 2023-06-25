@@ -80,9 +80,9 @@ const ReportScreen = ({ route, navigation }) => {
 				) : (
 					getReportComponent(store.filters.group, {
 						data: {
-							tableHead: store.headers,
-							tableData: store.rows,
-							tableTitle: store.titles,
+							tableHead: store.report.headers,
+							tableData: store.report.rows,
+							tableTitle: store.report.titles,
 						},
 						onChange: (id) => navigation.navigate("upsert-expense", { expense: { id } }),
 					})

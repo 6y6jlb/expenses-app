@@ -12,11 +12,11 @@ class ExpenseTablesService {
 	async handle(dto) {
 		try {
 			if (dto.id) {
-				await this.expenses.update(dto.toModel(), { id: dto.id })
+				await this.expenses.update(dto.toArray(), { id: dto.id })
 
 				await this.expenseTags.delete({ expense_id: dto.id })
 			} else {
-				dto.id = await this.expenses.store(dto.toModel())
+				dto.id = await this.expenses.store(dto.toArray())
 			}
 
 			dto.tags.forEach(async (el) => {

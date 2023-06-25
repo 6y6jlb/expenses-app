@@ -2,18 +2,22 @@ export const CURRENCIES = {
 	RUB: {
 		symbol: "₽",
 		label: "RUB",
+		format: "%n%u",
 	},
 	USD: {
 		symbol: "$",
 		label: "USD",
+		format: "%u%n",
 	},
 	GEL: {
 		symbol: "ლ",
 		label: "GEL",
+		format: "%n%u",
 	},
 	EUR: {
 		symbol: "€",
 		label: "EUR",
+		format: "%u%n",
 	},
 }
 

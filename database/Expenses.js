@@ -24,7 +24,7 @@ export class Expenses extends AbstractDatabase {
 			case REPORT_GROUPS.DAY:
 				dto.group = " GROUP BY date, category_id, currency"
 				dto.select =
-					"SELECT DISTINCT DATE(created_at, 'unixepoch') as date, SUM(amount) as amount, category_id, currency"
+					"SELECT DISTINCT DATE(created_at, 'unixepoch') as date, SUM(amount) AS amount, category_id, currency"
 				break
 
 			default:

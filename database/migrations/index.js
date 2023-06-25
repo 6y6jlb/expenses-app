@@ -4,6 +4,7 @@ import { CreateExpenseTagsMigration } from "./createExpenseTagsTableMigration";
 import { CreateExpensesTableMigration } from "./createExpensesTableMigration";
 import { CreateMigrationsTableMigration } from "./createMigrationsTableMigration";
 import { CreateTagsTableMigration } from "./createTagsTableMigration";
+import { UpdateExpenseTableAmountFormatMigration } from "./updateExpenseTableAmountFormatMigration";
 
 
 export const migrations = [
@@ -12,5 +13,6 @@ export const migrations = [
     CreateExpensesTableMigration,
     CreateExpenseCategoriesTableMigration,
     CreateTagsTableMigration,
-    CreateExpenseTagsMigration
+    CreateExpenseTagsMigration,
+    UpdateExpenseTableAmountFormatMigration
 ]
