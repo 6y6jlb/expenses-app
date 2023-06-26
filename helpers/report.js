@@ -12,16 +12,18 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 	const tableCategories = new Set(expenses.map((el) => el.category_id))
 	const filteredCategories = categories.filter((el) => tableCategories.has(el.id))
 
-	let result = {
+	let report = {
 		headers: [],
 		rows: [],
 		titles: [],
 	}
 
+	let summary = {}
 	switch (filters.group) {
 		case REPORT_GROUPS.DAY:
 			for (const date in timeseries) {
 				filteredCategories.forEach((el) => {
+					summary[el.title] = 0
 					timeseries[date][el.id] = 0
 				})
 			}
@@ -36,21 +38,31 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 						}),
 					}
 				}
+				const summaryKey = filteredCategories.find((cat) => cat.id === el.category_id).title
+				summary[summaryKey] += +(el.amount) ?? 0
 			})
 
 			for (const date in timeseries) {
 				timeseries[date] = Object.values(timeseries[date])
-				result.titles.push(date)
+				report.titles.push(date)
 			}
-			result.rows = Object.values(timeseries)
-			result.headers = filteredCategories.map((el) => el.title)
+			report.rows = Object.values(timeseries)
+			report.headers = filteredCategories.map((el) => el.title)
+			summary[i18n.t(`report.headers.summary`)] = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
+
+			Object.keys(summary).forEach(key=> summary[key] =   i18n.numberToCurrency(
+				summary[key],
+				{
+					unit: CURRENCIES[expenses[0].currency].symbol,
+					format: CURRENCIES[expenses[0].currency].format,
+				}))
 
 			break
 
 		default:
-			result.headers = EXPENSE_COLUMNS_REPORT.map((el) => i18n.t(`report.headers.${el}`))
-			result.titles = expenses.map((el) => el.id)
-			result.rows = expenses.map((el) => {
+			report.headers = EXPENSE_COLUMNS_REPORT.map((el) => i18n.t(`report.headers.${el}`))
+			report.titles = expenses.map((el) => el.id)
+			report.rows = expenses.map((el) => {
 				el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)
 
 				return [
@@ -65,10 +77,19 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 					el.id,
 				]
 			})
+			summary = {
+				[i18n.t(`report.headers.summary`)]: i18n.numberToCurrency(
+					expenses.reduce((prev, curr) => (prev += curr.amount), 0),
+					{
+						unit: CURRENCIES[expenses[0].currency].symbol,
+						format: CURRENCIES[expenses[0].currency].format,
+					}
+				),
+			}
 			break
 	}
 
-	return result
+	return { report, summary }
 }
 
 export const getArrWidth = (headers, rows, additionalColumns = []) => {

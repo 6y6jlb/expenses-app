@@ -10,6 +10,7 @@ import { showMessage } from "react-native-flash-message"
 
 export const useReportStore = create((set, get) => ({
 	tableId: null,
+	summary: {},
 	report: {
 		headers: [],
 		rows: [],
@@ -53,10 +54,10 @@ export const useReportStore = create((set, get) => ({
 		const categories = Array.from(await new ExpenseCategories().select())
 
 		const data = { categories, expenses }
-		const { headers, rows, titles } = mapReportData({filters, ...data})
+		const { report, summary } = mapReportData({filters, ...data})
 
 		set({ data })
-		set({ report: { titles, rows, headers } })
+		set({ report, summary })
 		set({ loading: false })
 	},
 	export: async () => {

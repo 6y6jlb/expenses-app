@@ -54,6 +54,7 @@ export default {
 			description: "Descripción",
 			tags: "Etiquetas",
 			empty: "",
+			summary: "Resumen"
 		},
 	},
 	category: {

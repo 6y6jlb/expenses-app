@@ -54,6 +54,7 @@ export default {
 			description: "Description",
 			tags: "Tags",
 			empty: "",
+			summary: "Summary"
 		},
 	},
 	category: {

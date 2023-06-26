@@ -54,6 +54,7 @@ export default {
 			description: "Описание",
 			tags: "Теги",
 			empty: "",
+			summary: "Всего"
 		},
 	},
 	category: {
