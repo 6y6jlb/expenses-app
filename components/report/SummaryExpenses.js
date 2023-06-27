@@ -12,7 +12,7 @@ const SummaryExpenses = ({ data }) => {
 		<View style={styles.summaryContainer}>
 			{Object.entries(data).map((el, i) => {
 				return (
-					<View style={[styles.row, styles.between]}>
+					<View style={[styles.row, styles.between]} key={i}>
 						<Text style={styles.summaryKey}>{el[0]}:</Text>
 						<Text style={styles.summaryValue}>{el[1]}</Text>
 					</View>

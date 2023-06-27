@@ -18,6 +18,7 @@ export class DBDto {
 		if (!(this.select && this.from)) {
 			throw new Error("Incorrect db statement")
 		}
+
 		return `${this.select} ${this.from} ${this.join} ${this.where} ${this.group} ${this.order};`
 	}
 

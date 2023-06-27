@@ -4,6 +4,7 @@ import DateTimeService from "../services/DateTimeService"
 
 const EXPENSE_COLUMNS_REPORT = ["date", "category", "amount", "description", "tags", "empty"]
 const EXPENSE_COLUMNS_EXPORT = ["date", "category", "amount", "currency", "description", "tags"]
+
 export const mapReportData = ({ filters, categories, expenses }) => {
 	const period = DateTimeService.getDatePeriod(filters.period)
 
@@ -17,6 +18,10 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 		rows: [],
 		titles: [],
 	}
+
+	const summaryAmount = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
+	const currency = expenses[0] ? CURRENCIES[expenses[0].currency] : null
+
 
 	let summary = {}
 	switch (filters.group) {
@@ -32,14 +37,11 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 				if (timeseries[el.date]) {
 					timeseries[el.date] = {
 						...timeseries[el.date],
-						[el.category_id]: i18n.numberToCurrency(el.amount, {
-							unit: CURRENCIES[el.currency].symbol,
-							format: CURRENCIES[el.currency].format,
-						}),
+						[el.category_id]: numberToCurrency(el.amount, currency),
 					}
 				}
 				const summaryKey = filteredCategories.find((cat) => cat.id === el.category_id).title
-				summary[summaryKey] += +(el.amount) ?? 0
+				summary[summaryKey] += +el.amount ?? 0
 			})
 
 			for (const date in timeseries) {
@@ -50,12 +52,7 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 			report.headers = filteredCategories.map((el) => el.title)
 			summary[i18n.t(`report.headers.summary`)] = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
 
-			Object.keys(summary).forEach(key=> summary[key] =   i18n.numberToCurrency(
-				summary[key],
-				{
-					unit: CURRENCIES[expenses[0].currency].symbol,
-					format: CURRENCIES[expenses[0].currency].format,
-				}))
+			Object.keys(summary).forEach((key) =>(summary[key] = numberToCurrency(summary[key], currency)))
 
 			break
 
@@ -68,23 +65,15 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 				return [
 					el.date,
 					el.category.title,
-					i18n.numberToCurrency(el.amount, {
-						unit: CURRENCIES[el.currency].symbol,
-						format: CURRENCIES[el.currency].format,
-					}),
+					numberToCurrency(el.amount, currency),
 					el.description ?? "-",
 					el.tags,
 					el.id,
 				]
 			})
+
 			summary = {
-				[i18n.t(`report.headers.summary`)]: i18n.numberToCurrency(
-					expenses.reduce((prev, curr) => (prev += curr.amount), 0),
-					{
-						unit: CURRENCIES[expenses[0].currency].symbol,
-						format: CURRENCIES[expenses[0].currency].format,
-					}
-				),
+				[i18n.t(`report.headers.summary`)]: numberToCurrency(summaryAmount, currency),
 			}
 			break
 	}
@@ -157,4 +146,13 @@ export const mapExportData = ({ filters, categories, expenses }) => {
 
 		return [result.headers, ...Object.values(result.rows)]
 	}
+}
+
+const numberToCurrency = (number, currency) => {
+	return currency
+		? i18n.numberToCurrency(number, {
+				unit: currency.symbol,
+				format: currency.format,
+		  })
+		: number
 }

@@ -50,12 +50,13 @@ export const useReportStore = create((set, get) => ({
 				to: period.to,
 			})
 		)
-
+		
 		const categories = Array.from(await new ExpenseCategories().select())
 
 		const data = { categories, expenses }
-		const { report, summary } = mapReportData({filters, ...data})
+		const { report, summary } = mapReportData({ filters, ...data })
 
+		
 		set({ data })
 		set({ report, summary })
 		set({ loading: false })
@@ -63,7 +64,7 @@ export const useReportStore = create((set, get) => ({
 	export: async () => {
 		set({ loading: true })
 		try {
-			await ExportService.export(mapExportData({filters: get().filters,...get().data}))
+			await ExportService.export(mapExportData({ filters: get().filters, ...get().data }))
 			showMessage({ type: "success", message: i18n.t("notification.report_export_success") })
 		} catch (error) {
 			console.log(error)
@@ -76,7 +77,7 @@ export const useReportStore = create((set, get) => ({
 	remove: async (expenseId) => {
 		set({ loading: true })
 		try {
-			await new Expenses().delete({id: expenseId})
+			await new Expenses().delete({ id: expenseId })
 			await get().fetch()
 			showMessage({ type: "success", message: i18n.t("notification.report_expense_delete_success") })
 		} catch (error) {
@@ -85,5 +86,5 @@ export const useReportStore = create((set, get) => ({
 		} finally {
 			set({ loading: false })
 		}
-	}
+	},
 }))
