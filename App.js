@@ -4,7 +4,6 @@ import { useCallback } from "react"
 import { SafeAreaView, StyleSheet } from "react-native"
 import Navigator from "./components/navigation/Navigator"
 import { global } from "./styles/styles"
-import 'react-native-gesture-handler';
 import i18n from "./i18n/configuration"
 import * as Localization from "expo-localization"
 import ScreenLayout from "./layouts/ScreenLayout"
