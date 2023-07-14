@@ -1,20 +1,21 @@
 import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
-import { createStackNavigator } from "@react-navigation/stack"
 import { ROUTES } from "./service"
+import { createDrawerNavigator } from "@react-navigation/drawer"
 
-const Stack = createStackNavigator()
 
-export default function () {
+const Drawer = createDrawerNavigator()
+
+export default function App() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator>
+			<Drawer.Navigator>
 				{ROUTES.map((route, index) => {
 					return (
-						<Stack.Screen key={index} name={route.path} component={route.screen} options={route.options} />
+						<Drawer.Screen key={index} name={route.path} component={route.screen} options={route.options} />
 					)
 				})}
-			</Stack.Navigator>
+			</Drawer.Navigator>
 		</NavigationContainer>
 	)
 }

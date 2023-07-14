@@ -15,7 +15,7 @@ const ReportScreen = ({ route, navigation }) => {
 	const store = useReportStore()
 
 	useEffect(() => {
-		store.init(route.params.id)()
+		store.init()()
 	}, [])
 
 	const getReportComponent = (group, props) => {
@@ -33,7 +33,7 @@ const ReportScreen = ({ route, navigation }) => {
 			<ScrollView>
 				<View style={global.card}>
 					<View style={styles.header}>
-						<Text style={global.title}>{route.params.title}</Text>
+						<Text style={global.title}>{route?.params?.title}</Text>
 						<View style={styles.filtersContainer}>
 							<Button
 								title={i18n.t("buttons.export")}

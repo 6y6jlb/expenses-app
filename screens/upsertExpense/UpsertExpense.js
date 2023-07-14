@@ -10,7 +10,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 	const store = useExpenseStore()
 
 	useEffect(() => {
-		store.init(route.params)
+		store.init(route?.params)
 	}, [])
 
 	const submitAndStay = useCallback(() => {
@@ -25,7 +25,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 	return (
 		<ScrollView>
 			<View style={global.card}>
-				<Text style={global.title}>{i18n.t(route.params.table ? "expenses.new" : "expenses.change")}</Text>
+				<Text style={global.title}>{i18n.t(route.params?.table ? "expenses.new" : "expenses.change")}</Text>
 
 				<ScrollView style={[global.content]}>
 					{store.loading ? (
@@ -36,7 +36,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 				</ScrollView>
 
 				<View style={styles.buttonsWrapper}>
-					{!route.params.expense?.id && (
+					{!route.params?.expense?.id && (
 						<Button
 							disabled={store.loading}
 							title={i18n.t("buttons.save_and_stay")}

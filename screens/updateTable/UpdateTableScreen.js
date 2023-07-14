@@ -22,7 +22,7 @@ const UpdateTableScreen = ({ route, navigation }) => {
 		<ScrollView>
 			<View style={global.card}>
 				<Text style={global.title}>
-					{i18n.t("table.change")}: <Text style={styles.tableTitle}>{route.params.title}</Text>
+					{i18n.t("table.change")}: <Text style={styles.tableTitle}>{route?.params?.title}</Text>
 				</Text>
 				<View style={[global.content, styles.centered]}>
 					{updateTableStore.loading ? (
