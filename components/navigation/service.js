@@ -26,13 +26,15 @@ export const ROUTES = [
 	},
 
 	{
-		options: { title: i18n.t("navigation.title.expense") },
+		options: {title: i18n.t("navigation.title.expense") },
 		path: "upsert-expense",
 		screen: UpsertExpenseScreen,
 	},
 
 	{
-		options: { title: i18n.t("navigation.title.tags") },
+		options: { 
+			title: i18n.t("navigation.title.tags") 
+		},
 		path: "tags",
 		screen: TagsScreen,
 	},
@@ -43,3 +45,4 @@ export const ROUTES = [
 		screen: NewCategoryScreen,
 	},
 ]
+

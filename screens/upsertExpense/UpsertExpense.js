@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect } from "react"
 import { ActivityIndicator, Button, ScrollView, Text, View } from "react-native"
 import i18n from "../../i18n/configuration"
-import { useExpenseStore } from "../../state/expenseStore"
+import { useExpenseStore } from "../../store/expenseStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
@@ -10,7 +10,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 	const store = useExpenseStore()
 
 	useEffect(() => {
-		store.init(route?.params)
+		store.init(route.params?.table)
 	}, [])
 
 	const submitAndStay = useCallback(() => {
@@ -25,7 +25,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 	return (
 		<ScrollView>
 			<View style={global.card}>
-				<Text style={global.title}>{i18n.t(route.params?.table ? "expenses.new" : "expenses.change")}</Text>
+				<Text style={global.title}>{i18n.t(route.params.expense ? "expenses.change" : "expenses.new")}</Text>
 
 				<ScrollView style={[global.content]}>
 					{store.loading ? (

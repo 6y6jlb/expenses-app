@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { FlatList, View, TouchableOpacity } from "react-native"
-import { useTagsStore } from "../../state/tagsStore"
+import { useTagsStore } from "../../store/tagsStore"
 import Badge from "../badge/Badge"
 import { styles } from "./styles"
 import { BADGE_TYPES } from "../badge/const"
@@ -13,7 +13,6 @@ const Tags = ({ toggle = () => {}, selectedIds = [] }) => {
 	}, [])
 
 	return (
-		
 		<View style={styles.container}>
 			{store.tags.map((tag, index) => {
 				return (

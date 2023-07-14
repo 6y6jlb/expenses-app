@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FlatList, Text, TouchableOpacity, View } from "react-native"
 import i18n from "../../i18n/configuration"
-import { useCategoryStore } from "../../state/categoryStore"
+import { useCategoryStore } from "../../store/categoryStore"
 import { styles } from "./styles"
 
 const Categories = () => {

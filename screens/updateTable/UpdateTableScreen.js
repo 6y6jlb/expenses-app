@@ -1,51 +1,51 @@
 import React, { memo, useCallback, useEffect } from "react"
 import { ActivityIndicator, Button, ScrollView, Text, View } from "react-native"
 import i18n from "../../i18n/configuration"
-import { useUpdateTableStore } from "../../state/updateTableStore"
+import { useUpdateTableStore } from "../../store/updateTableStore"
 import { global } from "../../styles/styles"
 import Form from "./Form"
 import { styles } from "./styles"
 
 const UpdateTableScreen = ({ route, navigation }) => {
-	const updateTableStore = useUpdateTableStore()
+	const store = useUpdateTableStore()
 
 	const submit = useCallback(() => {
-		updateTableStore.submit()
+		store.submit()
 		navigation.goBack()
 	}, [])
 
 	useEffect(() => {
-		updateTableStore.init(route.params.id)
+		store.init(route.params?.table)
 	}, [])
 
 	return (
 		<ScrollView>
 			<View style={global.card}>
 				<Text style={global.title}>
-					{i18n.t("table.change")}: <Text style={styles.tableTitle}>{route?.params?.title}</Text>
+					{i18n.t("table.change")}: <Text style={styles.tableTitle}>{route.params?.table?.title}</Text>
 				</Text>
 				<View style={[global.content, styles.centered]}>
-					{updateTableStore.loading ? (
+					{store.loading ? (
 						<ActivityIndicator size="large" />
 					) : (
 						<Form
 							data={{
-								...updateTableStore.form,
-								currentCurrency: updateTableStore.data.table.currency ?? updateTableStore.form.currency,
+								...store.form,
+								currentCurrency: store.data.table.currency ?? store.form.currency,
 							}}
-							updateFormValues={updateTableStore.updateFormValues}
+							updateFormValues={store.updateFormValues}
 						/>
 					)}
 				</View>
 				<View style={[styles.buttonsWrapper]}>
 					<Button
-						disabled={updateTableStore.loading}
+						disabled={store.loading}
 						title={i18n.t("buttons.save")}
 						style={[styles.button]}
 						onPress={submit}
 					/>
 					<Button
-						disabled={updateTableStore.loading}
+						disabled={store.loading}
 						title={i18n.t("buttons.back")}
 						color="#6c757d"
 						style={[styles.button]}

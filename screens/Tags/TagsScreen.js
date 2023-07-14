@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect } from "react"
 import { Button, ScrollView, Text, TextInput, View } from "react-native"
 import Tags from "../../components/tags/Tags"
 import i18n from "../../i18n/configuration"
-import { useTagsStore } from "../../state/tagsStore"
+import { useTagsStore } from "../../store/tagsStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
 

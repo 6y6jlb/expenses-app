@@ -16,11 +16,10 @@ export const useUpdateTableStore = create((set, get) => ({
 		exchangeRate: "1",
 	},
 	loading: false,
-	init: async (tableId) => {
+	init: async (table) => {
 		set({ loading: true })
-		const table = Array.from(useTableStore.getState().tables).find((el) => el.id === tableId)
 		await useCategoryStore.getState().fetch()
-
+console.log(table)
 		const form = {
 			id: table.id,
 			title: table.title,
