@@ -6,43 +6,59 @@ import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
 import i18n from "../../i18n/configuration"
 import TagsScreen from "../../screens/Tags/TagsScreen"
 
-export const ROUTES = [
-	{
-		options: { title: i18n.t("navigation.title.main") },
-		path: "main",
-		screen: MainScreen,
-	},
+export const RESTRICTIONS = {
+	TABLE: "table",
+}
 
-	{
-		options: { title: i18n.t("navigation.title.report") },
-		path: "report",
-		screen: ReportScreen,
-	},
+export const PATH = {
+	NEW_CATEGORY: "new-category",
+	TAGS: "tags",
+	EXPENSE_UPSERT: "upsert_expense",
+	TABLE_UPDATE: "update",
+	TABLE_REPORT: "report",
+	MAIN: "main",
+}
 
-	{
-		options: { title: i18n.t("navigation.title.update_table") },
-		path: "update",
-		screen: UpdateTableScreen,
-	},
-
-	{
-		options: {title: i18n.t("navigation.title.expense") },
-		path: "upsert-expense",
-		screen: UpsertExpenseScreen,
-	},
-
-	{
-		options: { 
-			title: i18n.t("navigation.title.tags") 
+export const ROUTES = {
+	AUTH: [
+		{
+			options: { title: i18n.t("navigation.title.main") },
+			path: PATH.MAIN,
+			screen: MainScreen,
 		},
-		path: "tags",
-		screen: TagsScreen,
-	},
+		{
+			options: { title: i18n.t("navigation.title.report") },
+			path: PATH.TABLE_REPORT,
+			screen: ReportScreen,
+			restriction: [RESTRICTIONS.TABLE],
+		},
 
-	{
-		options: { title: i18n.t("navigation.title.new_category") },
-		path: "new-category",
-		screen: NewCategoryScreen,
-	},
-]
+		{
+			options: { title: i18n.t("navigation.title.update_table") },
+			path: PATH.TABLE_UPDATE,
+			screen: UpdateTableScreen,
+			restriction: [RESTRICTIONS.TABLE],
+		},
 
+		{
+			options: { title: i18n.t("navigation.title.expense") },
+			path: PATH.EXPENSE_UPSERT,
+			screen: UpsertExpenseScreen,
+		},
+
+		{
+			options: {
+				title: i18n.t("navigation.title.tags"),
+			},
+			path: PATH.TAGS,
+			screen: TagsScreen,
+		},
+
+		{
+			options: { title: i18n.t("navigation.title.new_category") },
+			path: PATH.NEW_CATEGORY,
+			screen: NewCategoryScreen,
+		},
+	],
+	GUEST: [],
+}

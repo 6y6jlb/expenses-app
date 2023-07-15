@@ -1,3 +1,4 @@
+import { AlterTablesAddDefaultColumnMigration } from "./alterTablesAddDefaultColumnMigration";
 import { CreateExpenseCategoriesTableMigration } from "./createExpenseCategoriesTableMigration";
 import { CreateExpenseTableMigration } from "./createExpenseTablesTableMigration";
 import { CreateExpenseTagsMigration } from "./createExpenseTagsTableMigration";
@@ -14,5 +15,6 @@ export const migrations = [
     CreateExpenseCategoriesTableMigration,
     CreateTagsTableMigration,
     CreateExpenseTagsMigration,
-    UpdateExpenseTableAmountFormatMigration
+    UpdateExpenseTableAmountFormatMigration,
+    AlterTablesAddDefaultColumnMigration,
 ]
