@@ -18,11 +18,6 @@ export class ExpenseTable extends AbstractDatabase {
 		let result
 		try {
 			result = await this.db.select(this.tableName, where)
-			if (!result.length) {
-				await this.store(new ExpenseTablesDTO(null, DEFAULT_TABLE.TITLE, DEFAULT_TABLE.CURRENCY))
-				result = await this.db.select(this.tableName, where)
-			}
-			result
 		} catch (error) {
 			throw Error("Select " + this.tableName + " error, " + error.message)
 		}

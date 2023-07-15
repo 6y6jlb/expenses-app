@@ -16,7 +16,7 @@ export class AlterTablesAddDefaultColumnMigration extends ExpenseTable {
 
 		const tables = await this.select()
 		if (tables[0]) {
-			await this.db.execute("UPDATE TABLE expense_tables SET 'default' = 1 WHERE id = " + tables[0].id + ";")
+			await this.db.execute("UPDATE expense_tables SET 'default' = 1 WHERE id = " + tables[0].id + ";")
 		}
 	}
 

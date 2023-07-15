@@ -2,6 +2,7 @@ export default {
 	no_data: "No hay datos",
 	buttons: {
 		change: "Cambiar",
+		change_table: "Editar Gasto",
 		report: "Ir a Informe",
 		expense_add: "Nueva Gasto",
 		category_add: "Agregar Categoría",
@@ -14,6 +15,7 @@ export default {
 		save_and_stay: "Guardar y permanecer",
 		export: "Exportar",
 		back: "Volver",
+		settings: "Ajustes"
 	},
 	expenses: {
 		new: "Nuevo Gasto",

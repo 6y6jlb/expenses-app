@@ -1,11 +1,11 @@
-import React, { memo, useEffect, useState } from "react"
-import { ActivityIndicator, Button, FlatList, Text, View, Modal, Pressable } from "react-native"
-import AppService from "../../services/AppService"
+import React, { memo, useEffect } from "react"
+import { ActivityIndicator, Button, FlatList, Text, View } from "react-native"
+import { PATH } from "../../components/navigation/service"
+import i18n from "../../i18n/configuration"
 import { useNewCategoryStore } from "../../store/newCategoryStore"
 import { useTableStore } from "../../store/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
-import i18n from "../../i18n/configuration"
 
 const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
@@ -13,7 +13,6 @@ const Main = ({ route, navigation }) => {
 
 	useEffect(() => {
 		const init = async () => {
-			await AppService.init()
 			await tablesStore.init()
 		}
 		init()
@@ -36,20 +35,14 @@ const Main = ({ route, navigation }) => {
 									<Button
 										disabled={tablesStore.loading}
 										style={[styles.button]}
-										title={i18n.t("buttons.change")}
-										onPress={() => navigation.navigate("update",  { table: item })}
-									/>
-									<Button
-										disabled={tablesStore.loading}
-										style={[styles.button]}
 										title={i18n.t("buttons.report")}
-										onPress={() => navigation.navigate("report",  { table: item })}
+										onPress={() => navigation.navigate(PATH.TABLE_REPORT, { table: item })}
 									/>
 									<Button
 										disabled={tablesStore.loading}
 										style={[styles.button]}
 										title={i18n.t("buttons.expense_add")}
-										onPress={() => navigation.navigate("upsert-expense", { table: item })}
+										onPress={() => navigation.navigate(PATH.EXPENSE_UPSERT, { table: item })}
 									/>
 								</View>
 							</View>
@@ -60,26 +53,25 @@ const Main = ({ route, navigation }) => {
 			</View>
 			<View style={styles.buttonsWrapper}>
 				<Button
-					disabled={tablesStore.loading}
+					disabled={newCategoryStore.loading}
+					title={i18n.t("buttons.settings")}
+					color="#68ad6e"
 					style={[styles.button]}
-					title={i18n.t("buttons.drop")}
-					onPress={async () => {
-						await AppService.drop()
-					}}
+					onPress={() => navigation.navigate(PATH.SETTINGS)}
 				/>
 				<Button
 					disabled={newCategoryStore.loading}
 					title={i18n.t("buttons.category_add")}
 					color="#68ad6e"
 					style={[styles.button]}
-					onPress={() => navigation.navigate("new-category")}
+					onPress={() => navigation.navigate(PATH.NEW_CATEGORY)}
 				/>
 				<Button
 					disabled={newCategoryStore.loading}
 					title={i18n.t("buttons.tags")}
 					color="#68ad6e"
 					style={[styles.button]}
-					onPress={() => navigation.navigate("tags")}
+					onPress={() => navigation.navigate(PATH.TAGS)}
 				/>
 			</View>
 		</View>

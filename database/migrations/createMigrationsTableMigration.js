@@ -6,10 +6,10 @@ export class CreateMigrationsTableMigration extends Migration {
 	}
 
 	async up() {
-		this.create()
+		await this.create()
 	}
 
 	async down() {
-		this.drop()
+		await this.drop()
 	}
 }

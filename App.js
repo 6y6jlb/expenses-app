@@ -1,12 +1,13 @@
 import { useFonts } from "expo-font"
 import * as SplashScreen from "expo-splash-screen"
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react"
 import { SafeAreaView, StyleSheet } from "react-native"
 import Navigator from "./components/navigation/Navigator"
 import { global } from "./styles/styles"
 import i18n from "./i18n/configuration"
 import * as Localization from "expo-localization"
 import ScreenLayout from "./layouts/ScreenLayout"
+import AppService from "./services/AppService"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -19,13 +20,21 @@ export default function App() {
 		"roboto-regular": require("./assets/fonts/Roboto-Regular.ttf"),
 	})
 
+	useEffect(() => {
+		const init = async () => {
+			await AppService.init()
+		}
+		init()
+	}, [])
+
+
 	const onLayoutRootView = useCallback(async () => {
-		if (fontsLoaded) {
+		if (AppService.loaded && fontsLoaded) {
 			await SplashScreen.hideAsync()
 		}
 	}, [fontsLoaded])
 
-	if (!fontsLoaded) {
+	if (!AppService.loaded || !fontsLoaded) {
 		return null
 	}
 	return (
@@ -36,5 +45,3 @@ export default function App() {
 		</SafeAreaView>
 	)
 }
-
-const styles = StyleSheet.create({})

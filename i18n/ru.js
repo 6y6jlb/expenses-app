@@ -2,6 +2,7 @@ export default {
 	no_data: "Нет данных",
 	buttons: {
 		change: "Изменить",
+		change_table: "Изменение таблицы",
 		report: "К отчету",
 		expense_add: "Новая трата",
 		category_add: "Добавить категорию",
@@ -13,6 +14,7 @@ export default {
 		save_and_quit: "Сохранить и выйти",
 		save_and_stay: "Сохранить и остаться",
 		export: "Экспорт",
+		settings: "Настройки"
 	},
 	expenses: {
 		new: "Новая трата",

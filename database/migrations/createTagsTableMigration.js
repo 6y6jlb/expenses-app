@@ -6,10 +6,10 @@ export class CreateTagsTableMigration extends Tag {
 	}
 
 	async up() {
-		this.create()
+		await this.create()
 	}
 
 	async down() {
-		this.drop()
+		await this.drop()
 	}
 }

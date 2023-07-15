@@ -10,7 +10,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 	const store = useExpenseStore()
 
 	useEffect(() => {
-		store.init(route.params?.table)
+		store.init(route.params)
 	}, [])
 
 	const submitAndStay = useCallback(() => {
@@ -36,7 +36,7 @@ const UpsertExpenseScreen = ({ route, navigation }) => {
 				</ScrollView>
 
 				<View style={styles.buttonsWrapper}>
-					{!route.params?.expense?.id && (
+					{!route.params.expense?.id && (
 						<Button
 							disabled={store.loading}
 							title={i18n.t("buttons.save_and_stay")}

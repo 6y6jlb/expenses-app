@@ -19,7 +19,6 @@ export const useUpdateTableStore = create((set, get) => ({
 	init: async (table) => {
 		set({ loading: true })
 		await useCategoryStore.getState().fetch()
-console.log(table)
 		const form = {
 			id: table.id,
 			title: table.title,
