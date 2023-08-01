@@ -2,7 +2,7 @@ export default {
 	no_data: "No data",
 	buttons: {
 		change: "Change",
-		change_table: "Edit Expense",
+		change_table: "Edit table",
 		report: "Go to Report",
 		expense_add: "New Expense",
 		category_add: "Add Category",
@@ -16,6 +16,10 @@ export default {
 		export: "Export",
 		back: "Back",
 		settings: "Settings"
+	},
+	settings: {
+		table_name: "Table name",
+		title: "Settings"
 	},
 	expenses: {
 		new: "New Expense",
@@ -71,6 +75,7 @@ export default {
 			expense: "Expense",
 			new_category: "New Category",
 			tags: "Tags",
+			settings: "Settings"
 		},
 	},
 	periods: {

@@ -2,7 +2,7 @@ export default {
 	no_data: "No hay datos",
 	buttons: {
 		change: "Cambiar",
-		change_table: "Editar Gasto",
+		change_table: "Editar tabla",
 		report: "Ir a Informe",
 		expense_add: "Nueva Gasto",
 		category_add: "Agregar Categoría",
@@ -16,6 +16,10 @@ export default {
 		export: "Exportar",
 		back: "Volver",
 		settings: "Ajustes"
+	},
+	settings: {
+		table_name: "Nombre de la tabla",
+		title: "Ajustes"
 	},
 	expenses: {
 		new: "Nuevo Gasto",
@@ -71,6 +75,7 @@ export default {
 			expense: "Gasto",
 			new_category: "Nueva Categoría",
 			tags: "Etiquetas",
+			settings: "Ajustes"
 		},
 	},
 	periods: {

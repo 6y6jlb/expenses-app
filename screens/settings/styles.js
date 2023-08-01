@@ -16,13 +16,21 @@ export const styles = StyleSheet.create({
 	itemTitle: {
 		fontSize: 22,
 	},
-	buttonsWrapper: {
+	form: {
+		flex: 1,
+		alignItems: "center",
 		flexDirection: "column",
-		margin: 20,
+		gap: 20,
+	},
+	buttonsWrapper: {
+		marginTop: 12,
 		gap: 6,
+		flexDirection: "column",
+		justifyContent: "space-between",
 	},
 	button: {
 		borderRadius: 20,
 		padding: 10,
+		elevation: 2,
 	},
 })

@@ -13,23 +13,25 @@ const SettingsScreen = ({ route, navigation }) => {
 
 	return (
 		<View style={global.card}>
-			<Text style={global.title}>Main</Text>
 			<View style={global.content}>
 				{tablesStore.loading ? (
 					<ActivityIndicator size="large" />
 				) : (
-					<View style={styles.itemWrapper}>
-								<Text style={styles.itemTitle}>{table.title}</Text>
+					<>
+						<View style={styles.form}>
+							<Text>{i18n.t("settings.table_name")}</Text>
+							<Text style={global.title}>{table.title}</Text>
+						</View>
 
-								<View style={styles.buttonsWrapper}>
-									<Button
-										disabled={tablesStore.loading}
-										style={[styles.button]}
-										title={i18n.t("buttons.change_table")}
-										onPress={() => navigation.navigate(PATH.TABLE_UPDATE,  { table })}
-									/>
-								</View>
-							</View>
+						<View style={styles.buttonsWrapper}>
+							<Button
+								disabled={tablesStore.loading}
+								style={[styles.button]}
+								title={i18n.t("buttons.change_table")}
+								onPress={() => navigation.navigate(PATH.TABLE_UPDATE, { table })}
+							/>
+						</View>
+					</>
 				)}
 			</View>
 		</View>

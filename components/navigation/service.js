@@ -63,7 +63,7 @@ export const ROUTES = {
 			screen: NewCategoryScreen,
 		},
 		{
-			options: { title: i18n.t("navigation.title.new_category") },
+			options: { title: i18n.t("navigation.title.settings") },
 			path: PATH.SETTINGS,
 			screen: SettingsScreen,
 		},

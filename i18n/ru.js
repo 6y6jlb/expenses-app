@@ -16,6 +16,10 @@ export default {
 		export: "Экспорт",
 		settings: "Настройки"
 	},
+	settings: {
+		table_name: "Имя таблицы",
+		title: "Настройки"
+	},
 	expenses: {
 		new: "Новая трата",
 		change: "Изменение траты",
@@ -71,6 +75,7 @@ export default {
 			expense: "Трата",
 			new_category: "Новая категория",
 			tags: "Теги",
+			settings: "Настройки",
 		},
 	},
 	periods: {
