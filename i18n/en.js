@@ -15,12 +15,17 @@ export default {
 		save_and_stay: "Save and Stay",
 		export: "Export",
 		back: "Back",
-		settings: "Settings"
+		settings: "Settings",
 	},
 	settings: {
-		table_name: "Table name",
-		title: "Settings"
+		default_table_name: "Default Table Name",
+		default_table_currency: "Default Table Currency",
+		default_date_interval: "Default Date Interval",
+		default_date_format: "Default Date Format",
+		tables_count: "Number of Tables",
+		title: "Settings",
 	},
+
 	expenses: {
 		new: "New Expense",
 		change: "Edit Expense",
@@ -60,7 +65,7 @@ export default {
 			description: "Description",
 			tags: "Tags",
 			empty: "",
-			summary: "Summary"
+			summary: "Summary",
 		},
 	},
 	category: {
@@ -75,7 +80,7 @@ export default {
 			expense: "Expense",
 			new_category: "New Category",
 			tags: "Tags",
-			settings: "Settings"
+			settings: "Settings",
 		},
 	},
 	periods: {

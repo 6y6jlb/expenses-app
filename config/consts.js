@@ -21,7 +21,7 @@ export const CURRENCIES = {
 	},
 }
 
-export const DEFAULT_DAY_FORMAT = "YYYY-MM-DD"
+export const DEFAULT_DATE_FORMAT = "YYYY-MM-DD"
 
 export const DEFAULT_CATEGORIES = [
 	{
@@ -68,8 +68,14 @@ export const SERVICE = {
 		BASE: "https://lbas.website:5000/api/",
 		PATH: {
 			EXHCANGE: {
-                RATE: "exchange/rate"
-            },
+				RATE: "exchange/rate",
+			},
 		},
 	},
+}
+
+export const SETTINGS = {
+	DEFAULT_TABLE_ID: "default_table_id",
+	DEFAULT_DATE_INTERVAL: "default_date_interval",
+	DEFAULT_DATE_FORMAT: "default_date_format",
 }

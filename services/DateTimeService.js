@@ -1,5 +1,5 @@
 import moment from "moment/moment"
-import { DEFAULT_DAY_FORMAT, REPORT_PERIODS } from "../config/consts"
+import { DEFAULT_DATE_FORMAT, REPORT_PERIODS } from "../config/consts"
 
 class DateTimeService {
 	constructor() {}
@@ -11,7 +11,7 @@ class DateTimeService {
 		}
 		switch (periodKey) {
 			case REPORT_PERIODS.MONTH:
-				period.to = moment().startOf('month')
+				period.to = moment().startOf("month")
 				break
 			case REPORT_PERIODS.DAY:
 				period.to = moment().startOf("day")
@@ -26,15 +26,14 @@ class DateTimeService {
 		return period
 	}
 
-
 	getDateSeries(startDate, endDate) {
 		const clonedStartDate = startDate.clone()
 		const clonedEndDate = endDate.clone()
 		const timeseries = {}
-		timeseries[clonedStartDate.format(DEFAULT_DAY_FORMAT)] = {}
+		timeseries[clonedStartDate.format(DEFAULT_DATE_FORMAT)] = {}
 		while (clonedStartDate.diff(clonedEndDate, "days") > 0) {
 			const newDate = clonedStartDate.subtract(1, "days")
-			timeseries[newDate.format(DEFAULT_DAY_FORMAT)] = {}
+			timeseries[newDate.format(DEFAULT_DATE_FORMAT)] = {}
 		}
 		return timeseries
 	}

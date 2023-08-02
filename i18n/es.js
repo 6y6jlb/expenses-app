@@ -15,11 +15,15 @@ export default {
 		save_and_stay: "Guardar y permanecer",
 		export: "Exportar",
 		back: "Volver",
-		settings: "Ajustes"
+		settings: "Ajustes",
 	},
 	settings: {
-		table_name: "Nombre de la tabla",
-		title: "Ajustes"
+		default_table_name: "Nombre de la Tabla por Defecto",
+		default_table_currency: "Moneda de la Tabla por Defecto",
+		default_date_interval: "Intervalo de Fecha por Defecto",
+		default_date_format: "Formato de Fecha por Defecto",
+		tables_count: "Cantidad de Tablas",
+		title: "Configuración",
 	},
 	expenses: {
 		new: "Nuevo Gasto",
@@ -60,7 +64,7 @@ export default {
 			description: "Descripción",
 			tags: "Etiquetas",
 			empty: "",
-			summary: "Resumen"
+			summary: "Resumen",
 		},
 	},
 	category: {
@@ -75,7 +79,7 @@ export default {
 			expense: "Gasto",
 			new_category: "Nueva Categoría",
 			tags: "Etiquetas",
-			settings: "Ajustes"
+			settings: "Ajustes",
 		},
 	},
 	periods: {

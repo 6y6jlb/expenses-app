@@ -17,7 +17,11 @@ export default {
 		settings: "Настройки"
 	},
 	settings: {
-		table_name: "Имя таблицы",
+		default_table_name: "Имя дефолтной таблицы",
+		default_table_currency: "Валюта дефолтной таблицы",
+		default_date_interval: "Дата по умолчнию",
+		default_date_interval: "Формат даты по умолчанию",
+		tables_count: "Кол-во таблиц",
 		title: "Настройки"
 	},
 	expenses: {

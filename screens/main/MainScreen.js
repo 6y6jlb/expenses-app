@@ -6,14 +6,17 @@ import { useNewCategoryStore } from "../../store/newCategoryStore"
 import { useTableStore } from "../../store/tableStore"
 import { global } from "../../styles/styles"
 import { styles } from "./styles"
+import { useSettingsStore } from '../../store/settingsStore';
 
 const Main = ({ route, navigation }) => {
 	const tablesStore = useTableStore()
+	const settingsStore = useSettingsStore()
 	const newCategoryStore = useNewCategoryStore()
 
 	useEffect(() => {
 		const init = async () => {
 			await tablesStore.init()
+			await settingsStore.init()
 		}
 		init()
 	}, [])
