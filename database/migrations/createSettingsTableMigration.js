@@ -9,14 +9,24 @@ export class CreateSettingsTableMigration extends Settings {
 	}
 
 	async up() {
+
 		await this.create()
-		await this.store({ slug: [SETTINGS.DEFAULT_DATE_FORMAT], value: DEFAULT_DATE_FORMAT })
-		await this.store({ slug: [SETTINGS.DEFAULT_DATE_INTERVAL], value: REPORT_PERIODS.MONTH })
+
+		if( (await this.select({slug: SETTINGS.DEFAULT_DATE_FORMAT })).length === 0) {
+			await this.store({ slug: SETTINGS.DEFAULT_DATE_FORMAT, value: DEFAULT_DATE_FORMAT })
+		}
+
+		if( (await this.select({slug: SETTINGS.DEFAULT_DATE_INTERVAL })).length === 0) {
+			await this.store({ slug: SETTINGS.DEFAULT_DATE_INTERVAL, value: REPORT_PERIODS.MONTH })
+		}
+		
+		
 		const tables = await this.db.select((new ExpenseTable()).tableName)
 
-		if (tables) {
-			await this.store({ slug: [SETTINGS.DEFAULT_TABLE_ID], value: `${tables[0].id}` })
+		if (tables && (await this.select({slug: SETTINGS.DEFAULT_TABLE_ID })).length === 0) {
+			await this.store({ slug: SETTINGS.DEFAULT_TABLE_ID, value: `${tables[0].id}` })
 		}
+
 	}
 
 	async down() {

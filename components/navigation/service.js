@@ -6,20 +6,13 @@ import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
 import i18n from "../../i18n/configuration"
 import TagsScreen from "../../screens/Tags/TagsScreen"
 import SettingsScreen from "../../screens/settings/SettingsScreen"
+import { PATH } from "./routes"
 
 export const RESTRICTIONS = {
 	TABLE: "table",
 }
 
-export const PATH = {
-	NEW_CATEGORY: "new_category",
-	TAGS: "tags",
-	EXPENSE_UPSERT: "upsert_expense",
-	TABLE_UPDATE: "update",
-	TABLE_REPORT: "report",
-	MAIN: "main",
-	SETTINGS: "settings",
-}
+
 
 export const ROUTES = {
 	AUTH: [

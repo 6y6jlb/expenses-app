@@ -1,6 +1,5 @@
 import { create } from "zustand"
 import { Settings } from "../database/Settings"
-import AppService from "../services/AppService"
 
 export const useSettingsStore = create((set, get) => ({
 	settings: {},
@@ -9,7 +8,6 @@ export const useSettingsStore = create((set, get) => ({
 		set({ settings: { ...get().settings, ...option } })
 	},
 	init: async () => {
-		if (!AppService.loaded) return
 		set({ loading: true })
 		const settings = await new Settings().select()
 		settings.forEach((el) => {

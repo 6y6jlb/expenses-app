@@ -1,18 +1,20 @@
 import { useFonts } from "expo-font"
+import * as Localization from "expo-localization"
 import * as SplashScreen from "expo-splash-screen"
 import { useCallback, useEffect } from "react"
-import { SafeAreaView, StyleSheet } from "react-native"
+import { SafeAreaView } from "react-native"
 import Navigator from "./components/navigation/Navigator"
-import { global } from "./styles/styles"
 import i18n from "./i18n/configuration"
-import * as Localization from "expo-localization"
 import ScreenLayout from "./layouts/ScreenLayout"
-import AppService from "./services/AppService"
+import { useAppStore } from "./store/appStore"
+import { global } from "./styles/styles"
 
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
 	i18n.locale = Localization.locale
+
+	const app = useAppStore()
 
 	const [fontsLoaded] = useFonts({
 		"roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
@@ -21,22 +23,19 @@ export default function App() {
 	})
 
 	useEffect(() => {
-		const init = async () => {
-			await AppService.init()
-		}
-		init()
+		app.init()
 	}, [])
 
-
 	const onLayoutRootView = useCallback(async () => {
-		if (AppService.loaded && fontsLoaded) {
+		if (app.ready() && fontsLoaded) {
 			await SplashScreen.hideAsync()
 		}
 	}, [fontsLoaded])
 
-	if (!AppService.loaded || !fontsLoaded) {
+	if (!app.ready() || !fontsLoaded) {
 		return null
 	}
+
 	return (
 		<SafeAreaView onLayout={onLayoutRootView} style={global.container}>
 			<ScreenLayout>

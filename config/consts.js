@@ -79,3 +79,9 @@ export const SETTINGS = {
 	DEFAULT_DATE_INTERVAL: "default_date_interval",
 	DEFAULT_DATE_FORMAT: "default_date_format",
 }
+
+export const APP_STATE = {
+	INITIALIZING: 'INITIALIZING',
+	READY: 'READY',
+	NOT_READY: 'NOT_READY'
+}
