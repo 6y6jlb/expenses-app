@@ -21,6 +21,13 @@ export class Expenses extends AbstractDatabase {
 		dto.from = " FROM expenses as e "
 
 		switch (group) {
+			case REPORT_GROUPS.TAG:
+				dto.select =
+					"SELECT DISTINCT t.id as tag_id,t.title as tag_title, SUM(amount) as amount,DATE(e.created_at, 'unixepoch') as date, category_id, currency"
+				dto.join =
+				"LEFT JOIN expense_tags as et on et.expense_id = e.id LEFT JOIN tags as t on t.id = et.tag_id"
+				dto.group = " GROUP BY tag_id, category_id, currency"
+				break
 			case REPORT_GROUPS.DAY:
 				dto.group = " GROUP BY date, category_id, currency"
 				dto.select =
@@ -38,7 +45,12 @@ export class Expenses extends AbstractDatabase {
 		}
 
 		if (where.from && where.to) {
-			dto.where = " WHERE date BETWEEN DATE(" + where.to.format("X") + ", 'unixepoch') AND  DATE(" + where.from.format("X") + ", 'unixepoch')"
+			dto.where =
+				" WHERE date BETWEEN DATE(" +
+				where.to.format("X") +
+				", 'unixepoch') AND  DATE(" +
+				where.from.format("X") +
+				", 'unixepoch')"
 		}
 
 		return this.db.execute(dto.selectSqlStatement())

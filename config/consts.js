@@ -54,6 +54,7 @@ export const DEFAULT_TABLE = {
 export const REPORT_GROUPS = {
 	INDEX: "index",
 	DAY: "day",
+	TAG: "tag",
 }
 
 export const REPORT_PERIODS = {

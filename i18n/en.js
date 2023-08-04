@@ -55,6 +55,7 @@ export default {
 				title: "Grouping",
 				by_index: "By Default",
 				by_day: "By Day",
+				by_tag: "By Tag",
 			},
 		},
 		headers: {

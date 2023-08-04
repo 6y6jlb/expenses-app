@@ -22,9 +22,35 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 	const summaryAmount = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
 	const currency = expenses[0] ? CURRENCIES[expenses[0].currency] : null
 
-
 	let summary = {}
 	switch (filters.group) {
+		case REPORT_GROUPS.TAG:
+			for (const date in timeseries) {
+				filteredCategories.forEach((el) => {
+					summary[el.title] = 0
+					timeseries[date][el.id] = 0
+				})
+			}
+			report.titles = Array.from(new Set(expenses.map((el) => el.tag_title ?? "-")))
+			report.headers = Object.keys(timeseries)
+			report.titles.forEach((title) => {
+				const row = report.headers.map((date) =>
+					numberToCurrency(
+						expenses.find(
+							(exp) => exp.date === date && (exp.tag_title === title || (title === "-" && !exp.tag_title))
+						)?.amount ?? 0,
+						currency
+					)
+				)
+				report.rows.push(row)
+			})
+
+			summary[i18n.t(`report.headers.summary`)] = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
+
+			Object.keys(summary).forEach((key) => (summary[key] = numberToCurrency(summary[key], currency)))
+
+			break
+
 		case REPORT_GROUPS.DAY:
 			for (const date in timeseries) {
 				filteredCategories.forEach((el) => {
@@ -52,7 +78,7 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 			report.headers = filteredCategories.map((el) => el.title)
 			summary[i18n.t(`report.headers.summary`)] = expenses.reduce((prev, curr) => (prev += curr.amount), 0)
 
-			Object.keys(summary).forEach((key) =>(summary[key] = numberToCurrency(summary[key], currency)))
+			Object.keys(summary).forEach((key) => (summary[key] = numberToCurrency(summary[key], currency)))
 
 			break
 
@@ -105,12 +131,32 @@ export const mapExportData = ({ filters, categories, expenses }) => {
 		const tableCategories = new Set(expenses.map((el) => el.category_id))
 		const filteredCategories = categories.filter((el) => tableCategories.has(el.id))
 
-		let result = {
+		let report = {
 			headers: [],
 			rows: [],
 		}
 
 		switch (filters.group) {
+			case REPORT_GROUPS.TAG:
+				const tags = Array.from(new Set(expenses.map((el) => el.tag_title ?? "-")))
+				report.headers = Object.keys(timeseries)
+				tags.forEach((title) => {
+					const row = [
+						title,
+						...report.headers.map(
+							(date) =>
+								expenses.find(
+									(exp) =>
+										exp.date === date &&
+										(exp.tag_title === title || (title === "-" && !exp.tag_title))
+								)?.amount ?? 0
+						),
+					]
+					report.rows.push(row)
+				})
+
+				break
+
 			case REPORT_GROUPS.DAY:
 				for (const date in timeseries) {
 					filteredCategories.forEach((el) => {
@@ -127,14 +173,14 @@ export const mapExportData = ({ filters, categories, expenses }) => {
 				for (const date in timeseries) {
 					timeseries[date] = [date, ...Object.values(timeseries[date])]
 				}
-				result.rows = Object.values(timeseries)
-				result.headers = filteredCategories.map((el) => el.title)
+				report.rows = Object.values(timeseries)
+				report.headers = filteredCategories.map((el) => el.title)
 
 				break
 
 			default:
-				result.headers = EXPENSE_COLUMNS_EXPORT.map((el) => i18n.t(`report.headers.${el}`))
-				result.rows = expenses.map((el) => {
+				report.headers = EXPENSE_COLUMNS_EXPORT.map((el) => i18n.t(`report.headers.${el}`))
+				report.rows = expenses.map((el) => {
 					el.category = filteredCategories.find((filteredElement) => filteredElement.id === el.category_id)
 
 					return [el.id, el.date, el.category.title, el.amount, el.currency, el.description ?? "-", el.tags]
@@ -142,9 +188,9 @@ export const mapExportData = ({ filters, categories, expenses }) => {
 				break
 		}
 
-		result.headers.unshift("")
+		report.headers.unshift("")
 
-		return [result.headers, ...Object.values(result.rows)]
+		return [report.headers, ...Object.values(report.rows)]
 	}
 }
 

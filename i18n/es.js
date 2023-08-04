@@ -54,6 +54,7 @@ export default {
 				title: "Agrupación",
 				by_index: "Por Defecto",
 				by_day: "Por Día",
+				by_tag: "Por etiquetas",
 			},
 		},
 		headers: {

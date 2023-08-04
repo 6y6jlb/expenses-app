@@ -53,6 +53,7 @@ export default {
 				title: "Группировка",
 				by_index: "По Умолчанию",
 				by_day: "По дням",
+				by_tag: "По тегам",
 			},
 		},
 
