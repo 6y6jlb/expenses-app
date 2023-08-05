@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { REPORT_GROUPS, REPORT_PERIODS } from "../config/consts"
+import { REPORT_GROUPS, REPORT_PERIODS, SETTINGS } from "../config/consts"
 import { ExpenseCategories } from "../database/ExpenseCategories"
 import { Expenses } from "../database/Expenses"
 import { mapExportData, mapReportData } from "../helpers/report"
@@ -7,6 +7,7 @@ import DateTimeService from "../services/DateTimeService"
 import ExportService from "../services/ExportService"
 import i18n from "../i18n/configuration"
 import { showMessage } from "react-native-flash-message"
+import { useSettingsStore } from './settingsStore';
 
 export const useReportStore = create((set, get) => ({
 	tableId: null,
@@ -33,7 +34,9 @@ export const useReportStore = create((set, get) => ({
 	init:
 		(tableId) =>
 		async (group = REPORT_GROUPS.DAY) => {
+			const period = useSettingsStore.getState().settings[SETTINGS.DEFAULT_DATE_INTERVAL]?.value ?? REPORT_PERIODS.MONTH
 			get().setFilter("group", group)
+			get().setFilter("period", period)
 			set({ tableId })
 			await get().fetch()
 		},

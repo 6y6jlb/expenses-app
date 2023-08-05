@@ -4,6 +4,7 @@ import { Cell, Col, Row, Table, TableWrapper } from "react-native-table-componen
 import NoData from "../noData/NoData"
 import { styles } from "./styles"
 import { getArrWidth } from "../../helpers/report"
+import { global } from "../../styles/styles"
 
 const GroupedExpenses = ({ data }) => {
 	if (data.tableHead.length < 1) {
@@ -11,6 +12,7 @@ const GroupedExpenses = ({ data }) => {
 	}
 
 	const arrWidth = getArrWidth(data.tableHead, data.tableData)
+	const shouldBeMuted = (value) => value == 0
 
 	return (
 		<ScrollView horizontal>
@@ -36,7 +38,7 @@ const GroupedExpenses = ({ data }) => {
 											key={cellIndex}
 											width={arrWidth[cellIndex]}
 											data={cellData}
-											textStyle={[styles.text]}
+											textStyle={[styles.text, shouldBeMuted(cellData) && global.textMuted]}
 										/>
 									))}
 								</TableWrapper>

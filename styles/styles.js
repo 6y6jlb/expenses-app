@@ -30,4 +30,7 @@ export const global = StyleSheet.create({
 	content: {
 		flex: 1,
 	},
+	textMuted: {
+		color: "#ccc"
+	}
 })

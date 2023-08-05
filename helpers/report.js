@@ -31,17 +31,32 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 					timeseries[date][el.id] = 0
 				})
 			}
-			report.titles = Array.from(new Set(expenses.map((el) => el.tag_title ?? "-")))
-			report.headers = Object.keys(timeseries)
-			report.titles.forEach((title) => {
-				const row = report.headers.map((date) =>
-					numberToCurrency(
-						expenses.find(
-							(exp) => exp.date === date && (exp.tag_title === title || (title === "-" && !exp.tag_title))
-						)?.amount ?? 0,
-						currency
+			const tags = Array.from(new Set(expenses.map((el) => el.tag_title ?? "-")))
+			report.titles = Array.from(
+				new Set(
+					expenses.map(
+						(el) =>
+						el.tag_title ? `${el.tag_title} (${categories.find((category) => category.id === el.category_id)?.title})` : "-"
 					)
 				)
+			)
+			report.headers = Object.keys(timeseries)
+			tags.forEach((title) => {
+				const row = report.headers.map((date) => {
+					const expense = expenses.find(
+						(exp) => exp.date === date && (exp.tag_title === title || (title === "-" && !exp.tag_title))
+					)
+					return expense
+						? numberToCurrency(
+								expenses.find(
+									(exp) =>
+										exp.date === date &&
+										(exp.tag_title === title || (title === "-" && !exp.tag_title))
+								).amount,
+								currency
+						  )
+						: 0
+				})
 				report.rows.push(row)
 			})
 

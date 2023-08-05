@@ -81,19 +81,23 @@ const ReportScreen = ({ route, navigation }) => {
 							</View>
 						</View>
 					</View>
-					{store.loading ? <ActivityIndicator size="large" /> : <SummaryExpenses data={store.summary} />}
 					{store.loading ? (
 						<ActivityIndicator size="large" />
 					) : (
-						getReportComponent(store.filters.group, {
-							data: {
-								tableHead: store.report.headers,
-								tableData: store.report.rows,
-								tableTitle: store.report.titles,
-							},
-							onChange: (id) => navigation.navigate("upsert-expense", { expense: { id } }),
-							onRemove: (id) => store.remove(id),
-						})
+						<>
+							<SummaryExpenses data={store.summary} />
+							{
+								getReportComponent(store.filters.group, {
+									data: {
+										tableHead: store.report.headers,
+										tableData: store.report.rows,
+										tableTitle: store.report.titles,
+									},
+									onChange: (id) => navigation.navigate("upsert-expense", { expense: { id } }),
+									onRemove: (id) => store.remove(id),
+								})
+							}
+						</>
 					)}
 				</View>
 			</ScrollView>
