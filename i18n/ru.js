@@ -14,7 +14,10 @@ export default {
 		save_and_quit: "Сохранить и выйти",
 		save_and_stay: "Сохранить и остаться",
 		export: "Экспорт",
-		settings: "Настройки"
+		settings: "Настройки",
+		update_settings: "Изменить",
+		cancel_update_settings: "Отмена",
+		save_settings: "Сохранить",
 	},
 	settings: {
 		default_table_name: "Имя дефолтной таблицы",
@@ -22,7 +25,7 @@ export default {
 		default_date_interval: "Дата по умолчнию",
 		default_date_interval: "Формат даты по умолчанию",
 		tables_count: "Кол-во таблиц",
-		title: "Настройки"
+		title: "Настройки",
 	},
 	expenses: {
 		new: "Новая трата",
@@ -65,7 +68,7 @@ export default {
 			description: "Описание",
 			tags: "Теги",
 			empty: "",
-			summary: "Всего"
+			summary: "Всего",
 		},
 	},
 	category: {
@@ -106,5 +109,7 @@ export default {
 		expense_save_error: "Ошибка при сохранении",
 		report_expense_delete_success: "Трата удалена",
 		report_expense_delete_error: "Ошибка при удалении траты",
+		settings_update_success: "Настройки обновленны",
+		settings_update_error: "Ошибка при обновлении настроек",
 	},
 }

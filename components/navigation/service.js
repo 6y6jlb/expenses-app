@@ -1,11 +1,10 @@
-import MainScreen from "../../screens/main/MainScreen"
-import NewCategoryScreen from "../../screens/newCategory/NewCategory"
-import UpsertExpenseScreen from "../../screens/upsertExpense/UpsertExpense"
-import ReportScreen from "../../screens/report/ReportScreen"
-import UpdateTableScreen from "../../screens/updateTable/UpdateTableScreen"
 import i18n from "../../i18n/configuration"
 import TagsScreen from "../../screens/Tags/TagsScreen"
+import MainScreen from "../../screens/main/MainScreen"
+import NewCategoryScreen from "../../screens/newCategory/NewCategory"
+import ReportScreen from "../../screens/report/ReportScreen"
 import SettingsScreen from "../../screens/settings/SettingsScreen"
+import UpsertExpenseScreen from "../../screens/upsertExpense/UpsertExpense"
 import { PATH } from "./routes"
 
 export const RESTRICTIONS = {
@@ -25,13 +24,6 @@ export const ROUTES = {
 			options: { title: i18n.t("navigation.title.report") },
 			path: PATH.TABLE_REPORT,
 			screen: ReportScreen,
-			restriction: [RESTRICTIONS.TABLE],
-		},
-
-		{
-			options: { title: i18n.t("navigation.title.update_table") },
-			path: PATH.TABLE_UPDATE,
-			screen: UpdateTableScreen,
 			restriction: [RESTRICTIONS.TABLE],
 		},
 

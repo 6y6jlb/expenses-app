@@ -16,6 +16,9 @@ export default {
 		export: "Exportar",
 		back: "Volver",
 		settings: "Ajustes",
+		update_settings: "Editar",
+		cancel_update_settings: "Cancelar",
+		save_settings: "Guardar",
 	},
 	settings: {
 		default_table_name: "Nombre de la Tabla por Defecto",
@@ -106,5 +109,7 @@ export default {
 		expense_save_error: "Error saving data",
 		report_expense_delete_success: "Gasto eliminado",
 		report_expense_delete_error: "Error al eliminar el gasto",
+		settings_update_success: "Configuración actualizada",
+		settings_update_error: "Error al actualizar la configuración",
 	},
 }

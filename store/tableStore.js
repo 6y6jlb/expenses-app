@@ -7,7 +7,8 @@ export const useTableStore = create((set, get) => ({
 	setTables: (tables) => {
 		set({ tables: [...tables] })
 	},
-	init: async () => {
+	init: async () => await get().fetch(),
+	fetch: async () => {
 		set({ loading: true })
 		get().setTables(await new ExpenseTable().select())
 		set({ loading: false })

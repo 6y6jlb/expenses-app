@@ -33,4 +33,5 @@ export const styles = StyleSheet.create({
 		padding: 10,
 		elevation: 2,
 	},
+	picker: { height: 30 },
 })

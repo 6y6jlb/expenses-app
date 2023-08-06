@@ -16,6 +16,9 @@ export default {
 		export: "Export",
 		back: "Back",
 		settings: "Settings",
+		update_settings: "Edit",
+		cancel_update_settings: "Cancel",
+		save_settings: "Save",
 	},
 	settings: {
 		default_table_name: "Default Table Name",
@@ -107,5 +110,7 @@ export default {
 		expense_save_error: "Error saving data",
 		report_expense_delete_success: "Expense deleted",
 		report_expense_delete_error: "Error deleting expense",
+		settings_update_success: "Settings updated",
+		settings_update_error: "Error updating settings",
 	},
 }

@@ -21,7 +21,9 @@ export const CURRENCIES = {
 	},
 }
 
-export const DEFAULT_DATE_FORMAT = "YYYY-MM-DD"
+export const DATE_FORMATS = ["YYYY-MM-DD"]
+
+export const DEFAULT_DATE_FORMAT = DATE_FORMATS[0]
 
 export const DEFAULT_CATEGORIES = [
 	{
@@ -82,7 +84,12 @@ export const SETTINGS = {
 }
 
 export const APP_STATE = {
-	INITIALIZING: 'INITIALIZING',
-	READY: 'READY',
-	NOT_READY: 'NOT_READY'
+	INITIALIZING: "INITIALIZING",
+	READY: "READY",
+	NOT_READY: "NOT_READY",
+}
+
+export const COMMON_SCREEN_STATE = {
+	UPDATE: "UPDATE",
+	SHOW: "SHOW",
 }
