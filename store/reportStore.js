@@ -34,7 +34,11 @@ export const useReportStore = create((set, get) => ({
 	init:
 		(tableId) =>
 		async (group = REPORT_GROUPS.DAY) => {
-			const period = useSettingsStore.getState().settings[SETTINGS.DEFAULT_DATE_INTERVAL]?.value ?? REPORT_PERIODS.MONTH
+			const settingsStore = useSettingsStore.getState()
+			if(!settingsStore.data[SETTINGS.DEFAULT_DATE_INTERVAL]) {
+				await useSettingsStore.getState().fetch()
+			}
+			const period = settingsStore.data[SETTINGS.DEFAULT_DATE_INTERVAL].value ?? REPORT_PERIODS.MONTH
 			get().setFilter("group", group)
 			get().setFilter("period", period)
 			set({ tableId })
