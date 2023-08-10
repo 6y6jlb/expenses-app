@@ -11,10 +11,10 @@ const Expenses = ({ data, onChange, onRemove }) => {
 		return <NoData />
 	}
 
-	const arrWidth = getArrWidth(data.tableHead, data.tableData, [100])
+	const arrWidth = getArrWidth(data.tableHead, data.tableData, [100]).slice(1)
 
 	const firstRowElement = (cellData, index) => (
-		<View style={styles.cell}>
+		<View style={[styles.cell, styles.center]}>
 			<Button
 				color="#cc8e37"
 				onPress={() => onChange(cellData)}
@@ -26,14 +26,14 @@ const Expenses = ({ data, onChange, onRemove }) => {
 	const lastRowElement = (cellData, showLastItemView) => {
 		if (showLastItemView) {
 			return (
-				<View style={styles.cell}>
+				<View style={[styles.cell, styles.center]}>
 					<Button color="#FFF1C1" onPress={() => onRemove(cellData)} title={"❌"} />
 				</View>
 			)
 		} else {
 			return (
-				<View style={styles.cell}>
-					<Text style={styles.text}>{cellData}</Text>
+				<View style={[styles.cell, styles.center]}>
+					<Text style={[styles.text, styles.center]}>{cellData}</Text>
 				</View>
 			)
 		}
@@ -55,7 +55,7 @@ const Expenses = ({ data, onChange, onRemove }) => {
 									key={index}
 									data={firstRowElement(cellData, index, cellData.length)}
 									style={styles.column}
-									textStyle={styles.text}
+									textStyle={[styles.text, styles.center]}
 								/>
 							))}
 						</TableWrapper>
@@ -73,7 +73,7 @@ const Expenses = ({ data, onChange, onRemove }) => {
 											key={cellIndex}
 											width={arrWidth[cellIndex]}
 											data={lastRowElement(cellData, rowData.length - 1 === cellIndex)}
-											textStyle={[styles.text]}
+											textStyle={[styles.text, styles.center]}
 										/>
 									))}
 								</TableWrapper>

@@ -12,9 +12,12 @@ export const styles = StyleSheet.create({
 	between: { justifyContent: "space-between" },
 	column: { backgroundColor: "#f1f8ff" },
 	cell: {
-		alignItems: "center",
-		justifyContent: "center",
 		backgroundColor: "#FFF1C1",
 		height: 40,
 	},
+	center: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: "center",
+	}
 })

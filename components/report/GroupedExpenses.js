@@ -5,8 +5,9 @@ import NoData from "../noData/NoData"
 import { styles } from "./styles"
 import { getArrWidth } from "../../helpers/report"
 import { global } from "../../styles/styles"
+import { REPORT_GROUPS } from "../../config/consts"
 
-const GroupedExpenses = ({ data }) => {
+const GroupedExpenses = ({ data, group }) => {
 	if (data.tableHead.length < 1) {
 		return <NoData />
 	}
@@ -19,9 +20,9 @@ const GroupedExpenses = ({ data }) => {
 			<ScrollView>
 				<View style={styles.container}>
 					<Table style={{ flexDirection: "row" }} borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
-						<TableWrapper style={{ width: 90 }}>
+						<TableWrapper style={{ width: group === REPORT_GROUPS.DAY ? 'max-content' : 'min-content' }}>
 							<Cell data={[""]} style={[styles.singleHead]} />
-							<Col data={data.tableTitle} style={styles.column} textStyle={[styles.text]} />
+							<Col data={data.tableTitle} style={[styles.column]} textStyle={[styles.text]} />
 						</TableWrapper>
 
 						<TableWrapper style={{ flex: 1 }}>
@@ -38,7 +39,7 @@ const GroupedExpenses = ({ data }) => {
 											key={cellIndex}
 											width={arrWidth[cellIndex]}
 											data={cellData}
-											textStyle={[styles.text, shouldBeMuted(cellData) && global.textMuted]}
+											textStyle={[styles.text, shouldBeMuted(cellData) && global.textMuted, styles.center]}
 										/>
 									))}
 								</TableWrapper>

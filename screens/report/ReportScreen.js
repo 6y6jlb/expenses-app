@@ -24,7 +24,7 @@ const ReportScreen = ({ route, navigation }) => {
 				return <Expenses {...props} />
 
 			default:
-				return <GropedExpenses {...props} />
+				return <GropedExpenses group={group} {...props} />
 		}
 	}
 
