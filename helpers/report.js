@@ -122,9 +122,9 @@ export const mapReportData = ({ filters, categories, expenses }) => {
 	return { report, summary }
 }
 
-export const getArrWidth = (headers, rows, additionalColumns = []) => {
+export const getArrWidth = (headers, rows = [], additionalColumns = []) => {
 	const arrWidth = headers.map((el, index) => {
-		const maxColWidth = rows.reduce((prev, curr) => {
+		const maxColWidth = rows?.reduce((prev, curr) => {
 			if (String(curr[index]).length > prev) {
 				prev = String(curr[index]).length
 			}

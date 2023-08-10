@@ -15,12 +15,14 @@ const GroupedExpenses = ({ data, group }) => {
 	const arrWidth = getArrWidth(data.tableHead, data.tableData)
 	const shouldBeMuted = (value) => value == 0
 
+	const titleWidth = getArrWidth(data.tableTitle)
+
 	return (
 		<ScrollView horizontal>
 			<ScrollView>
 				<View style={styles.container}>
 					<Table style={{ flexDirection: "row" }} borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
-						<TableWrapper style={{ width: group === REPORT_GROUPS.DAY ? 'max-content' : 'min-content' }}>
+						<TableWrapper style={{ width: group === REPORT_GROUPS.DAY ? Math.max(...titleWidth) : 100 }}>
 							<Cell data={[""]} style={[styles.singleHead]} />
 							<Col data={data.tableTitle} style={[styles.column]} textStyle={[styles.text]} />
 						</TableWrapper>
@@ -39,7 +41,11 @@ const GroupedExpenses = ({ data, group }) => {
 											key={cellIndex}
 											width={arrWidth[cellIndex]}
 											data={cellData}
-											textStyle={[styles.text, shouldBeMuted(cellData) && global.textMuted, styles.center]}
+											textStyle={[
+												styles.text,
+												shouldBeMuted(cellData) && global.textMuted,
+												styles.center,
+											]}
 										/>
 									))}
 								</TableWrapper>
